@@ -2153,8 +2153,8 @@ body {
         position: absolute !important;
         left: 50% !important;
         top: 50% !important;
-        width: 132px !important;
-        height: 132px !important;
+        width: 156px !important;
+        height: 156px !important;
         margin: 0 !important;
         transform: translate(-50%, -50%) !important;
         -ms-transform: translate(-50%, -50%) !important;
@@ -2293,36 +2293,6 @@ body {
     }
 }());
 </script>
-
-
-<div id="ie11RuntimeDebug" style="
-position:fixed;right:5px;top:5px;width:350px;max-height:230px;overflow:auto;
-z-index:2147483647;background:rgba(0,0,0,.90);color:#b8ffb8;
-font:11px/1.35 Consolas,'Courier New',monospace;padding:8px;white-space:pre-wrap;">
-IE11 DEBUG BOOT
-</div>
-<script>
-(function () {
-    var lines = ["IE11 DEBUG BOOT"];
-    function write(msg) {
-        var p = document.getElementById("ie11RuntimeDebug");
-        lines.push(String(msg));
-        if (p) { p.innerHTML = lines.join("<br>"); }
-    }
-    window.__pptDbgWrite = write;
-    window.onerror = function (message, source, lineno, colno) {
-        write("ERROR: " + message);
-        write("line " + lineno + ", col " + colno);
-        if (source) write("source: " + source);
-        return false;
-    };
-    write("logger: ACTIVE");
-    write("URL: " + window.location.href);
-    write("docMode: " + (document.documentMode || "none"));
-    write("viewport: " + window.innerWidth + " x " + window.innerHeight);
-}());
-</script>
-
 <div id="pptStage">
 
 <div class="app">
@@ -5418,13 +5388,12 @@ openStartDateModal();
 <script>
 (function () {
     function write(msg) {
-        if (window.__pptDbgWrite) window.__pptDbgWrite(msg);
-    }
+}
     function cssOpenModal() {
         var b = document.getElementById("startDateBackdrop");
         var input = document.getElementById("startDateInput");
         if (!b) {
-            write("modal backdrop: MISSING");
+
             return;
         }
         b.className = "start-date-backdrop open";
@@ -5445,17 +5414,16 @@ openStartDateModal();
             var dd = ("0" + d.getDate()).slice(-2);
             input.value = d.getFullYear() + "-" + mm + "-" + dd;
         }
-        write("modal CSS fallback: OPEN");
+
     }
 
     window.setTimeout(function () {
-        write("--- APP CHECK ---");
-        write("readyState: " + document.readyState);
-        write("render: " + typeof window.render);
-        write("renderMap: " + typeof window.renderMap);
-        write("renderList: " + typeof window.renderList);
-        write("openStartDateModal: " + typeof window.openStartDateModal);
-        write("selectTripOption: " + typeof window.selectTripOption);
+
+
+
+
+
+
 
         var dateBtn = document.getElementById("dateChangeBtn");
         if (dateBtn) {
@@ -5463,28 +5431,28 @@ openStartDateModal();
                 try {
                     if (typeof window.openStartDateModal === "function") {
                         window.openStartDateModal();
-                        write("date button: native modal called");
+
                     } else {
                         cssOpenModal();
                     }
                 } catch (e) {
-                    write("date button ERROR: " + (e.message || e));
+
                     cssOpenModal();
                 }
                 return false;
             };
-            write("date button fallback: SET");
+
         }
 
         try {
             if (typeof window.openStartDateModal === "function") {
                 window.openStartDateModal();
-                write("startup modal: native called");
+
             } else {
                 cssOpenModal();
             }
         } catch (e2) {
-            write("startup modal ERROR: " + (e2.message || e2));
+
             cssOpenModal();
         }
     }, 500);
@@ -5514,14 +5482,7 @@ openStartDateModal();
 
         if (start) viewportSize(start);
         if (modal) viewportSize(modal);
-
-        if (window.__pptDbgWrite) {
-            window.__pptDbgWrite("modal layers moved to BODY");
-            window.__pptDbgWrite("viewport overlay: " +
-                (document.documentElement.clientWidth || 0) + " x " +
-                (document.documentElement.clientHeight || 0));
-        }
-    }
+}
 
     window.setTimeout(function () {
         detachModalLayers();
@@ -5538,8 +5499,7 @@ openStartDateModal();
             } catch (e) {
                 start.className += " open";
                 start.setAttribute("aria-hidden", "false");
-                if (window.__pptDbgWrite) window.__pptDbgWrite("reopen modal error: " + (e.message || e));
-            }
+}
         }
     }, 700);
 
@@ -5556,8 +5516,7 @@ openStartDateModal();
 <script>
 (function () {
     function dbg(msg) {
-        if (window.__pptDbgWrite) window.__pptDbgWrite(msg);
-    }
+}
 
     function getViewport() {
         var w = document.documentElement.clientWidth ||
@@ -5643,20 +5602,6 @@ openStartDateModal();
 }());
 </script>
 
-
-<script>
-(function () {
-    window.setTimeout(function () {
-        if (!window.__pptDbgWrite) return;
-        var mc = document.getElementById("mapContainer");
-        var mo = document.getElementById("mapOverlay");
-        var tv = document.getElementById("travelVehicle");
-        if (mc) window.__pptDbgWrite("mapContainer: " + mc.clientWidth + "x" + mc.clientHeight);
-        if (mo) window.__pptDbgWrite("mapOverlay: " + mo.clientWidth + "x" + mo.clientHeight);
-        if (tv) window.__pptDbgWrite("vehicle parent same mapContainer: " + (tv.parentNode === mc ? "YES" : "NO"));
-    }, 1100);
-}());
-</script>
 
 </body>
 </html>
