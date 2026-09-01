@@ -642,9 +642,11 @@ h1 {
 
     stroke: #303b37;
 
-    stroke-width: 2.5;
+    stroke-width: 1.35;
 
-    stroke-dasharray: 7 6;
+    stroke-dasharray: 2.2 5.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 
     vector-effect: non-scaling-stroke;
 
@@ -2201,8 +2203,10 @@ body {
         display: block !important;
         marker-end: none !important;
         stroke: #303b37 !important;
-        stroke-width: 2px !important;
-        stroke-dasharray: 7 6 !important;
+        stroke-width: 1.2px !important;
+        stroke-dasharray: 2.2 5.2 !important;
+        stroke-linecap: round !important;
+        stroke-linejoin: round !important;
         fill: none !important;
     }
 
@@ -4285,9 +4289,9 @@ function renderRoute() {
             var py = ux;
 
             /* Keep the arrow just outside the city marker. */
-            var tipBack = 1.15;
-            var arrowLength = 2.15;
-            var halfWidth = 0.82;
+            var tipBack = 0.90;
+            var arrowLength = 1.40;
+            var halfWidth = 0.52;
 
             var tipX = second.x - ux * tipBack;
             var tipY = second.y - uy * tipBack;
