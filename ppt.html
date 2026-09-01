@@ -1068,7 +1068,7 @@ h1 {
 
     background: #f1f3f2;
 
-    font-size: 18px;
+    font-size: 16px;
 
     cursor: pointer;
 }
@@ -1546,11 +1546,11 @@ h1 {
 .sidebar-center-tab {
     position: fixed;
 
-    left: calc(320px - 1px);
+    left: calc(320px - 2px);
     top: 50%;
 
-    width: 42px;
-    height: 98px;
+    width: 34px;
+    height: 88px;
 
     transform: translateY(-50%);
 
@@ -1558,7 +1558,7 @@ h1 {
     align-items: center;
     justify-content: center;
 
-    padding: 0 3px 0 0;
+    padding: 0 2px 0 0;
 
     background: linear-gradient(
         180deg,
@@ -1570,10 +1570,10 @@ h1 {
 
     clip-path: polygon(
         0 0,
-        72% 0,
+        70% 0,
         100% 22%,
         100% 78%,
-        72% 100%,
+        70% 100%,
         0 100%
     );
 
@@ -1638,9 +1638,9 @@ h1 {
     }
 
     .sidebar-center-tab {
-        width: 38px;
-        height: 88px;
-        font-size: 17px;
+        width: 34px;
+        height: 82px;
+        font-size: 16px;
     }
 }
 
@@ -1699,10 +1699,10 @@ h1 {
 
     position: fixed;
     left: calc(320px / 2);
-    top: 50%;
+    top: 57%;
 
-    width: 232px;
-    height: 220px;
+    width: 184px;
+    height: 184px;
 
     transform: translate(-50%, -50%);
 
@@ -1715,7 +1715,7 @@ h1 {
     border-radius: 0;
     box-shadow: none;
 
-    opacity: .075;
+    opacity: .058;
 
     pointer-events: none;
     z-index: 0;
@@ -1742,8 +1742,9 @@ h1 {
     }
 
     .sidebar::before {
-        width: 192px;
-        height: 181px;
+        width: 170px;
+        height: 170px;
+        top: 58%;
     }
 }
 
@@ -1826,8 +1827,12 @@ body {
 }
 
 #pptStage .sidebar-center-tab {
-    width: 30px !important;
-    height: 104px !important;
+    width: 34px !important;
+    height: 88px !important;
+    left: calc(320px - 2px) !important;
+    top: 50% !important;
+    padding: 0 2px 0 0 !important;
+    font-size: 16px !important;
 }
 
 #pptStage .place-grid {
@@ -1835,8 +1840,11 @@ body {
 }
 
 #pptStage .sidebar::before {
-    width: 232px !important;
-    height: 220px !important;
+    left: calc(320px / 2) !important;
+    top: 57% !important;
+    width: 184px !important;
+    height: 184px !important;
+    opacity: .058 !important;
 }
 
 /* PowerPoint/Office WebView의 기본 터치 동작이 버튼 이벤트를 빼앗지 않도록 함 */
@@ -1878,6 +1886,31 @@ body {
         background: linear-gradient(180deg, #214483 0%, #1b3b77 43%, #102b60 100%) !important;
         color: #fff8df !important;
         border-right: 1px solid rgba(234,220,174,.46) !important;
+    }
+
+    #pptStage .sidebar::before {
+        position: fixed !important;
+        left: 160px !important;
+        top: 57% !important;
+        width: 184px !important;
+        height: 184px !important;
+        opacity: .058 !important;
+    }
+
+    #pptStage .sidebar-center-tab {
+        position: fixed !important;
+        left: 318px !important;
+        top: 50% !important;
+        width: 34px !important;
+        height: 88px !important;
+        padding: 0 2px 0 0 !important;
+        font-size: 16px !important;
+        transform: translateY(-50%) !important;
+        -ms-transform: translateY(-50%) !important;
+    }
+
+    .app.sidebar-collapsed .sidebar-center-tab {
+        left: 0 !important;
     }
 
     #pptStage .map-area {
