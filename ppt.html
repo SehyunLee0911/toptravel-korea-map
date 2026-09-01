@@ -5459,21 +5459,23 @@ openStartDateModal();
 
         var vp = getViewport();
 
-        backdrop.style.position = "fixed";
-        backdrop.style.left = "0px";
-        backdrop.style.top = "0px";
-        backdrop.style.right = "auto";
-        backdrop.style.bottom = "auto";
-        backdrop.style.width = vp.w + "px";
-        backdrop.style.height = vp.h + "px";
-        backdrop.style.margin = "0";
-        backdrop.style.zIndex = "2147483000";
+        backdrop.style.setProperty("position", "fixed", "important");
+        backdrop.style.setProperty("left", "0px", "important");
+        backdrop.style.setProperty("top", "0px", "important");
+        backdrop.style.setProperty("right", "auto", "important");
+        backdrop.style.setProperty("bottom", "auto", "important");
+        backdrop.style.setProperty("width", vp.w + "px", "important");
+        backdrop.style.setProperty("height", vp.h + "px", "important");
+        backdrop.style.setProperty("margin", "0", "important");
+        backdrop.style.setProperty("z-index", "2147483000", "important");
 
         /* Remove percentage/transform positioning completely in IE11. */
-        modal.style.position = "absolute";
-        modal.style.transform = "none";
-        modal.style.msTransform = "none";
-        modal.style.margin = "0";
+        /* Earlier IE11 compatibility CSS used !important on 50% positioning.
+           Use CSSOM priority "important" here so our actual pixel coordinates win. */
+        modal.style.setProperty("position", "absolute", "important");
+        modal.style.setProperty("transform", "none", "important");
+        modal.style.setProperty("-ms-transform", "none", "important");
+        modal.style.setProperty("margin", "0", "important");
 
         /* Measure after it is visible. */
         var mw = modal.offsetWidth || 390;
@@ -5482,9 +5484,9 @@ openStartDateModal();
         var left = Math.max(0, Math.round((vp.w - mw) / 2));
         var top  = Math.max(0, Math.round((vp.h - mh) / 2));
 
-        modal.style.left = left + "px";
-        modal.style.top = top + "px";
-        modal.style.zIndex = "2147483001";
+        modal.style.setProperty("left", left + "px", "important");
+        modal.style.setProperty("top", top + "px", "important");
+        modal.style.setProperty("z-index", "2147483001", "important");
 
         dbg(backdropId + " centered px: " + left + "," + top +
             " modal " + mw + "x" + mh +
