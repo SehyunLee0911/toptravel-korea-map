@@ -48,8 +48,8 @@ body {
 ============================================================ */
 
 .sidebar {
-    width: var(--sidebar-width);
-    min-width: var(--sidebar-width);
+    width: 320px;
+    min-width: 320px;
     height: 100%;
 
     position: relative;
@@ -106,11 +106,11 @@ body {
 .sidebar-center-tab {
     position: fixed;
 
-    left: calc(var(--sidebar-width) - 1px);
+    left: calc(320px - 1px);
     top: 50%;
 
-    width: var(--sidebar-tab-width);
-    height: var(--sidebar-tab-height);
+    width: 30px;
+    height: 104px;
 
     transform: translateY(-50%);
 
@@ -178,7 +178,7 @@ h1 {
     border-radius: 999px;
     padding: 3px 7px;
     background: rgba(4,20,51,.18);
-    color: var(--passport-gold, #eadcae);
+    color: #eadcae;
     font-family: inherit;
     font-size: 10px;
     font-weight: 800;
@@ -187,9 +187,9 @@ h1 {
 }
 
 .trip-option-btn.active {
-    background: var(--passport-gold-strong, #d8c27d);
-    border-color: var(--passport-gold-strong, #d8c27d);
-    color: var(--passport-navy-dark, #0b214f);
+    background: #d8c27d;
+    border-color: #d8c27d;
+    color: #0b214f;
 }
 
 .date-change-btn {
@@ -1232,11 +1232,11 @@ h1 {
         linear-gradient(
             180deg,
             #214483 0%,
-            var(--passport-navy) 43%,
-            var(--passport-navy-deep) 100%
+            #1b3b77 43%,
+            #102b60 100%
         );
 
-    color: var(--passport-ivory);
+    color: #fff8df;
     border-right: 1px solid rgba(234, 220, 174, .46);
 
     padding: 24px 22px 28px;
@@ -1316,7 +1316,7 @@ h1 {
     padding: 5px 8px 24px;
 
     text-align: center;
-    border-bottom: 1px solid var(--passport-line);
+    border-bottom: 1px solid rgba(234, 220, 174, .42);
 }
 
 .sidebar-brand::after {
@@ -1325,7 +1325,7 @@ h1 {
     height: 2px;
     margin-top: 7px;
     border-radius: 999px;
-    background: var(--passport-gold-strong);
+    background: #d8c27d;
     opacity: .8;
 }
 
@@ -1353,7 +1353,7 @@ h1 {
 .eyebrow {
     margin-bottom: 7px;
 
-    color: var(--passport-gold-strong);
+    color: #d8c27d;
     font-size: 9px;
     font-weight: 800;
     letter-spacing: 2.8px;
@@ -1362,7 +1362,7 @@ h1 {
 .sidebar h1 {
     margin: 0;
 
-    color: var(--passport-ivory);
+    color: #fff8df;
     font-size: 24px;
     line-height: 1.12;
     letter-spacing: -.4px;
@@ -1383,7 +1383,7 @@ h1 {
 .passport-subtitle span {
     display: block;
     margin-top: 1px;
-    color: var(--passport-gold);
+    color: #eadcae;
     font-size: 9px;
     letter-spacing: 1.8px;
 }
@@ -1395,7 +1395,7 @@ h1 {
 
     margin: 0 0 10px;
 
-    color: var(--passport-gold);
+    color: #eadcae;
     font-size: 10px;
     font-weight: 800;
     letter-spacing: 1.6px;
@@ -1433,7 +1433,7 @@ h1 {
 .timeline::before {
     width: 8px;
     height: 8px;
-    background: var(--passport-gold-strong);
+    background: #d8c27d;
     box-shadow:
         0 0 0 2px rgba(16,43,96,.75),
         0 0 0 3px rgba(234,220,174,.22);
@@ -1448,13 +1448,13 @@ h1 {
 }
 
 .trip-name {
-    color: var(--passport-ivory);
+    color: #fff8df;
 }
 
 .trip-visit-count {
     border-color: rgba(234, 220, 174, .35);
     background: rgba(234, 220, 174, .08);
-    color: var(--passport-gold);
+    color: #eadcae;
 }
 
 .trip-type {
@@ -1466,8 +1466,8 @@ h1 {
 }
 
 .delete-btn:hover {
-    color: var(--passport-navy-dark);
-    background: var(--passport-gold-strong);
+    color: #0b214f;
+    background: #d8c27d;
 }
 
 .add-btn {
@@ -1477,7 +1477,7 @@ h1 {
     border: 1px dashed rgba(234, 220, 174, .52);
     border-radius: 7px;
 
-    color: var(--passport-gold);
+    color: #eadcae;
     font-weight: 700;
     letter-spacing: .1px;
 
@@ -1489,9 +1489,9 @@ h1 {
 }
 
 .add-btn:hover {
-    background: var(--passport-gold);
-    border-color: var(--passport-gold);
-    color: var(--passport-navy-dark);
+    background: #eadcae;
+    border-color: #eadcae;
+    color: #0b214f;
     transform: translateY(-1px);
 }
 
@@ -1506,7 +1506,7 @@ h1 {
     border-radius: 7px;
 
     background: rgba(4, 20, 51, .22);
-    color: var(--passport-ivory);
+    color: #fff8df;
 
     font-weight: 700;
 
@@ -1517,15 +1517,15 @@ h1 {
 }
 
 #startTravelBtn {
-    background: var(--passport-gold-strong);
-    border-color: var(--passport-gold-strong);
-    color: var(--passport-navy-dark);
+    background: #d8c27d;
+    border-color: #d8c27d;
+    color: #0b214f;
 }
 
 .travel-btn:hover:not(:disabled) {
-    background: var(--passport-gold);
-    border-color: var(--passport-gold);
-    color: var(--passport-navy-dark);
+    background: #eadcae;
+    border-color: #eadcae;
+    color: #0b214f;
     transform: translateY(-1px);
 }
 
@@ -1546,7 +1546,7 @@ h1 {
 .sidebar-center-tab {
     position: fixed;
 
-    left: calc(var(--sidebar-width) - 1px);
+    left: calc(320px - 1px);
     top: 50%;
 
     width: 42px;
@@ -1563,7 +1563,7 @@ h1 {
     background: linear-gradient(
         180deg,
         #f4e8bd 0%,
-        var(--passport-gold-strong) 100%
+        #d8c27d 100%
     );
 
     border: 0;
@@ -1577,7 +1577,7 @@ h1 {
         0 100%
     );
 
-    color: var(--passport-navy-dark);
+    color: #0b214f;
     font-family: Arial, "Noto Sans KR", sans-serif;
     font-size: 18px;
     font-weight: 900;
@@ -1618,7 +1618,7 @@ h1 {
 
 /* 사이드바를 왼쪽 화면 밖으로 밀어 지도 영역을 전체 폭으로 확장 */
 .app.sidebar-collapsed .sidebar {
-    margin-left: calc(var(--sidebar-width) * -1);
+    margin-left: calc(320px * -1);
     box-shadow: none;
 }
 
@@ -1698,7 +1698,7 @@ h1 {
     content: "";
 
     position: fixed;
-    left: calc(var(--sidebar-width) / 2);
+    left: calc(320px / 2);
     top: 50%;
 
     width: 232px;
@@ -1726,7 +1726,7 @@ h1 {
 }
 
 .app.sidebar-collapsed .sidebar::before {
-    left: calc(var(--sidebar-width) * -0.5);
+    left: calc(320px * -0.5);
     opacity: 0;
 }
 
@@ -1791,8 +1791,8 @@ body {
 }
 
 #pptStage .sidebar {
-    width: var(--sidebar-width) !important;
-    min-width: var(--sidebar-width) !important;
+    width: 320px !important;
+    min-width: 320px !important;
 }
 
 #pptStage .map-area {
@@ -1826,8 +1826,8 @@ body {
 }
 
 #pptStage .sidebar-center-tab {
-    width: var(--sidebar-tab-width) !important;
-    height: var(--sidebar-tab-height) !important;
+    width: 30px !important;
+    height: 104px !important;
 }
 
 #pptStage .place-grid {
@@ -1848,22 +1848,105 @@ body {
 }
 
 
-/* PowerPoint runtime diagnostic panel - ES5 compatible */
-#pptRuntimeDebug {
-    position: fixed;
-    right: 8px;
-    top: 8px;
-    width: 360px;
-    max-height: 52vh;
-    overflow: auto;
-    z-index: 2147483647;
-    background: rgba(0,0,0,.90);
-    color: #b8ffb8;
-    font: 12px/1.4 Consolas, "Courier New", monospace;
-    padding: 10px;
-    border-radius: 7px;
-    white-space: pre-wrap;
-    box-shadow: 0 4px 18px rgba(0,0,0,.4);
+/* ============================================================
+   POWERPOINT 2013 / IE11 COMPATIBILITY
+============================================================ */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    html, body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden !important;
+    }
+
+    #pptStage {
+        width: 1200px !important;
+        height: 1600px !important;
+        background: #B7DDE8 !important;
+    }
+
+    #pptStage .app {
+        display: -ms-flexbox !important;
+        display: flex !important;
+        width: 1200px !important;
+        height: 1600px !important;
+    }
+
+    #pptStage .sidebar {
+        width: 320px !important;
+        min-width: 320px !important;
+        height: 1600px !important;
+        background: linear-gradient(180deg, #214483 0%, #1b3b77 43%, #102b60 100%) !important;
+        color: #fff8df !important;
+        border-right: 1px solid rgba(234,220,174,.46) !important;
+    }
+
+    #pptStage .map-area {
+        -ms-flex: 1 1 auto !important;
+        flex: 1 1 auto !important;
+        width: 880px !important;
+        height: 1600px !important;
+        background: #B7DDE8 !important;
+    }
+
+    #pptStage .map-container {
+        width: 800px !important;
+        height: 800px !important;
+        max-width: none !important;
+        left: 50% !important;
+        top: 50% !important;
+    }
+
+    #pptStage .map-container > img,
+    #pptStage .map-overlay,
+    #pptStage .route-svg {
+        width: 800px !important;
+        height: 800px !important;
+    }
+
+    #pptStage .toptravel-logo {
+        width: 240px !important;
+    }
+
+    .start-date-modal {
+        width: 390px !important;
+    }
+
+    .modal {
+        width: 620px !important;
+        max-height: 78% !important;
+    }
+
+    .travel-controls,
+    .save-controls,
+    .start-date-actions {
+        display: -ms-flexbox !important;
+        display: flex !important;
+    }
+
+    .travel-controls > *,
+    .save-controls > *,
+    .start-date-actions > * {
+        -ms-flex: 1 1 0 !important;
+        flex: 1 1 0 !important;
+        margin-right: 8px;
+    }
+
+    .travel-controls > *:last-child,
+    .save-controls > *:last-child,
+    .start-date-actions > *:last-child {
+        margin-right: 0;
+    }
+
+    .place-grid {
+        display: block !important;
+    }
+
+    .place-option {
+        width: 48% !important;
+        display: inline-block !important;
+        vertical-align: top !important;
+        margin: 0 1% 8px !important;
+    }
 }
 
 </style>
@@ -1871,7 +1954,6 @@ body {
 
 
 <body>
-<div id="pptRuntimeDebug">DEBUG initializing...</div>
 <div id="pptStage">
 
 <div class="app">
@@ -2139,74 +2221,158 @@ body {
 </div>
 
 
+
 <script>
 (function () {
-    var output = [];
-    var panel = document.getElementById("pptRuntimeDebug");
-
-    function write(message) {
-        output.push(String(message));
-        if (panel) {
-            panel.innerHTML = output.join("<br>");
-        }
+    if (!Array.prototype.forEach) {
+        Array.prototype.forEach = function (callback, thisArg) {
+            var O = Object(this), len = O.length >>> 0, i;
+            for (i = 0; i < len; i++) {
+                if (i in O) callback.call(thisArg, O[i], i, O);
+            }
+        };
+    }
+    if (window.NodeList && !NodeList.prototype.forEach) {
+        NodeList.prototype.forEach = Array.prototype.forEach;
+    }
+    if (!Array.prototype.find) {
+        Array.prototype.find = function (predicate, thisArg) {
+            var O = Object(this), len = O.length >>> 0, i, value;
+            for (i = 0; i < len; i++) {
+                value = O[i];
+                if (predicate.call(thisArg, value, i, O)) return value;
+            }
+            return undefined;
+        };
+    }
+    if (!Array.prototype.findIndex) {
+        Array.prototype.findIndex = function (predicate, thisArg) {
+            var O = Object(this), len = O.length >>> 0, i;
+            for (i = 0; i < len; i++) {
+                if (predicate.call(thisArg, O[i], i, O)) return i;
+            }
+            return -1;
+        };
+    }
+    if (!Array.prototype.includes) {
+        Array.prototype.includes = function (searchElement, fromIndex) {
+            return this.indexOf(searchElement, fromIndex || 0) !== -1;
+        };
+    }
+    if (!String.prototype.replaceAll) {
+        String.prototype.replaceAll = function (search, replacement) {
+            return this.split(search).join(replacement);
+        };
+    }
+    if (!Number.isFinite) {
+        Number.isFinite = function (value) {
+            return typeof value === "number" && isFinite(value);
+        };
+    }
+    if (!Math.sign) {
+        Math.sign = function (x) {
+            x = Number(x);
+            if (x === 0 || isNaN(x)) return x;
+            return x > 0 ? 1 : -1;
+        };
+    }
+    if (window.Element && !Element.prototype.remove) {
+        Element.prototype.remove = function () {
+            if (this.parentNode) this.parentNode.removeChild(this);
+        };
     }
 
-    window.onerror = function (message, source, lineno, colno, error) {
-        write("JS ERROR: " + message);
-        write("line: " + lineno + ", col: " + colno);
-        if (source) { write("source: " + source); }
-        return false;
-    };
+    if (!window.Set) {
+        window.Set = function (items) {
+            this._items = [];
+            var i;
+            if (items && typeof items.length === "number") {
+                for (i = 0; i < items.length; i++) this.add(items[i]);
+            }
+        };
+        Set.prototype.has = function (value) {
+            return this._items.indexOf(value) !== -1;
+        };
+        Set.prototype.add = function (value) {
+            if (!this.has(value)) this._items.push(value);
+            return this;
+        };
+        Set.prototype["delete"] = function (value) {
+            var i = this._items.indexOf(value);
+            if (i < 0) return false;
+            this._items.splice(i, 1);
+            return true;
+        };
+        Set.prototype.clear = function () {
+            this._items.length = 0;
+        };
+    }
 
-    write("DEBUG STARTED");
-    write("URL: " + window.location.href);
-    write("readyState: " + document.readyState);
-    write("viewport: " + window.innerWidth + " x " + window.innerHeight);
-    write("UA: " + navigator.userAgent);
-    write("documentMode: " + (document.documentMode || "none"));
-    write("Edge legacy: " + (navigator.userAgent.indexOf("Edge/") >= 0 ? "YES" : "NO"));
-    write("WebView2/Chromium: " +
-        ((navigator.userAgent.indexOf("Edg/") >= 0 ||
-          navigator.userAgent.indexOf("Chrome/") >= 0) ? "LIKELY" : "NO"));
-
-    window.setTimeout(function () {
-        var ids = [
-            "pptStage",
-            "dateChangeBtn",
-            "optionABtn",
-            "optionBBtn",
-            "startTravelBtn",
-            "addPlaceBtn",
-            "startDateBackdrop"
-        ];
-        var i;
-        write("--- AFTER 1 SECOND ---");
-        write("readyState: " + document.readyState);
-        for (i = 0; i < ids.length; i++) {
-            write(ids[i] + ": " +
-                (document.getElementById(ids[i]) ? "OK" : "MISSING"));
-        }
-        write("renderMap: " + typeof window.renderMap);
-        write("openStartDateModal: " + typeof window.openStartDateModal);
-        write("selectTripOption: " + typeof window.selectTripOption);
-    }, 1000);
+    if (!window.Map) {
+        window.Map = function () {
+            this._keys = [];
+            this._values = [];
+        };
+        Map.prototype.has = function (key) {
+            return this._keys.indexOf(key) !== -1;
+        };
+        Map.prototype.get = function (key) {
+            var i = this._keys.indexOf(key);
+            return i < 0 ? undefined : this._values[i];
+        };
+        Map.prototype.set = function (key, value) {
+            var i = this._keys.indexOf(key);
+            if (i < 0) {
+                this._keys.push(key);
+                this._values.push(value);
+            } else {
+                this._values[i] = value;
+            }
+            return this;
+        };
+        Map.prototype.forEach = function (callback, thisArg) {
+            var i;
+            for (i = 0; i < this._keys.length; i++) {
+                callback.call(thisArg, this._values[i], this._keys[i], this);
+            }
+        };
+        Map.prototype["delete"] = function (key) {
+            var i = this._keys.indexOf(key);
+            if (i < 0) return false;
+            this._keys.splice(i, 1);
+            this._values.splice(i, 1);
+            return true;
+        };
+        Map.prototype.clear = function () {
+            this._keys.length = 0;
+            this._values.length = 0;
+        };
+        Object.defineProperty(Map.prototype, "size", {
+            get: function () { return this._keys.length; }
+        });
+    }
 }());
 </script>
-<script>
 
+<script>
 /* ============================================================
    장소 데이터
 ============================================================ */
-
-
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
 /* 좌표 보정 기준 (2026-08): kr.svg 내부 위경도 기준점을 이용한 affine projection.
    각 x/y는 도시·군 또는 관광지 대표 중심점의 위경도를 SVG 1000x1000 좌표로 투영한 뒤 %로 변환. */
-const places = [
-
+var places = [
     /* ======================
        도시
     ====================== */
-
     {
         name: "인천",
         type: "도시 / 소도시 / 여행지",
@@ -2214,7 +2380,6 @@ const places = [
         x: 35.41,
         y: 24.61
     },
-
     {
         name: "서울",
         type: "도시 / 소도시 / 여행지",
@@ -2222,7 +2387,6 @@ const places = [
         x: 39.52,
         y: 23.25
     },
-
     {
         name: "수원",
         type: "도시 / 소도시 / 여행지",
@@ -2230,7 +2394,6 @@ const places = [
         x: 39.97,
         y: 25.24
     },
-
     {
         name: "춘천",
         type: "도시 / 소도시 / 여행지",
@@ -2238,7 +2401,6 @@ const places = [
         x: 49.48,
         y: 14.88
     },
-
     {
         name: "강릉",
         type: "도시 / 소도시 / 여행지",
@@ -2246,7 +2408,6 @@ const places = [
         x: 64.54,
         y: 25.00
     },
-
     {
         name: "원주",
         type: "도시 / 소도시 / 여행지",
@@ -2254,7 +2415,6 @@ const places = [
         x: 52.06,
         y: 24.71
     },
-
     {
         name: "청주",
         type: "도시 / 소도시 / 여행지",
@@ -2262,7 +2422,6 @@ const places = [
         x: 46.22,
         y: 36.80
     },
-
     {
         name: "대전",
         type: "도시 / 소도시 / 여행지",
@@ -2270,7 +2429,6 @@ const places = [
         x: 44.81,
         y: 41.92
     },
-
     {
         name: "전주",
         type: "도시 / 소도시 / 여행지",
@@ -2278,7 +2436,6 @@ const places = [
         x: 41.60,
         y: 51.10
     },
-
     {
         name: "광주",
         type: "도시 / 소도시 / 여행지",
@@ -2286,7 +2443,6 @@ const places = [
         x: 37.60,
         y: 62.70
     },
-
     {
         name: "목포",
         type: "도시 / 소도시 / 여행지",
@@ -2294,7 +2450,6 @@ const places = [
         x: 31.36,
         y: 68.46
     },
-
     {
         name: "여수",
         type: "도시 / 소도시 / 여행지",
@@ -2302,7 +2457,6 @@ const places = [
         x: 48.59,
         y: 69.62
     },
-
     {
         name: "진주",
         type: "도시 / 소도시 / 여행지",
@@ -2310,7 +2464,6 @@ const places = [
         x: 53.82,
         y: 62.55
     },
-
     {
         name: "창원",
         type: "도시 / 소도시 / 여행지",
@@ -2318,7 +2471,6 @@ const places = [
         x: 62.40,
         y: 63.26
     },
-
     {
         name: "부산",
         type: "도시 / 소도시 / 여행지",
@@ -2326,7 +2478,6 @@ const places = [
         x: 67.04,
         y: 63.24
     },
-
     {
         name: "울산",
         type: "도시 / 소도시 / 여행지",
@@ -2334,7 +2485,6 @@ const places = [
         x: 69.98,
         y: 57.63
     },
-
     {
         name: "포항",
         type: "도시 / 소도시 / 여행지",
@@ -2342,7 +2492,6 @@ const places = [
         x: 70.38,
         y: 48.05
     },
-
     {
         name: "경주",
         type: "도시 / 소도시 / 여행지",
@@ -2350,7 +2499,6 @@ const places = [
         x: 69.77,
         y: 51.55
     },
-
     {
         name: "안동",
         type: "도시 / 소도시 / 여행지",
@@ -2358,7 +2506,6 @@ const places = [
         x: 63.05,
         y: 39.33
     },
-
     {
         name: "대구",
         type: "도시 / 소도시 / 여행지",
@@ -2366,25 +2513,19 @@ const places = [
         x: 61.32,
         y: 51.67
     },
-
     {
         name: "제주",
         type: "도시 / 소도시 / 여행지",
         kind: "place",
-
         x: 33.25,
-
         /*
             기존보다 조금 아래로 이동
         */
         y: 92.07
     },
-
-
     /* ======================
        소도시 / 여행지
     ====================== */
-
     {
         name: "정동진",
         type: "도시 / 소도시 / 여행지",
@@ -2392,7 +2533,6 @@ const places = [
         x: 67.50,
         y: 23.25
     },
-
     {
         name: "속초",
         type: "도시 / 소도시 / 여행지",
@@ -2400,7 +2540,6 @@ const places = [
         x: 64.48,
         y: 19.03
     },
-
     {
         name: "양양",
         type: "도시 / 소도시 / 여행지",
@@ -2408,7 +2547,6 @@ const places = [
         x: 61.33,
         y: 21.28
     },
-
     {
         name: "평창",
         type: "도시 / 소도시 / 여행지",
@@ -2416,7 +2554,6 @@ const places = [
         x: 58.44,
         y: 24.66
     },
-
     {
         name: "홍천",
         type: "도시 / 소도시 / 여행지",
@@ -2424,7 +2561,6 @@ const places = [
         x: 51.63,
         y: 18.33
     },
-
     {
         name: "가평",
         type: "도시 / 소도시 / 여행지",
@@ -2432,7 +2568,6 @@ const places = [
         x: 46.49,
         y: 15.55
     },
-
     {
         name: "남이섬",
         type: "도시 / 소도시 / 여행지",
@@ -2440,7 +2575,6 @@ const places = [
         x: 46.71,
         y: 16.29
     },
-
     {
         name: "파주",
         type: "도시 / 소도시 / 여행지",
@@ -2448,7 +2582,6 @@ const places = [
         x: 36.59,
         y: 16.12
     },
-
     {
         name: "DMZ",
         type: "도시 / 소도시 / 여행지",
@@ -2456,7 +2589,6 @@ const places = [
         x: 35.93,
         y: 13.59
     },
-
     {
         name: "강화도",
         type: "도시 / 소도시 / 여행지",
@@ -2464,7 +2596,6 @@ const places = [
         x: 32.63,
         y: 16.08
     },
-
     {
         name: "양평",
         type: "도시 / 소도시 / 여행지",
@@ -2472,7 +2603,6 @@ const places = [
         x: 46.20,
         y: 21.61
     },
-
     {
         name: "제천",
         type: "도시 / 소도시 / 여행지",
@@ -2480,7 +2610,6 @@ const places = [
         x: 55.74,
         y: 28.72
     },
-
     {
         name: "단양",
         type: "도시 / 소도시 / 여행지",
@@ -2488,7 +2617,6 @@ const places = [
         x: 58.11,
         y: 31.54
     },
-
     {
         name: "충주",
         type: "도시 / 소도시 / 여행지",
@@ -2496,7 +2624,6 @@ const places = [
         x: 52.14,
         y: 30.99
     },
-
     {
         name: "공주",
         type: "도시 / 소도시 / 여행지",
@@ -2504,7 +2631,6 @@ const places = [
         x: 41.20,
         y: 39.94
     },
-
     {
         name: "부여",
         type: "도시 / 소도시 / 여행지",
@@ -2512,7 +2638,6 @@ const places = [
         x: 38.37,
         y: 42.79
     },
-
     {
         name: "보령",
         type: "도시 / 소도시 / 여행지",
@@ -2520,7 +2645,6 @@ const places = [
         x: 34.34,
         y: 41.47
     },
-
     {
         name: "태안",
         type: "도시 / 소도시 / 여행지",
@@ -2528,7 +2652,6 @@ const places = [
         x: 30.07,
         y: 33.79
     },
-
     {
         name: "군산",
         type: "도시 / 소도시 / 여행지",
@@ -2536,7 +2659,6 @@ const places = [
         x: 36.02,
         y: 48.13
     },
-
     {
         name: "익산",
         type: "도시 / 소도시 / 여행지",
@@ -2544,7 +2666,6 @@ const places = [
         x: 39.02,
         y: 48.69
     },
-
     {
         name: "담양",
         type: "도시 / 소도시 / 여행지",
@@ -2552,7 +2673,6 @@ const places = [
         x: 39.44,
         y: 59.94
     },
-
     {
         name: "순천",
         type: "도시 / 소도시 / 여행지",
@@ -2560,7 +2680,6 @@ const places = [
         x: 45.31,
         y: 64.05
     },
-
     {
         name: "통영",
         type: "도시 / 소도시 / 여행지",
@@ -2568,7 +2687,6 @@ const places = [
         x: 59.04,
         y: 69.69
     },
-
     {
         name: "거제",
         type: "도시 / 소도시 / 여행지",
@@ -2576,7 +2694,6 @@ const places = [
         x: 61.59,
         y: 68.41
     },
-
     {
         name: "남해",
         type: "도시 / 소도시 / 여행지",
@@ -2584,7 +2701,6 @@ const places = [
         x: 51.71,
         y: 69.46
     },
-
     {
         name: "밀양",
         type: "도시 / 소도시 / 여행지",
@@ -2592,7 +2708,6 @@ const places = [
         x: 63.29,
         y: 58.39
     },
-
     {
         name: "양산",
         type: "도시 / 소도시 / 여행지",
@@ -2600,7 +2715,6 @@ const places = [
         x: 67.23,
         y: 61.69
     },
-
     {
         name: "청송",
         type: "도시 / 소도시 / 여행지",
@@ -2608,7 +2722,6 @@ const places = [
         x: 67.49,
         y: 42.02
     },
-
     {
         name: "영덕",
         type: "도시 / 소도시 / 여행지",
@@ -2616,7 +2729,6 @@ const places = [
         x: 70.65,
         y: 42.31
     },
-
     {
         name: "울진",
         type: "도시 / 소도시 / 여행지",
@@ -2624,7 +2736,6 @@ const places = [
         x: 71.09,
         y: 34.74
     },
-
     {
         name: "문경",
         type: "도시 / 소도시 / 여행지",
@@ -2632,7 +2743,6 @@ const places = [
         x: 55.68,
         y: 38.48
     },
-
     {
         name: "상주",
         type: "도시 / 소도시 / 여행지",
@@ -2640,7 +2750,6 @@ const places = [
         x: 55.31,
         y: 41.59
     },
-
     {
         name: "구미",
         type: "도시 / 소도시 / 여행지",
@@ -2648,7 +2757,6 @@ const places = [
         x: 57.83,
         y: 46.98
     },
-
     {
         name: "영천",
         type: "도시 / 소도시 / 여행지",
@@ -2656,7 +2764,6 @@ const places = [
         x: 65.89,
         y: 50.18
     },
-
     {
         name: "청도",
         type: "도시 / 소도시 / 여행지",
@@ -2664,7 +2771,6 @@ const places = [
         x: 63.11,
         y: 55.81
     },
-
     {
         name: "합천",
         type: "도시 / 소도시 / 여행지",
@@ -2672,7 +2778,6 @@ const places = [
         x: 55.41,
         y: 56.70
     },
-
     {
         name: "하동",
         type: "도시 / 소도시 / 여행지",
@@ -2680,7 +2785,6 @@ const places = [
         x: 50.79,
         y: 63.22
     },
-
     {
         name: "고성",
         type: "도시 / 소도시 / 여행지",
@@ -2688,7 +2792,6 @@ const places = [
         x: 57.54,
         y: 67.46
     },
-
     {
         name: "강진",
         type: "도시 / 소도시 / 여행지",
@@ -2696,7 +2799,6 @@ const places = [
         x: 36.45,
         y: 71.86
     },
-
     {
         name: "해남",
         type: "도시 / 소도시 / 여행지",
@@ -2704,7 +2806,6 @@ const places = [
         x: 34.17,
         y: 72.93
     },
-
     {
         name: "보성",
         type: "도시 / 소도시 / 여행지",
@@ -2712,7 +2813,6 @@ const places = [
         x: 40.69,
         y: 69.86
     },
-
     {
         name: "완도",
         type: "도시 / 소도시 / 여행지",
@@ -2720,7 +2820,6 @@ const places = [
         x: 36.28,
         y: 77.77
     },
-
     {
         name: "진도",
         type: "도시 / 소도시 / 여행지",
@@ -2728,7 +2827,6 @@ const places = [
         x: 29.61,
         y: 74.15
     },
-
     {
         name: "한라산",
         type: "도시 / 소도시 / 여행지",
@@ -2736,7 +2834,6 @@ const places = [
         x: 33.23,
         y: 94.53
     },
-
     {
         name: "성산일출봉",
         type: "도시 / 소도시 / 여행지",
@@ -2744,7 +2841,6 @@ const places = [
         x: 38.83,
         y: 93.21
     },
-
     {
         name: "애월",
         type: "도시 / 소도시 / 여행지",
@@ -2752,7 +2848,6 @@ const places = [
         x: 30.50,
         y: 92.54
     },
-
     {
         name: "서귀포",
         type: "도시 / 소도시 / 여행지",
@@ -2760,9 +2855,7 @@ const places = [
         x: 33.65,
         y: 96.48
     },
-
     /* 추가 소도시 / 여행지 — 제주 및 기존 기준점에 맞춘 좌표 재보정 */
-
     {
         name: "광양",
         type: "도시 / 소도시 / 여행지",
@@ -2770,7 +2863,6 @@ const places = [
         x: 49.04,
         y: 65.43
     },
-
     {
         name: "고흥",
         type: "도시 / 소도시 / 여행지",
@@ -2778,7 +2870,6 @@ const places = [
         x: 43.47,
         y: 72.92
     },
-
     {
         name: "구례",
         type: "도시 / 소도시 / 여행지",
@@ -2786,7 +2877,6 @@ const places = [
         x: 45.88,
         y: 62.52
     },
-
     {
         name: "곡성",
         type: "도시 / 소도시 / 여행지",
@@ -2794,7 +2884,6 @@ const places = [
         x: 43.56,
         y: 60.94
     },
-
     {
         name: "나주",
         type: "도시 / 소도시 / 여행지",
@@ -2802,7 +2891,6 @@ const places = [
         x: 35.68,
         y: 65.12
     },
-
     {
         name: "화순",
         type: "도시 / 소도시 / 여행지",
@@ -2810,7 +2898,6 @@ const places = [
         x: 39.42,
         y: 64.52
     },
-
     {
         name: "영암",
         type: "도시 / 소도시 / 여행지",
@@ -2818,7 +2905,6 @@ const places = [
         x: 35.49,
         y: 68.97
     },
-
     {
         name: "장흥",
         type: "도시 / 소도시 / 여행지",
@@ -2826,7 +2912,6 @@ const places = [
         x: 38.34,
         y: 71.29
     },
-
     {
         name: "영광",
         type: "도시 / 소도시 / 여행지",
@@ -2834,7 +2919,6 @@ const places = [
         x: 32.98,
         y: 60.26
     },
-
     {
         name: "함평",
         type: "도시 / 소도시 / 여행지",
@@ -2842,7 +2926,6 @@ const places = [
         x: 33.04,
         y: 64.04
     },
-
     {
         name: "무안",
         type: "도시 / 소도시 / 여행지",
@@ -2850,7 +2933,6 @@ const places = [
         x: 32.57,
         y: 65.36
     },
-
     {
         name: "사천",
         type: "도시 / 소도시 / 여행지",
@@ -2858,7 +2940,6 @@ const places = [
         x: 54.04,
         y: 66.66
     },
-
     {
         name: "김해",
         type: "도시 / 소도시 / 여행지",
@@ -2866,7 +2947,6 @@ const places = [
         x: 65.23,
         y: 63.45
     },
-
     {
         name: "함안",
         type: "도시 / 소도시 / 여행지",
@@ -2874,7 +2954,6 @@ const places = [
         x: 58.68,
         y: 62.19
     },
-
     {
         name: "의령",
         type: "도시 / 소도시 / 여행지",
@@ -2882,7 +2961,6 @@ const places = [
         x: 56.71,
         y: 61.16
     },
-
     {
         name: "창녕",
         type: "도시 / 소도시 / 여행지",
@@ -2890,7 +2968,6 @@ const places = [
         x: 59.84,
         y: 57.41
     },
-
     {
         name: "산청",
         type: "도시 / 소도시 / 여행지",
@@ -2898,7 +2975,6 @@ const places = [
         x: 51.45,
         y: 59.11
     },
-
     {
         name: "함양",
         type: "도시 / 소도시 / 여행지",
@@ -2906,7 +2982,6 @@ const places = [
         x: 49.43,
         y: 57.09
     },
-
     {
         name: "거창",
         type: "도시 / 소도시 / 여행지",
@@ -2914,7 +2989,6 @@ const places = [
         x: 51.93,
         y: 54.30
     },
-
     {
         name: "김천",
         type: "도시 / 소도시 / 여행지",
@@ -2922,7 +2996,6 @@ const places = [
         x: 54.70,
         y: 46.40
     },
-
     {
         name: "성주",
         type: "도시 / 소도시 / 여행지",
@@ -2930,7 +3003,6 @@ const places = [
         x: 57.00,
         y: 50.51
     },
-
     {
         name: "고령",
         type: "도시 / 소도시 / 여행지",
@@ -2938,7 +3010,6 @@ const places = [
         x: 56.73,
         y: 53.94
     },
-
     {
         name: "군위",
         type: "도시 / 소도시 / 여행지",
@@ -2946,7 +3017,6 @@ const places = [
         x: 60.92,
         y: 45.00
     },
-
     {
         name: "의성",
         type: "도시 / 소도시 / 여행지",
@@ -2954,7 +3024,6 @@ const places = [
         x: 62.61,
         y: 43.16
     },
-
     {
         name: "예천",
         type: "도시 / 소도시 / 여행지",
@@ -2962,7 +3031,6 @@ const places = [
         x: 59.30,
         y: 37.47
     },
-
     {
         name: "영주",
         type: "도시 / 소도시 / 여행지",
@@ -2970,7 +3038,6 @@ const places = [
         x: 61.62,
         y: 34.99
     },
-
     {
         name: "봉화",
         type: "도시 / 소도시 / 여행지",
@@ -2978,7 +3045,6 @@ const places = [
         x: 63.09,
         y: 33.53
     },
-
     {
         name: "천안",
         type: "도시 / 소도시 / 여행지",
@@ -2986,7 +3052,6 @@ const places = [
         x: 41.13,
         y: 33.34
     },
-
     {
         name: "아산",
         type: "도시 / 소도시 / 여행지",
@@ -2994,7 +3059,6 @@ const places = [
         x: 39.61,
         y: 33.69
     },
-
     {
         name: "당진",
         type: "도시 / 소도시 / 여행지",
@@ -3002,7 +3066,6 @@ const places = [
         x: 34.54,
         y: 31.48
     },
-
     {
         name: "서산",
         type: "도시 / 소도시 / 여행지",
@@ -3010,7 +3073,6 @@ const places = [
         x: 32.13,
         y: 33.24
     },
-
     {
         name: "예산",
         type: "도시 / 소도시 / 여행지",
@@ -3018,7 +3080,6 @@ const places = [
         x: 37.53,
         y: 35.45
     },
-
     {
         name: "홍성",
         type: "도시 / 소도시 / 여행지",
@@ -3026,7 +3087,6 @@ const places = [
         x: 34.99,
         y: 36.73
     },
-
     {
         name: "논산",
         type: "도시 / 소도시 / 여행지",
@@ -3034,7 +3094,6 @@ const places = [
         x: 40.93,
         y: 44.56
     },
-
     {
         name: "계룡",
         type: "도시 / 소도시 / 여행지",
@@ -3042,7 +3101,6 @@ const places = [
         x: 42.96,
         y: 43.14
     },
-
     {
         name: "금산",
         type: "도시 / 소도시 / 여행지",
@@ -3050,7 +3108,6 @@ const places = [
         x: 46.21,
         y: 46.34
     },
-
     {
         name: "서천",
         type: "도시 / 소도시 / 여행지",
@@ -3058,7 +3115,6 @@ const places = [
         x: 35.41,
         y: 46.07
     },
-
     {
         name: "진천",
         type: "도시 / 소도시 / 여행지",
@@ -3066,7 +3122,6 @@ const places = [
         x: 45.49,
         y: 32.94
     },
-
     {
         name: "음성",
         type: "도시 / 소도시 / 여행지",
@@ -3074,7 +3129,6 @@ const places = [
         x: 48.95,
         y: 31.67
     },
-
     {
         name: "괴산",
         type: "도시 / 소도시 / 여행지",
@@ -3082,7 +3136,6 @@ const places = [
         x: 50.26,
         y: 34.00
     },
-
     {
         name: "보은",
         type: "도시 / 소도시 / 여행지",
@@ -3090,7 +3143,6 @@ const places = [
         x: 49.48,
         y: 39.77
     },
-
     {
         name: "옥천",
         type: "도시 / 소도시 / 여행지",
@@ -3098,7 +3150,6 @@ const places = [
         x: 47.34,
         y: 42.89
     },
-
     {
         name: "영동",
         type: "도시 / 소도시 / 여행지",
@@ -3106,7 +3157,6 @@ const places = [
         x: 50.22,
         y: 45.44
     },
-
     {
         name: "이천",
         type: "도시 / 소도시 / 여행지",
@@ -3114,7 +3164,6 @@ const places = [
         x: 45.48,
         y: 25.49
     },
-
     {
         name: "여주",
         type: "도시 / 소도시 / 여행지",
@@ -3122,7 +3171,6 @@ const places = [
         x: 48.23,
         y: 25.22
     },
-
     {
         name: "포천",
         type: "도시 / 소도시 / 여행지",
@@ -3130,7 +3178,6 @@ const places = [
         x: 42.29,
         y: 14.12
     },
-
     {
         name: "동두천",
         type: "도시 / 소도시 / 여행지",
@@ -3138,7 +3185,6 @@ const places = [
         x: 40.40,
         y: 13.83
     },
-
     {
         name: "연천",
         type: "도시 / 소도시 / 여행지",
@@ -3146,7 +3192,6 @@ const places = [
         x: 40.59,
         y: 10.39
     },
-
     {
         name: "철원",
         type: "도시 / 소도시 / 여행지",
@@ -3154,7 +3199,6 @@ const places = [
         x: 43.83,
         y: 9.73
     },
-
     {
         name: "화천",
         type: "도시 / 소도시 / 여행지",
@@ -3162,7 +3206,6 @@ const places = [
         x: 49.18,
         y: 10.83
     },
-
     {
         name: "인제",
         type: "도시 / 소도시 / 여행지",
@@ -3170,7 +3213,6 @@ const places = [
         x: 55.46,
         y: 11.94
     },
-
     {
         name: "횡성",
         type: "도시 / 소도시 / 여행지",
@@ -3178,7 +3220,6 @@ const places = [
         x: 52.94,
         y: 22.09
     },
-
     {
         name: "영월",
         type: "도시 / 소도시 / 여행지",
@@ -3186,7 +3227,6 @@ const places = [
         x: 59.41,
         y: 28.07
     },
-
     {
         name: "정선",
         type: "도시 / 소도시 / 여행지",
@@ -3194,7 +3234,6 @@ const places = [
         x: 62.11,
         y: 24.74
     },
-
     {
         name: "태백",
         type: "도시 / 소도시 / 여행지",
@@ -3202,7 +3241,6 @@ const places = [
         x: 66.52,
         y: 28.93
     },
-
     {
         name: "삼척",
         type: "도시 / 소도시 / 여행지",
@@ -3210,7 +3248,6 @@ const places = [
         x: 69.10,
         y: 30.25
     },
-
     {
         name: "울릉도",
         type: "도시 / 소도시 / 여행지",
@@ -3218,7 +3255,6 @@ const places = [
         x: 92.56,
         y: 25.07
     },
-
     {
         name: "독도",
         type: "도시 / 소도시 / 여행지",
@@ -3227,16 +3263,13 @@ const places = [
         y: 30.36
     }
 ];
-
-
 /* ============================================================
    장소 유형 자동 구분
    - 추가/검색 UI는 하나로 유지
    - 좌측 여행 목록과 검색 결과에서는 실제 성격에 따라
      "도시" 또는 "소도시 / 여행지"로 자동 표시
 ============================================================ */
-
-const cityPlaceNames = new Set([
+var cityPlaceNames = new Set([
     "서울", "부산", "대구", "인천", "광주", "대전", "울산",
     "수원", "춘천", "강릉", "원주", "청주", "전주", "목포", "여수",
     "진주", "창원", "포항", "경주", "안동", "제주", "속초", "파주",
@@ -3245,775 +3278,346 @@ const cityPlaceNames = new Set([
     "김해", "김천", "영주", "천안", "아산", "당진", "서산", "논산",
     "계룡", "이천", "여주", "포천", "동두천", "태백", "삼척"
 ]);
-
 function getPlaceType(placeName) {
     return cityPlaceNames.has(placeName)
         ? "도시"
         : "소도시 / 여행지";
 }
-
-places.forEach(place => {
+places.forEach(function (place) {
     place.type = getPlaceType(place.name);
 });
-
-
 /* SVG 좌표 재정렬 메모
    - 전국 행정구역 지도의 상대 위치를 kr.svg 화면 좌표계에 맞춰 사용
    - 기존에 SVG에서 잘 맞던 본토 기준점은 유지
    - 제주권은 SVG의 실제 제주도 윤곽에 다시 맞춰 좌표 재보정
 */
-
 /* ============================================================
    초기 여행지
 ============================================================ */
-
-const OPTION_A_PLACES = [
+var OPTION_A_PLACES = [
     "인천", "서울", "전주", "담양", "순천", "여수", "광양", "하동", "진주",
     "거제", "부산", "울산", "경주", "정동진", "강릉", "속초", "서울"
 ];
-
-const OPTION_B_PLACES = [
+var OPTION_B_PLACES = [
     "인천", "서울", "전주", "담양", "순천", "여수", "광양", "하동", "진주",
     "거제", "부산", "울산", "경주", "정동진", "강릉", "속초", "서울", "제주", "서울"
 ];
-
-let selectedTripOption = "A";
-let activeStartDate = "";
-
+var selectedTripOption = "A";
+var activeStartDate = "";
 function makeTripFromPlaces(placeNames) {
-    return placeNames.map(place => ({
+    return placeNames.map(function (place) { return ({
         id: createId(),
-        place,
+        place: place,
         date: "",
         endDate: "",
         isPreset: true
-    }));
+    }); });
 }
-
 function createDefaultTrip() {
     return makeTripFromPlaces(OPTION_A_PLACES);
 }
-
-
-let trip =
-    createDefaultTrip();
-
-
-let draggedId = null;
-
-
+var trip = createDefaultTrip();
+var draggedId = null;
 /* ============================================================
    TRAVEL STATE
 ============================================================ */
-
-const travelState = {
-
+var travelState = {
     running: false,
-
     paused: false,
-
     legIndex: 0,
-
     progress: 0,
-
     rafId: null,
-
     lastTime: 0,
-
     durationMs: 5000
-
 };
-
-
 /* ============================================================
    ELEMENTS
 ============================================================ */
-
-const tripList =
-    document.getElementById(
-        "tripList"
-    );
-
-const mapContainer =
-    document.getElementById(
-        "mapContainer"
-    );
-
-const mapOverlay =
-    document.getElementById(
-        "mapOverlay"
-    );
-
-const routeLayer =
-    document.getElementById(
-        "routeLayer"
-    );
-
-const modalBackdrop =
-    document.getElementById(
-        "modalBackdrop"
-    );
-
-const modalTitle =
-    document.getElementById(
-        "modalTitle"
-    );
-
-const placeSearch =
-    document.getElementById(
-        "placeSearch"
-    );
-
-const placeGrid =
-    document.getElementById(
-        "placeGrid"
-    );
-
-const travelVehicle =
-    document.getElementById(
-        "travelVehicle"
-    );
-
-const travelVehicleImage =
-    document.getElementById(
-        "travelVehicleImage"
-    );
-
-const startTravelBtn =
-    document.getElementById(
-        "startTravelBtn"
-    );
-
-const pauseTravelBtn =
-    document.getElementById(
-        "pauseTravelBtn"
-    );
-
-const travelStatus =
-    document.getElementById(
-        "travelStatus"
-    );
-
-const saveBtn =
-    document.getElementById(
-        "saveBtn"
-    );
-
-const resetBtn =
-    document.getElementById(
-        "resetBtn"
-    );
-
-const optionABtn = document.getElementById("optionABtn");
-const dateChangeBtn = document.getElementById("dateChangeBtn");
-const optionBBtn = document.getElementById("optionBBtn");
-const startDateBackdrop = document.getElementById("startDateBackdrop");
-const startDateInput = document.getElementById("startDateInput");
-const confirmStartDateBtn = document.getElementById("confirmStartDateBtn");
-const cancelStartDateBtn = document.getElementById("cancelStartDateBtn");
-
-
+var tripList = document.getElementById("tripList");
+var mapContainer = document.getElementById("mapContainer");
+var mapOverlay = document.getElementById("mapOverlay");
+var routeLayer = document.getElementById("routeLayer");
+var modalBackdrop = document.getElementById("modalBackdrop");
+var modalTitle = document.getElementById("modalTitle");
+var placeSearch = document.getElementById("placeSearch");
+var placeGrid = document.getElementById("placeGrid");
+var travelVehicle = document.getElementById("travelVehicle");
+var travelVehicleImage = document.getElementById("travelVehicleImage");
+var startTravelBtn = document.getElementById("startTravelBtn");
+var pauseTravelBtn = document.getElementById("pauseTravelBtn");
+var travelStatus = document.getElementById("travelStatus");
+var saveBtn = document.getElementById("saveBtn");
+var resetBtn = document.getElementById("resetBtn");
+var optionABtn = document.getElementById("optionABtn");
+var dateChangeBtn = document.getElementById("dateChangeBtn");
+var optionBBtn = document.getElementById("optionBBtn");
+var startDateBackdrop = document.getElementById("startDateBackdrop");
+var startDateInput = document.getElementById("startDateInput");
+var confirmStartDateBtn = document.getElementById("confirmStartDateBtn");
+var cancelStartDateBtn = document.getElementById("cancelStartDateBtn");
 /* ============================================================
    ID
 ============================================================ */
-
 function createId() {
-
-    return (
-        Date.now().toString(36) +
+    return (Date.now().toString(36) +
         Math.random()
             .toString(36)
-            .slice(2)
-    );
-
+            .slice(2));
 }
-
-
 /* ============================================================
    SAVE / LOAD / RESET
 ============================================================ */
-
-const STORAGE_KEY =
-    "koreaTravelMapTrip";
-
-const PLACE_POSITION_STORAGE_KEY =
-    "koreaTravelMapPlacePositions";
-
-
+var STORAGE_KEY = "koreaTravelMapTrip";
+var PLACE_POSITION_STORAGE_KEY = "koreaTravelMapPlacePositions";
 function savePlacePositions() {
-
-    const positions =
-        Object.fromEntries(
-            places.map(
-                place => [
-                    place.name,
-                    {
-                        x: place.x,
-                        y: place.y
-                    }
-                ]
-            )
-        );
-
-    localStorage.setItem(
-        PLACE_POSITION_STORAGE_KEY,
-        JSON.stringify(positions)
-    );
-
+    var positions = Object.fromEntries(places.map(function (place) { return [
+        place.name,
+        {
+            x: place.x,
+            y: place.y
+        }
+    ]; }));
+    localStorage.setItem(PLACE_POSITION_STORAGE_KEY, JSON.stringify(positions));
 }
-
-
 function loadPlacePositions() {
-
-    const saved =
-        localStorage.getItem(
-            PLACE_POSITION_STORAGE_KEY
-        );
-
+    var saved = localStorage.getItem(PLACE_POSITION_STORAGE_KEY);
     if (!saved) {
         return;
     }
-
     try {
-
-        const positions =
-            JSON.parse(saved);
-
-        if (
-            !positions ||
-            typeof positions !== "object"
-        ) {
+        var positions_1 = JSON.parse(saved);
+        if (!positions_1 ||
+            typeof positions_1 !== "object") {
             return;
         }
-
-        places.forEach(
-            place => {
-
-                const position =
-                    positions[place.name];
-
-                if (
-                    !position ||
-                    !Number.isFinite(position.x) ||
-                    !Number.isFinite(position.y)
-                ) {
-                    return;
-                }
-
-                place.x =
-                    Math.max(
-                        0,
-                        Math.min(100, position.x)
-                    );
-
-                place.y =
-                    Math.max(
-                        0,
-                        Math.min(100, position.y)
-                    );
-
+        places.forEach(function (place) {
+            var position = positions_1[place.name];
+            if (!position ||
+                !Number.isFinite(position.x) ||
+                !Number.isFinite(position.y)) {
+                return;
             }
-        );
-
+            place.x =
+                Math.max(0, Math.min(100, position.x));
+            place.y =
+                Math.max(0, Math.min(100, position.y));
+        });
     }
     catch (error) {
-
-        console.error(
-            "저장된 장소 위치 불러오기 실패:",
-            error
-        );
-
+        console.error("저장된 장소 위치 불러오기 실패:", error);
     }
-
 }
-
-
 function saveTrip() {
-
     try {
-
-        localStorage.setItem(
-            STORAGE_KEY,
-            JSON.stringify(trip)
-        );
-
-        setTravelStatus(
-            "여행 일정이 저장되었습니다."
-        );
-
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(trip));
+        setTravelStatus("여행 일정이 저장되었습니다.");
     }
     catch (error) {
-
-        console.error(
-            "여행 일정 저장 실패:",
-            error
-        );
-
-        setTravelStatus(
-            "저장에 실패했습니다."
-        );
-
+        console.error("여행 일정 저장 실패:", error);
+        setTravelStatus("저장에 실패했습니다.");
     }
-
 }
-
-
 function loadTrip() {
-
-    const saved =
-        localStorage.getItem(
-            STORAGE_KEY
-        );
-
+    var saved = localStorage.getItem(STORAGE_KEY);
     if (!saved) {
         return false;
     }
-
-
     try {
-
-        const parsed =
-            JSON.parse(saved);
-
+        var parsed = JSON.parse(saved);
         if (!Array.isArray(parsed)) {
             return false;
         }
-
-
-        const validTrip =
-            parsed.filter(
-                item =>
-                    item &&
-                    typeof item.place === "string" &&
-                    places.some(
-                        place =>
-                            place.name === item.place
-                    )
-            ).map(
-                item => ({
-                    id:
-                        typeof item.id === "string" &&
-                        item.id
-                            ? item.id
-                            : createId(),
-                    place: item.place,
-                    date:
-                        typeof item.date === "string"
-                            ? item.date
-                            : "",
-                    endDate:
-                        typeof item.endDate === "string"
-                            ? item.endDate
-                            : "",
-                    isPreset:
-                        item.isPreset !== false
-                })
-            );
-
+        var validTrip = parsed.filter(function (item) {
+            return item &&
+                typeof item.place === "string" &&
+                places.some(function (place) {
+                    return place.name === item.place;
+                });
+        }).map(function (item) { return ({
+            id: typeof item.id === "string" &&
+                item.id
+                ? item.id
+                : createId(),
+            place: item.place,
+            date: typeof item.date === "string"
+                ? item.date
+                : "",
+            endDate: typeof item.endDate === "string"
+                ? item.endDate
+                : "",
+            isPreset: item.isPreset !== false
+        }); });
         if (!validTrip.length) {
             return false;
         }
-
         trip = validTrip;
-
         return true;
-
     }
     catch (error) {
-
-        console.error(
-            "저장된 여행 일정 불러오기 실패:",
-            error
-        );
-
+        console.error("저장된 여행 일정 불러오기 실패:", error);
         return false;
-
     }
-
 }
-
-
 function resetTrip() {
-
-    const confirmed =
-        confirm(
-            "저장된 여행 일정을 초기화하시겠습니까?"
-        );
-
+    var confirmed = confirm("저장된 여행 일정을 초기화하시겠습니까?");
     if (!confirmed) {
         return;
     }
-
-
-    localStorage.removeItem(
-        STORAGE_KEY
-    );
-
+    localStorage.removeItem(STORAGE_KEY);
     trip =
         createDefaultTrip();
-
     render();
-
-    setTravelStatus(
-        "여행 일정이 초기화되었습니다."
-    );
-
+    setTravelStatus("여행 일정이 초기화되었습니다.");
 }
-
-
 /* ============================================================
    PLACE
 ============================================================ */
-
 function getPlace(name) {
-
-    return places.find(
-        p => p.name === name
-    );
-
+    return places.find(function (p) { return p.name === name; });
 }
-
-
 /* ============================================================
    DATE
 ============================================================ */
-
 function formatDate(date) {
-
     if (!date) {
         return "";
     }
-
-    return date.replaceAll(
-        "-",
-        "."
-    );
-
+    return date.replaceAll("-", ".");
 }
-
-
 /* ============================================================
    STATUS
 ============================================================ */
-
 function setTravelStatus(text) {
-
     travelStatus.textContent =
         text || "";
-
 }
-
-
 /* ============================================================
    RESET TRAVEL
 ============================================================ */
-
 function resetTravel() {
-
     cancelTravelFrame();
-
     travelState.running = false;
-
     travelState.paused = false;
-
     travelState.legIndex = 0;
-
     travelState.progress = 0;
-
     travelState.lastTime = 0;
-
     travelVehicle.hidden = true;
-
     setTravelStatus("");
-
     pauseTravelBtn.disabled = true;
-
     startTravelBtn.disabled =
         trip.length < 2;
-
 }
-
-
 /* ============================================================
    SIDEBAR
 ============================================================ */
-
 function renderList() {
-
     tripList.innerHTML = "";
-
-    trip.forEach(
-        (item, index) => {
-
-            const place =
-                getPlace(
-                    item.place
-                );
-
-            if (!place) {
+    trip.forEach(function (item, index) {
+        var place = getPlace(item.place);
+        if (!place) {
+            return;
+        }
+        var totalVisitsToPlace = trip.filter(function (tripItem) {
+            return tripItem.place ===
+                item.place;
+        }).length;
+        var visitNumber = trip
+            .slice(0, index + 1)
+            .filter(function (tripItem) {
+            return tripItem.place ===
+                item.place;
+        }).length;
+        var visitCountHtml = "";
+        /*
+            좌측 여행 순서 라벨 규칙
+            - 인천: 여행의 시작이므로 "출발"
+            - 서울: 첫 방문은 라벨 없음
+            - 옵션 B의 두 번째 서울은 "김포"
+            - 마지막 서울은 "도착"
+            - 그 외 중복 방문지는 기존처럼 1차 / 2차 표시
+        */
+        if (place.name === "인천" && index === 0) {
+            visitCountHtml = "<span class=\"trip-visit-count\">\uCD9C\uBC1C</span>";
+        }
+        else if (place.name === "서울" && totalVisitsToPlace > 1) {
+            if (selectedTripOption === "B" && visitNumber === 2 && totalVisitsToPlace >= 3) {
+                visitCountHtml = "<span class=\"trip-visit-count\">\uAE40\uD3EC</span>";
+            }
+            else if (visitNumber === totalVisitsToPlace) {
+                visitCountHtml = "<span class=\"trip-visit-count\">\uB3C4\uCC29</span>";
+            }
+        }
+        else if (totalVisitsToPlace > 1) {
+            visitCountHtml = "<span class=\"trip-visit-count\">".concat(visitNumber, "\uCC28</span>");
+        }
+        var li = document.createElement("li");
+        li.className =
+            "trip-item";
+        li.draggable = true;
+        li.dataset.id =
+            item.id;
+        li.innerHTML = "\n\n                <div class=\"timeline\"></div>\n\n                <div class=\"trip-info\">\n\n                    <div class=\"trip-date\">\n                        ".concat(formatTripDateRange(item) ||
+            "날짜 미정", "\n                    </div>\n\n                    <div class=\"trip-name-row\">\n\n                        <div class=\"trip-name\">\n                            ").concat(place.name, "\n                        </div>\n\n                        ").concat(visitCountHtml, "\n\n                    </div>\n\n                    <div class=\"trip-type\">\n                        ").concat(place.type, "\n                    </div>\n\n                </div>\n\n                <button\n                    class=\"delete-btn\"\n                    title=\"\uC0AD\uC81C\">\n                    \u00D7\n                </button>\n\n            ");
+        li.querySelector(".delete-btn").addEventListener("click", function (event) {
+            event.stopPropagation();
+            trip =
+                trip.filter(function (x) {
+                    return x.id !==
+                        item.id;
+                });
+            render();
+        });
+        li.addEventListener("dragstart", function () {
+            draggedId =
+                item.id;
+            li.classList.add("dragging");
+        });
+        li.addEventListener("dragend", function () {
+            draggedId = null;
+            li.classList.remove("dragging");
+            document
+                .querySelectorAll(".drop-target")
+                .forEach(function (el) {
+                return el.classList.remove("drop-target");
+            });
+        });
+        li.addEventListener("dragover", function (event) {
+            event.preventDefault();
+            if (draggedId !==
+                item.id) {
+                li.classList.add("drop-target");
+            }
+        });
+        li.addEventListener("dragleave", function () {
+            li.classList.remove("drop-target");
+        });
+        li.addEventListener("drop", function (event) {
+            event.preventDefault();
+            li.classList.remove("drop-target");
+            if (!draggedId ||
+                draggedId ===
+                    item.id) {
                 return;
             }
-
-            const totalVisitsToPlace =
-                trip.filter(
-                    tripItem =>
-                        tripItem.place ===
-                        item.place
-                ).length;
-
-
-            const visitNumber =
-                trip
-                    .slice(
-                        0,
-                        index + 1
-                    )
-                    .filter(
-                        tripItem =>
-                            tripItem.place ===
-                            item.place
-                    ).length;
-
-
-            let visitCountHtml = "";
-
-            /*
-                좌측 여행 순서 라벨 규칙
-                - 인천: 여행의 시작이므로 "출발"
-                - 서울: 첫 방문은 라벨 없음
-                - 옵션 B의 두 번째 서울은 "김포"
-                - 마지막 서울은 "도착"
-                - 그 외 중복 방문지는 기존처럼 1차 / 2차 표시
-            */
-            if (place.name === "인천" && index === 0) {
-                visitCountHtml = `<span class="trip-visit-count">출발</span>`;
+            var from = trip.findIndex(function (x) {
+                return x.id ===
+                    draggedId;
+            });
+            var to = trip.findIndex(function (x) {
+                return x.id ===
+                    item.id;
+            });
+            if (from === -1 ||
+                to === -1) {
+                return;
             }
-            else if (place.name === "서울" && totalVisitsToPlace > 1) {
-                if (selectedTripOption === "B" && visitNumber === 2 && totalVisitsToPlace >= 3) {
-                    visitCountHtml = `<span class="trip-visit-count">김포</span>`;
-                }
-                else if (visitNumber === totalVisitsToPlace) {
-                    visitCountHtml = `<span class="trip-visit-count">도착</span>`;
-                }
-            }
-            else if (totalVisitsToPlace > 1) {
-                visitCountHtml = `<span class="trip-visit-count">${visitNumber}차</span>`;
-            }
-
-
-            const li =
-                document.createElement(
-                    "li"
-                );
-
-            li.className =
-                "trip-item";
-
-            li.draggable = true;
-
-            li.dataset.id =
-                item.id;
-
-
-            li.innerHTML = `
-
-                <div class="timeline"></div>
-
-                <div class="trip-info">
-
-                    <div class="trip-date">
-                        ${
-                            formatTripDateRange(item) ||
-                            "날짜 미정"
-                        }
-                    </div>
-
-                    <div class="trip-name-row">
-
-                        <div class="trip-name">
-                            ${place.name}
-                        </div>
-
-                        ${visitCountHtml}
-
-                    </div>
-
-                    <div class="trip-type">
-                        ${place.type}
-                    </div>
-
-                </div>
-
-                <button
-                    class="delete-btn"
-                    title="삭제">
-                    ×
-                </button>
-
-            `;
-
-
-            li.querySelector(
-                ".delete-btn"
-            ).addEventListener(
-                "click",
-                function(event) {
-
-                    event.stopPropagation();
-
-                    trip =
-                        trip.filter(
-                            x =>
-                                x.id !==
-                                item.id
-                        );
-
-                    render();
-
-                }
-            );
-
-
-            li.addEventListener(
-                "dragstart",
-                function() {
-
-                    draggedId =
-                        item.id;
-
-                    li.classList.add(
-                        "dragging"
-                    );
-
-                }
-            );
-
-
-            li.addEventListener(
-                "dragend",
-                function() {
-
-                    draggedId = null;
-
-                    li.classList.remove(
-                        "dragging"
-                    );
-
-                    document
-                        .querySelectorAll(
-                            ".drop-target"
-                        )
-                        .forEach(
-                            el =>
-                                el.classList.remove(
-                                    "drop-target"
-                                )
-                        );
-
-                }
-            );
-
-
-            li.addEventListener(
-                "dragover",
-                function(event) {
-
-                    event.preventDefault();
-
-                    if (
-                        draggedId !==
-                        item.id
-                    ) {
-
-                        li.classList.add(
-                            "drop-target"
-                        );
-
-                    }
-
-                }
-            );
-
-
-            li.addEventListener(
-                "dragleave",
-                function() {
-
-                    li.classList.remove(
-                        "drop-target"
-                    );
-
-                }
-            );
-
-
-            li.addEventListener(
-                "drop",
-                function(event) {
-
-                    event.preventDefault();
-
-                    li.classList.remove(
-                        "drop-target"
-                    );
-
-                    if (
-                        !draggedId ||
-                        draggedId ===
-                        item.id
-                    ) {
-                        return;
-                    }
-
-                    const from =
-                        trip.findIndex(
-                            x =>
-                                x.id ===
-                                draggedId
-                        );
-
-                    const to =
-                        trip.findIndex(
-                            x =>
-                                x.id ===
-                                item.id
-                        );
-
-                    if (
-                        from === -1 ||
-                        to === -1
-                    ) {
-                        return;
-                    }
-
-                    const moved =
-                        trip.splice(
-                            from,
-                            1
-                        )[0];
-
-                    trip.splice(
-                        to,
-                        0,
-                        moved
-                    );
-
-                    render();
-
-                }
-            );
-
-
-            tripList.appendChild(
-                li
-            );
-
-        }
-    );
-
+            var moved = trip.splice(from, 1)[0];
+            trip.splice(to, 0, moved);
+            render();
+        });
+        tripList.appendChild(li);
+    });
 }
-
-
 /* ============================================================
    MANUAL PLACE POSITION
    ------------------------------------------------------------
@@ -4023,14 +3627,10 @@ function renderList() {
    지도에 표시된 빨간 마커를 직접 드래그하면
    해당 장소의 x / y 값만 개별적으로 변경됩니다.
 ============================================================ */
-
-
 /* ============================================================
    SCREEN POSITION
 ============================================================ */
-
 function getScreenPosition(place) {
-
     /*
         PowerPoint add-in에서는 전체 UI를 CSS transform으로 축소합니다.
         getBoundingClientRect()는 transform 이후의 크기를 반환하므로
@@ -4039,786 +3639,303 @@ function getScreenPosition(place) {
         동일한 좌표계를 유지합니다.
     */
     return {
-
-        x:
-            mapContainer.clientWidth *
+        x: mapContainer.clientWidth *
             place.x /
             100,
-
-        y:
-            mapContainer.clientHeight *
+        y: mapContainer.clientHeight *
             place.y /
             100
-
     };
-
 }
-
-
 /* ============================================================
    MANUAL MARKER DRAG
 ============================================================ */
-
-function setPlacePositionFromPointer(
-    place,
-    clientX,
-    clientY
-) {
-
-    const rect =
-        mapContainer.getBoundingClientRect();
-
-    if (
-        !place ||
+function setPlacePositionFromPointer(place, clientX, clientY) {
+    var rect = mapContainer.getBoundingClientRect();
+    if (!place ||
         rect.width <= 0 ||
-        rect.height <= 0
-    ) {
+        rect.height <= 0) {
         return;
     }
-
-    const x =
-        (clientX - rect.left) /
+    var x = (clientX - rect.left) /
         rect.width *
         100;
-
-    const y =
-        (clientY - rect.top) /
+    var y = (clientY - rect.top) /
         rect.height *
         100;
-
     place.x =
-        Math.max(
-            0,
-            Math.min(100, x)
-        );
-
+        Math.max(0, Math.min(100, x));
     place.y =
-        Math.max(
-            0,
-            Math.min(100, y)
-        );
-
+        Math.max(0, Math.min(100, y));
 }
-
-
-function attachPlaceMarkerDrag(
-    marker,
-    place
-) {
-
+function attachPlaceMarkerDrag(marker, place) {
     marker.title =
-        `${place.name} 위치 이동`;
-
-    marker.setAttribute(
-        "aria-label",
-        `${place.name} 위치 이동`
-    );
-
-    marker.setAttribute(
-        "role",
-        "button"
-    );
-
-
-    marker.addEventListener(
-        "pointerdown",
-        function(event) {
-
-            if (
-                travelState.running
-            ) {
-                return;
-            }
-
-            event.preventDefault();
-
-            marker.classList.add(
-                "dragging"
-            );
-
-            marker.setPointerCapture(
-                event.pointerId
-            );
-
-            setPlacePositionFromPointer(
-                place,
-                event.clientX,
-                event.clientY
-            );
-
-            renderMap();
-
-            const activeMarker =
-                mapOverlay.querySelector(
-                    `.location-marker[data-place="${CSS.escape(place.name)}"]`
-                );
-
-            if (activeMarker) {
-                activeMarker.classList.add(
-                    "dragging"
-                );
-            }
-
-        }
-    );
-
-
-    marker.addEventListener(
-        "pointermove",
-        function(event) {
-
-            if (
-                !marker.hasPointerCapture(
-                    event.pointerId
-                )
-            ) {
-                return;
-            }
-
-            event.preventDefault();
-
-            setPlacePositionFromPointer(
-                place,
-                event.clientX,
-                event.clientY
-            );
-
-            /*
-                드래그 중에는 전체 renderMap()을 반복하지 않고
-                현재 마커만 즉시 움직입니다.
-                드래그 종료 시 경로/날짜박스를 한 번 다시 계산합니다.
-            */
-            const screen =
-                getScreenPosition(place);
-
-            marker.style.left =
-                screen.x + "px";
-
-            marker.style.top =
-                screen.y + "px";
-
-            renderRoute();
-
-        }
-    );
-
-
-    function finishDrag(event) {
-
-        if (
-            !marker.hasPointerCapture(
-                event.pointerId
-            )
-        ) {
+        "".concat(place.name, " \uC704\uCE58 \uC774\uB3D9");
+    marker.setAttribute("aria-label", "".concat(place.name, " \uC704\uCE58 \uC774\uB3D9"));
+    marker.setAttribute("role", "button");
+    marker.addEventListener("pointerdown", function (event) {
+        if (travelState.running) {
             return;
         }
-
-        marker.releasePointerCapture(
-            event.pointerId
-        );
-
-        marker.classList.remove(
-            "dragging"
-        );
-
+        event.preventDefault();
+        marker.classList.add("dragging");
+        marker.setPointerCapture(event.pointerId);
+        setPlacePositionFromPointer(place, event.clientX, event.clientY);
         renderMap();
-
-        setTravelStatus(
-            `${place.name} 위치 수정됨 · 새로고침하면 places의 x/y 값으로 돌아갑니다.`
-        );
-
+        var activeMarker = mapOverlay.querySelector(".location-marker[data-place=\"".concat(CSS.escape(place.name), "\"]"));
+        if (activeMarker) {
+            activeMarker.classList.add("dragging");
+        }
+    });
+    marker.addEventListener("pointermove", function (event) {
+        if (!marker.hasPointerCapture(event.pointerId)) {
+            return;
+        }
+        event.preventDefault();
+        setPlacePositionFromPointer(place, event.clientX, event.clientY);
+        /*
+            드래그 중에는 전체 renderMap()을 반복하지 않고
+            현재 마커만 즉시 움직입니다.
+            드래그 종료 시 경로/날짜박스를 한 번 다시 계산합니다.
+        */
+        var screen = getScreenPosition(place);
+        marker.style.left =
+            screen.x + "px";
+        marker.style.top =
+            screen.y + "px";
+        renderRoute();
+    });
+    function finishDrag(event) {
+        if (!marker.hasPointerCapture(event.pointerId)) {
+            return;
+        }
+        marker.releasePointerCapture(event.pointerId);
+        marker.classList.remove("dragging");
+        renderMap();
+        setTravelStatus("".concat(place.name, " \uC704\uCE58 \uC218\uC815\uB428 \u00B7 \uC0C8\uB85C\uACE0\uCE68\uD558\uBA74 places\uC758 x/y \uAC12\uC73C\uB85C \uB3CC\uC544\uAC11\uB2C8\uB2E4."));
     }
-
-
-    marker.addEventListener(
-        "pointerup",
-        finishDrag
-    );
-
-    marker.addEventListener(
-        "pointercancel",
-        finishDrag
-    );
-
+    marker.addEventListener("pointerup", finishDrag);
+    marker.addEventListener("pointercancel", finishDrag);
 }
-
-
 /* ============================================================
    TRANSPORT
 ============================================================ */
-
 function isJeju(place) {
-
-    return (
-        place &&
-        place.name === "제주"
-    );
-
+    return (place &&
+        place.name === "제주");
 }
-
-
-function getTransportType(
-    from,
-    to
-) {
-
-    if (
-        isJeju(from) ||
-        isJeju(to)
-    ) {
-
+function getTransportType(from, to) {
+    if (isJeju(from) ||
+        isJeju(to)) {
         return "plane";
-
     }
-
     return "bus";
-
 }
-
-
-function getVehicleImage(
-    transport
-) {
-
-    if (
-        transport === "plane"
-    ) {
-
+function getVehicleImage(transport) {
+    if (transport === "plane") {
         return "plane_icon.png";
-
     }
-
     return "bus_icon.png";
-
 }
-
-
 /* ============================================================
    CURVE
 ============================================================ */
-
-function getCurveControlPoint(
-    from,
-    to,
-    legIndex
-) {
-
-    const dx =
-        to.x -
+function getCurveControlPoint(from, to, legIndex) {
+    var dx = to.x -
         from.x;
-
-    const dy =
-        to.y -
+    var dy = to.y -
         from.y;
-
-    const distance =
-        Math.sqrt(
-            dx * dx +
-            dy * dy
-        );
-
-    if (
-        distance === 0
-    ) {
-
+    var distance = Math.sqrt(dx * dx +
+        dy * dy);
+    if (distance === 0) {
         return {
-
             x: from.x,
             y: from.y
-
         };
-
     }
-
-
-    const midX =
-        (
-            from.x +
-            to.x
-        ) / 2;
-
-    const midY =
-        (
-            from.y +
-            to.y
-        ) / 2;
-
-
-    const normalX =
-        -dy /
+    var midX = (from.x +
+        to.x) / 2;
+    var midY = (from.y +
+        to.y) / 2;
+    var normalX = -dy /
         distance;
-
-    const normalY =
-        dx /
+    var normalY = dx /
         distance;
-
-
-    let bend =
-        Math.min(
-            distance * 0.18,
-            11
-        );
-
-
-    const direction =
-        legIndex % 2 === 0
-            ? 1
-            : -1;
-
-
-    if (
-        isJeju(from) ||
-        isJeju(to)
-    ) {
-
+    var bend = Math.min(distance * 0.18, 11);
+    var direction = legIndex % 2 === 0
+        ? 1
+        : -1;
+    if (isJeju(from) ||
+        isJeju(to)) {
         bend =
-            Math.min(
-                distance * 0.22,
-                16
-            );
-
+            Math.min(distance * 0.22, 16);
     }
-
-
     return {
-
-        x:
-            midX +
+        x: midX +
             normalX *
-            bend *
-            direction,
-
-        y:
-            midY +
+                bend *
+                direction,
+        y: midY +
             normalY *
-            bend *
-            direction
-
+                bend *
+                direction
     };
-
 }
-
-
 /* ============================================================
    QUADRATIC BEZIER
 ============================================================ */
-
-function getQuadraticPoint(
-    start,
-    control,
-    end,
-    progress
-) {
-
-    const t =
-        progress;
-
-    const oneMinusT =
-        1 - t;
-
+function getQuadraticPoint(start, control, end, progress) {
+    var t = progress;
+    var oneMinusT = 1 - t;
     return {
-
-        x:
+        x: oneMinusT *
             oneMinusT *
-                oneMinusT *
-                start.x +
-
+            start.x +
             2 *
                 oneMinusT *
                 t *
                 control.x +
-
             t *
                 t *
                 end.x,
-
-        y:
+        y: oneMinusT *
             oneMinusT *
-                oneMinusT *
-                start.y +
-
+            start.y +
             2 *
                 oneMinusT *
                 t *
                 control.y +
-
             t *
                 t *
                 end.y
-
     };
-
 }
-
-
-function getQuadraticTangent(
-    start,
-    control,
-    end,
-    progress
-) {
-
-    const t =
-        progress;
-
+function getQuadraticTangent(start, control, end, progress) {
+    var t = progress;
     return {
-
-        x:
-            2 *
-            (
-                (1 - t) *
+        x: 2 *
+            ((1 - t) *
                 (control.x - start.x) +
-
                 t *
-                (end.x - control.x)
-            ),
-
-        y:
-            2 *
-            (
-                (1 - t) *
+                    (end.x - control.x)),
+        y: 2 *
+            ((1 - t) *
                 (control.y - start.y) +
-
                 t *
-                (end.y - control.y)
-            )
-
+                    (end.y - control.y))
     };
-
 }
-
-
 /* ============================================================
    LEG DURATION BY DISTANCE
 ============================================================ */
-
-const TRAVEL_MIN_DURATION_MS =
-    1200;
-
-const TRAVEL_MAX_DURATION_MS =
-    7000;
-
-const TRAVEL_MS_PER_MAP_UNIT =
-    110;
-
-
-function getLegDistance(
-    from,
-    to,
-    legIndex
-) {
-
-    const control =
-        getCurveControlPoint(
-            from,
-            to,
-            legIndex
-        );
-
-
-    let distance = 0;
-
-    let previous = {
+var TRAVEL_MIN_DURATION_MS = 1200;
+var TRAVEL_MAX_DURATION_MS = 7000;
+var TRAVEL_MS_PER_MAP_UNIT = 110;
+function getLegDistance(from, to, legIndex) {
+    var control = getCurveControlPoint(from, to, legIndex);
+    var distance = 0;
+    var previous = {
         x: from.x,
         y: from.y
     };
-
-
-    const samples = 24;
-
-
-    for (
-        let i = 1;
-        i <= samples;
-        i++
-    ) {
-
-        const current =
-            getQuadraticPoint(
-                from,
-                control,
-                to,
-                i / samples
-            );
-
-
-        const dx =
-            current.x -
+    var samples = 24;
+    for (var i = 1; i <= samples; i++) {
+        var current = getQuadraticPoint(from, control, to, i / samples);
+        var dx = current.x -
             previous.x;
-
-        const dy =
-            current.y -
+        var dy = current.y -
             previous.y;
-
-
         distance +=
-            Math.sqrt(
-                dx * dx +
-                dy * dy
-            );
-
-
+            Math.sqrt(dx * dx +
+                dy * dy);
         previous =
             current;
-
     }
-
-
     return distance;
-
 }
-
-
-function getLegDurationMs(
-    from,
-    to,
-    legIndex
-) {
-
-    if (
-        !from ||
-        !to
-    ) {
-
+function getLegDurationMs(from, to, legIndex) {
+    if (!from ||
+        !to) {
         return 5000;
-
     }
-
-
-    const distance =
-        getLegDistance(
-            from,
-            to,
-            legIndex
-        );
-
-
-    return Math.max(
-        TRAVEL_MIN_DURATION_MS,
-        Math.min(
-            TRAVEL_MAX_DURATION_MS,
-            distance *
-                TRAVEL_MS_PER_MAP_UNIT
-        )
-    );
-
+    var distance = getLegDistance(from, to, legIndex);
+    return Math.max(TRAVEL_MIN_DURATION_MS, Math.min(TRAVEL_MAX_DURATION_MS, distance *
+        TRAVEL_MS_PER_MAP_UNIT));
 }
-
-
 function updateCurrentLegDuration() {
-
-    if (
-        trip.length < 2 ||
+    if (trip.length < 2 ||
         travelState.legIndex >=
-            trip.length - 1
-    ) {
-
+            trip.length - 1) {
         return;
-
     }
-
-
-    const from =
-        getPlace(
-            trip[
-                travelState.legIndex
-            ].place
-        );
-
-
-    const to =
-        getPlace(
-            trip[
-                travelState.legIndex + 1
-            ].place
-        );
-
-
+    var from = getPlace(trip[travelState.legIndex].place);
+    var to = getPlace(trip[travelState.legIndex + 1].place);
     travelState.durationMs =
-        getLegDurationMs(
-            from,
-            to,
-            travelState.legIndex
-        );
-
+        getLegDurationMs(from, to, travelState.legIndex);
 }
-
-
 /* ============================================================
    ROUTE
 ============================================================ */
-
 function renderRoute() {
-
     routeLayer.innerHTML = "";
-
-    if (
-        trip.length < 2
-    ) {
+    if (trip.length < 2) {
         return;
     }
-
-
-    for (
-        let i = 0;
-        i < trip.length - 1;
-        i++
-    ) {
-
-        const first =
-            getPlace(
-                trip[i].place
-            );
-
-        const second =
-            getPlace(
-                trip[i + 1].place
-            );
-
-        if (
-            !first ||
-            !second
-        ) {
+    for (var i = 0; i < trip.length - 1; i++) {
+        var first = getPlace(trip[i].place);
+        var second = getPlace(trip[i + 1].place);
+        if (!first ||
+            !second) {
             continue;
         }
-
-
-        const control =
-            getCurveControlPoint(
-                first,
-                second,
-                i
-            );
-
-
-        const path =
-            document.createElementNS(
-                "http://www.w3.org/2000/svg",
-                "path"
-            );
-
-
-        path.setAttribute(
-            "class",
-            "route-line"
-        );
-
-
-        path.setAttribute(
-            "d",
-            `
-                M ${first.x} ${first.y}
-                Q ${control.x} ${control.y}
-                  ${second.x} ${second.y}
-            `
-        );
-
-
-        routeLayer.appendChild(
-            path
-        );
-
+        var control = getCurveControlPoint(first, second, i);
+        var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        path.setAttribute("class", "route-line");
+        path.setAttribute("d", "\n                M ".concat(first.x, " ").concat(first.y, "\n                Q ").concat(control.x, " ").concat(control.y, "\n                  ").concat(second.x, " ").concat(second.y, "\n            "));
+        routeLayer.appendChild(path);
     }
-
 }
-
-
 /* ============================================================
    COLLISION / LABEL PLACEMENT
 ============================================================ */
-
-function rectanglesOverlap(
-    a,
-    b,
-    gap = 6
-) {
-
-    return !(
-        a.right + gap <= b.left ||
-
+function rectanglesOverlap(a, b, gap) {
+    if (gap === void 0) { gap = 6; }
+    return !(a.right + gap <= b.left ||
         a.left >=
             b.right + gap ||
-
         a.bottom + gap <= b.top ||
-
         a.top >=
-            b.bottom + gap
-    );
-
+            b.bottom + gap);
 }
-
-
-function makeRect(
-    x,
-    y,
-    width,
-    height
-) {
-
+function makeRect(x, y, width, height) {
     return {
-
-        left:
-            x -
+        left: x -
             width / 2,
-
-        top:
-            y -
+        top: y -
             height / 2,
-
-        right:
-            x +
+        right: x +
             width / 2,
-
-        bottom:
-            y +
+        bottom: y +
             height / 2
-
     };
-
 }
-
-
 /*
     날짜 박스가 지도 밖으로 나가지 않도록 검사합니다.
 */
-function isRectInsideBounds(
-    rect,
-    width,
-    height,
-    margin = 8
-) {
-
-    return (
-        rect.left >= margin &&
+function isRectInsideBounds(rect, width, height, margin) {
+    if (margin === void 0) { margin = 8; }
+    return (rect.left >= margin &&
         rect.top >= margin &&
         rect.right <= width - margin &&
-        rect.bottom <= height - margin
-    );
-
+        rect.bottom <= height - margin);
 }
-
-
 function overlapArea(a, b) {
-
-    const width =
-        Math.max(
-            0,
-            Math.min(a.right, b.right) -
-            Math.max(a.left, b.left)
-        );
-
-    const height =
-        Math.max(
-            0,
-            Math.min(a.bottom, b.bottom) -
-            Math.max(a.top, b.top)
-        );
-
+    var width = Math.max(0, Math.min(a.right, b.right) -
+        Math.max(a.left, b.left));
+    var height = Math.max(0, Math.min(a.bottom, b.bottom) -
+        Math.max(a.top, b.top));
     return width * height;
-
 }
-
-
 /*
     고정된 16개 위치만 검사하지 않고,
     마커 주변을 원형으로 점점 넓혀가며 후보 위치를 만듭니다.
@@ -4826,49 +3943,31 @@ function overlapArea(a, b) {
     도시가 많아져도 빈 공간이 있으면 더 멀리까지 찾아가므로
     기존처럼 후보를 다 쓴 뒤 같은 위치에 겹치는 현상을 줄입니다.
 */
-function createDateBoxCandidates(
-    anchor,
-    boxWidth,
-    boxHeight,
-    mapWidth,
-    mapHeight
-) {
-
-    const candidates = [];
-
-    const horizontalGap =
-        boxWidth / 2 + 16;
-
-    const verticalGap =
-        boxHeight / 2 + 16;
-
-    const outwardX =
-        anchor.x < mapWidth / 2
-            ? -1
-            : 1;
-
-    const outwardY =
-        anchor.y < mapHeight / 2
-            ? -1
-            : 1;
-
+function createDateBoxCandidates(anchor, boxWidth, boxHeight, mapWidth, mapHeight) {
+    var candidates = [];
+    var horizontalGap = boxWidth / 2 + 16;
+    var verticalGap = boxHeight / 2 + 16;
+    var outwardX = anchor.x < mapWidth / 2
+        ? -1
+        : 1;
+    var outwardY = anchor.y < mapHeight / 2
+        ? -1
+        : 1;
     /*
         우선순위:
         1) 도시에서 가장 가까운 위치
         2) 가능하면 지도 중심에서 바깥쪽
         3) 겹침이 없을 때만 점차 반경을 넓힘
     */
-    const preferred = [
+    var preferred = [
         [outwardX * horizontalGap, 0],
         [0, outwardY * verticalGap],
         [outwardX * horizontalGap, outwardY * verticalGap],
-
         [0, -outwardY * verticalGap],
         [-outwardX * horizontalGap, 0],
         [outwardX * horizontalGap, -outwardY * verticalGap],
         [-outwardX * horizontalGap, outwardY * verticalGap],
         [-outwardX * horizontalGap, -outwardY * verticalGap],
-
         [0, -verticalGap],
         [horizontalGap, 0],
         [0, verticalGap],
@@ -4878,36 +3977,23 @@ function createDateBoxCandidates(
         [horizontalGap, verticalGap],
         [-horizontalGap, verticalGap]
     ];
-
-    const seen = new Set();
-
-    preferred.forEach(
-        ([dx, dy]) => {
-            const key = `${Math.round(dx)}:${Math.round(dy)}`;
-            if (seen.has(key)) {
-                return;
-            }
-            seen.add(key);
-            candidates.push({ dx, dy });
+    var seen = new Set();
+    preferred.forEach(function (_a) {
+        var dx = _a[0], dy = _a[1];
+        var key = "".concat(Math.round(dx), ":").concat(Math.round(dy));
+        if (seen.has(key)) {
+            return;
         }
-    );
-
-
+        seen.add(key);
+        candidates.push({ dx: dx, dy: dy });
+    });
     /*
         빈 공간이 없으면 반경을 조금씩 늘리되,
         해당 도시와 최대한 가깝고 바깥쪽인 후보를 먼저 만듭니다.
     */
-    const startRadius =
-        Math.max(
-            horizontalGap,
-            verticalGap
-        );
-
-    const preferredAngles = [
-        Math.atan2(
-            outwardY,
-            outwardX
-        ) * 180 / Math.PI,
+    var startRadius = Math.max(horizontalGap, verticalGap);
+    var preferredAngles = [
+        Math.atan2(outwardY, outwardX) * 180 / Math.PI,
         outwardY === -1 ? -90 : 90,
         outwardX === -1 ? 180 : 0,
         outwardY === -1
@@ -4917,419 +4003,194 @@ function createDateBoxCandidates(
             ? (outwardX === -1 ? -45 : -135)
             : (outwardX === -1 ? 45 : 135)
     ];
-
-    for (
-        let radius = startRadius + 10;
-        radius <= 300;
-        radius += 18
-    ) {
-
-        preferredAngles.forEach(
-            angleDeg => {
-                const angle =
-                    angleDeg *
-                    Math.PI /
-                    180;
-
-                const dx =
-                    Math.cos(angle) *
-                    radius;
-
-                const dy =
-                    Math.sin(angle) *
-                    radius;
-
-                const key = `${Math.round(dx)}:${Math.round(dy)}`;
-                if (seen.has(key)) {
-                    return;
-                }
-                seen.add(key);
-                candidates.push({ dx, dy });
-            }
-        );
-
-        for (
-            let angleDeg = -90;
-            angleDeg < 270;
-            angleDeg += 18
-        ) {
-
-            const angle =
-                angleDeg *
+    var _loop_1 = function (radius) {
+        preferredAngles.forEach(function (angleDeg) {
+            var angle = angleDeg *
                 Math.PI /
                 180;
-
-            const dx =
-                Math.cos(angle) *
+            var dx = Math.cos(angle) *
                 radius;
-
-            const dy =
-                Math.sin(angle) *
+            var dy = Math.sin(angle) *
                 radius;
-
-            const key = `${Math.round(dx)}:${Math.round(dy)}`;
+            var key = "".concat(Math.round(dx), ":").concat(Math.round(dy));
+            if (seen.has(key)) {
+                return;
+            }
+            seen.add(key);
+            candidates.push({ dx: dx, dy: dy });
+        });
+        for (var angleDeg = -90; angleDeg < 270; angleDeg += 18) {
+            var angle = angleDeg *
+                Math.PI /
+                180;
+            var dx = Math.cos(angle) *
+                radius;
+            var dy = Math.sin(angle) *
+                radius;
+            var key = "".concat(Math.round(dx), ":").concat(Math.round(dy));
             if (seen.has(key)) {
                 continue;
             }
             seen.add(key);
-            candidates.push({ dx, dy });
-
+            candidates.push({ dx: dx, dy: dy });
         }
-
+    };
+    for (var radius = startRadius + 10; radius <= 300; radius += 18) {
+        _loop_1(radius);
     }
-
     return candidates;
-
 }
-
-
 /*
     실제 DOM에서 측정한 날짜 박스 크기를 사용해
     다른 날짜 박스 + 모든 도시 마커와 겹치지 않는 곳을 찾습니다.
 */
-function findDateBoxPosition(
-    anchor,
-    boxWidth,
-    boxHeight,
-    occupiedBoxes,
-    markerObstacles
-) {
-
-    const mapWidth =
-        mapOverlay.clientWidth;
-
-    const mapHeight =
-        mapOverlay.clientHeight;
-
-    const collisionGap = 8;
-
-    const obstacles = [
-        ...occupiedBoxes,
-        ...markerObstacles
-    ];
-
-    const candidates =
-        createDateBoxCandidates(
-            anchor,
-            boxWidth,
-            boxHeight,
-            mapWidth,
-            mapHeight
-        );
-
-    const preferredOutwardX =
-        anchor.x < mapWidth / 2
-            ? -1
-            : 1;
-
-    const preferredOutwardY =
-        anchor.y < mapHeight / 2
-            ? -1
-            : 1;
-
-    let best = null;
-
-
-    for (
-        const candidate
-        of candidates
-    ) {
-
-        const centerX =
-            anchor.x +
+function findDateBoxPosition(anchor, boxWidth, boxHeight, occupiedBoxes, markerObstacles) {
+    var mapWidth = mapOverlay.clientWidth;
+    var mapHeight = mapOverlay.clientHeight;
+    var collisionGap = 8;
+    var obstacles = __spreadArray(__spreadArray([], occupiedBoxes, true), markerObstacles, true);
+    var candidates = createDateBoxCandidates(anchor, boxWidth, boxHeight, mapWidth, mapHeight);
+    var preferredOutwardX = anchor.x < mapWidth / 2
+        ? -1
+        : 1;
+    var preferredOutwardY = anchor.y < mapHeight / 2
+        ? -1
+        : 1;
+    var best = null;
+    var _loop_2 = function (candidate) {
+        var centerX = anchor.x +
             candidate.dx;
-
-        const centerY =
-            anchor.y +
+        var centerY = anchor.y +
             candidate.dy;
-
-        const rect =
-            makeRect(
-                centerX,
-                centerY,
-                boxWidth,
-                boxHeight
-            );
-
-
-        if (
-            !isRectInsideBounds(
-                rect,
-                mapWidth,
-                mapHeight,
-                8
-            )
-        ) {
-            continue;
+        var rect = makeRect(centerX, centerY, boxWidth, boxHeight);
+        if (!isRectInsideBounds(rect, mapWidth, mapHeight, 8)) {
+            return "continue";
         }
-
-
-        const collides =
-            obstacles.some(
-                obstacle =>
-                    rectanglesOverlap(
-                        rect,
-                        obstacle,
-                        collisionGap
-                    )
-            );
-
-
+        var collides = obstacles.some(function (obstacle) {
+            return rectanglesOverlap(rect, obstacle, collisionGap);
+        });
         if (collides) {
-            continue;
+            return "continue";
         }
-
-
-        const distance =
-            Math.hypot(
-                candidate.dx,
-                candidate.dy
-            );
-
-        const outwardMismatchPenalty =
-            ((Math.sign(candidate.dx || preferredOutwardX) !== preferredOutwardX)
-                ? 12
-                : 0) +
+        var distance = Math.hypot(candidate.dx, candidate.dy);
+        var outwardMismatchPenalty = ((Math.sign(candidate.dx || preferredOutwardX) !== preferredOutwardX)
+            ? 12
+            : 0) +
             ((Math.sign(candidate.dy || preferredOutwardY) !== preferredOutwardY)
                 ? 8
                 : 0);
-
-        const axisPenalty =
-            Math.abs(candidate.dx) > Math.abs(candidate.dy)
-                ? 0
-                : 2;
-
-        const score =
-            distance +
+        var axisPenalty = Math.abs(candidate.dx) > Math.abs(candidate.dy)
+            ? 0
+            : 2;
+        var score = distance +
             outwardMismatchPenalty +
             axisPenalty;
-
-
-        if (
-            !best ||
-            score < best.score
-        ) {
-
+        if (!best ||
+            score < best.score) {
             best = {
-                centerX,
-                centerY,
-                rect,
-                score
+                centerX: centerX,
+                centerY: centerY,
+                rect: rect,
+                score: score
             };
-
         }
-
+    };
+    for (var _i = 0, candidates_1 = candidates; _i < candidates_1.length; _i++) {
+        var candidate = candidates_1[_i];
+        _loop_2(candidate);
     }
-
-
     if (best) {
         return best;
     }
-
-
     /*
         원형 후보에서 못 찾았을 때는 지도 전체를 작은 격자로 탐색합니다.
         화면 안에 실제 빈 자리가 있으면 이 단계에서 찾아냅니다.
     */
-    const halfWidth =
-        boxWidth / 2;
-
-    const halfHeight =
-        boxHeight / 2;
-
-    const margin = 8;
-
-    const gridStep = 10;
-
-    let gridBest = null;
-
-
-    for (
-        let centerY =
-            margin +
-            halfHeight;
-
-        centerY <=
-            mapHeight -
+    var halfWidth = boxWidth / 2;
+    var halfHeight = boxHeight / 2;
+    var margin = 8;
+    var gridStep = 10;
+    var gridBest = null;
+    for (var centerY = margin +
+        halfHeight; centerY <=
+        mapHeight -
             margin -
-            halfHeight;
-
-        centerY += gridStep
-    ) {
-
-        for (
-            let centerX =
-                margin +
-                halfWidth;
-
-            centerX <=
-                mapWidth -
-                margin -
-                halfWidth;
-
-            centerX += gridStep
-        ) {
-
-            const rect =
-                makeRect(
-                    centerX,
-                    centerY,
-                    boxWidth,
-                    boxHeight
-                );
-
-
-            const collides =
-                obstacles.some(
-                    obstacle =>
-                        rectanglesOverlap(
-                            rect,
-                            obstacle,
-                            collisionGap
-                        )
-                );
-
-
+            halfHeight; centerY += gridStep) {
+        var _loop_3 = function (centerX) {
+            var rect = makeRect(centerX, centerY, boxWidth, boxHeight);
+            var collides = obstacles.some(function (obstacle) {
+                return rectanglesOverlap(rect, obstacle, collisionGap);
+            });
             if (collides) {
-                continue;
+                return "continue";
             }
-
-
-            const score =
-                Math.hypot(
-                    centerX - anchor.x,
-                    centerY - anchor.y
-                );
-
-
-            if (
-                !gridBest ||
-                score < gridBest.score
-            ) {
-
+            var score = Math.hypot(centerX - anchor.x, centerY - anchor.y);
+            if (!gridBest ||
+                score < gridBest.score) {
                 gridBest = {
-                    centerX,
-                    centerY,
-                    rect,
-                    score
+                    centerX: centerX,
+                    centerY: centerY,
+                    rect: rect,
+                    score: score
                 };
-
             }
-
+        };
+        for (var centerX = margin +
+            halfWidth; centerX <=
+            mapWidth -
+                margin -
+                halfWidth; centerX += gridStep) {
+            _loop_3(centerX);
         }
-
     }
-
-
     if (gridBest) {
         return gridBest;
     }
-
-
     /*
         극단적으로 박스가 너무 많아 화면 자체에 빈 곳이 없을 때만
         겹침 면적이 가장 작은 위치를 선택합니다.
     */
-    let fallback = null;
-
-
-    for (
-        const candidate
-        of candidates
-    ) {
-
-        const minX =
-            margin +
+    var fallback = null;
+    var _loop_4 = function (candidate) {
+        var minX = margin +
             halfWidth;
-
-        const maxX =
-            mapWidth -
+        var maxX = mapWidth -
             margin -
             halfWidth;
-
-        const minY =
-            margin +
+        var minY = margin +
             halfHeight;
-
-        const maxY =
-            mapHeight -
+        var maxY = mapHeight -
             margin -
             halfHeight;
-
-        const centerX =
-            Math.min(
-                maxX,
-                Math.max(
-                    minX,
-                    anchor.x + candidate.dx
-                )
-            );
-
-        const centerY =
-            Math.min(
-                maxY,
-                Math.max(
-                    minY,
-                    anchor.y + candidate.dy
-                )
-            );
-
-        const rect =
-            makeRect(
-                centerX,
-                centerY,
-                boxWidth,
-                boxHeight
-            );
-
-        const totalOverlap =
-            obstacles.reduce(
-                (sum, obstacle) =>
-                    sum +
-                    overlapArea(
-                        rect,
-                        obstacle
-                    ),
-                0
-            );
-
-        const distance =
-            Math.hypot(
-                centerX - anchor.x,
-                centerY - anchor.y
-            );
-
-        const score =
-            totalOverlap * 1000 +
+        var centerX = Math.min(maxX, Math.max(minX, anchor.x + candidate.dx));
+        var centerY = Math.min(maxY, Math.max(minY, anchor.y + candidate.dy));
+        var rect = makeRect(centerX, centerY, boxWidth, boxHeight);
+        var totalOverlap = obstacles.reduce(function (sum, obstacle) {
+            return sum +
+                overlapArea(rect, obstacle);
+        }, 0);
+        var distance = Math.hypot(centerX - anchor.x, centerY - anchor.y);
+        var score = totalOverlap * 1000 +
             distance;
-
-
-        if (
-            !fallback ||
-            score < fallback.score
-        ) {
-
+        if (!fallback ||
+            score < fallback.score) {
             fallback = {
-                centerX,
-                centerY,
-                rect,
-                score
+                centerX: centerX,
+                centerY: centerY,
+                rect: rect,
+                score: score
             };
-
         }
-
+    };
+    for (var _a = 0, candidates_2 = candidates; _a < candidates_2.length; _a++) {
+        var candidate = candidates_2[_a];
+        _loop_4(candidate);
     }
-
-
     return fallback;
-
 }
-
-
 /* ============================================================
    UNIQUE PLACE VISITS
 ============================================================ */
-
 /*
     핵심 부분
 
@@ -5359,507 +4220,246 @@ function findDateBoxPosition(
 
     가 들어갑니다.
 */
-
 function getVisitsByPlace() {
-
-    const grouped =
-        new Map();
-
-
-    trip.forEach(
-        item => {
-
-            if (
-                !grouped.has(
-                    item.place
-                )
-            ) {
-
-                grouped.set(
-                    item.place,
-                    []
-                );
-
-            }
-
-
-            grouped
-                .get(item.place)
-                .push(item);
-
+    var grouped = new Map();
+    trip.forEach(function (item) {
+        if (!grouped.has(item.place)) {
+            grouped.set(item.place, []);
         }
-    );
-
-
+        grouped
+            .get(item.place)
+            .push(item);
+    });
     return grouped;
-
 }
-
-
 /* ============================================================
    MAP RENDER
 ============================================================ */
-
 function renderMap() {
-
     mapOverlay
-        .querySelectorAll(
-            ".location-marker," +
-            ".location-name," +
-            ".date-box"
-        )
-        .forEach(
-            element =>
-                element.remove()
-        );
-
-
+        .querySelectorAll(".location-marker," +
+        ".location-name," +
+        ".date-box")
+        .forEach(function (element) {
+        return element.remove();
+    });
     renderRoute();
-
-
     /*
         1) 같은 장소의 방문 기록을 묶고
         2) 화면 좌표를 미리 계산합니다.
     */
-    const groupedVisits =
-        getVisitsByPlace();
-
-    const renderItems = [];
-
-
-    groupedVisits.forEach(
-        visits => {
-
-            const firstItem =
-                visits[0];
-
-            const place =
-                getPlace(
-                    firstItem.place
-                );
-
-            if (!place) {
-                return;
-            }
-
-            renderItems.push({
-                visits,
-                place,
-                screen:
-                    getScreenPosition(
-                        place
-                    )
-            });
-
+    var groupedVisits = getVisitsByPlace();
+    var renderItems = [];
+    groupedVisits.forEach(function (visits) {
+        var firstItem = visits[0];
+        var place = getPlace(firstItem.place);
+        if (!place) {
+            return;
         }
-    );
-
-
+        renderItems.push({
+            visits: visits,
+            place: place,
+            screen: getScreenPosition(place)
+        });
+    });
     /*
         마커 주변도 날짜 박스가 덮지 않도록
         모든 마커를 먼저 장애물로 등록합니다.
     */
-    const markerObstacles =
-        renderItems.map(
-            item =>
-                makeRect(
-                    item.screen.x,
-                    item.screen.y,
-                    24,
-                    24
-                )
-        );
-
-
+    var markerObstacles = renderItems.map(function (item) {
+        return makeRect(item.screen.x, item.screen.y, 24, 24);
+    });
     /*
         마커는 먼저 전부 표시합니다.
     */
-    renderItems.forEach(
-        item => {
-
-            const marker =
-                document.createElement(
-                    "div"
-                );
-
-            marker.className =
-                "location-marker";
-
-            marker.dataset.place =
-                item.place.name;
-
-            marker.style.left =
-                item.screen.x + "px";
-
-            marker.style.top =
-                item.screen.y + "px";
-
-            attachPlaceMarkerDrag(
-                marker,
-                item.place
-            );
-
-            mapOverlay.appendChild(
-                marker
-            );
-
-        }
-    );
-
-
+    renderItems.forEach(function (item) {
+        var marker = document.createElement("div");
+        marker.className =
+            "location-marker";
+        marker.dataset.place =
+            item.place.name;
+        marker.style.left =
+            item.screen.x + "px";
+        marker.style.top =
+            item.screen.y + "px";
+        attachPlaceMarkerDrag(marker, item.place);
+        mapOverlay.appendChild(marker);
+    });
     /*
         서로 가까운 도시를 먼저 배치합니다.
         밀집 지역을 먼저 해결하면 전체 배치가 더 안정적입니다.
     */
-    renderItems.forEach(
-        item => {
-
-            let nearest = Infinity;
-
-            renderItems.forEach(
-                other => {
-
-                    if (other === item) {
-                        return;
-                    }
-
-                    nearest =
-                        Math.min(
-                            nearest,
-                            Math.hypot(
-                                item.screen.x -
-                                    other.screen.x,
-                                item.screen.y -
-                                    other.screen.y
-                            )
-                        );
-
-                }
-            );
-
-            item.nearestDistance =
-                Number.isFinite(nearest)
-                    ? nearest
-                    : Infinity;
-
-        }
-    );
-
-
-    renderItems.sort(
-        (a, b) =>
-            a.nearestDistance -
-            b.nearestDistance
-    );
-
-
-    const occupiedBoxes = [];
-
-
-    renderItems.forEach(
-        item => {
-
-            const {
-                visits,
-                place,
-                screen
-            } = item;
-
-
-            /* ==================================================
-               DATE BOX
-            ================================================== */
-
-            const dateBox =
-                document.createElement(
-                    "div"
-                );
-
-            dateBox.className =
-                "date-box";
-
-            dateBox.dataset.place =
-                place.name;
-
-
-            const datePlaceName =
-                document.createElement(
-                    "div"
-                );
-
-            datePlaceName.className =
-                "date-place-name";
-
-            datePlaceName.textContent =
-                place.name;
-
-            dateBox.appendChild(
-                datePlaceName
-            );
-
-
-            visits.forEach(
-                (visitItem, visitIndex) => {
-
-                    const row =
-                        document.createElement(
-                            "div"
-                        );
-
-                    row.className =
-                        "visit-date-row";
-
-
-                    const number =
-                        document.createElement(
-                            "span"
-                        );
-
-                    number.className =
-                        "visit-number";
-
-                    /*
-                        지도 우측 날짜 박스의 방문 표시 규칙
-                        - 인천: 출발 도시이므로 "출발"
-                        - 서울: 첫 방문은 회차 표시 없음
-                        - 옵션 B의 두 번째 서울은 "김포"
-                        - 마지막 서울은 "도착"
-                        - 그 외 도시: 1회 방문이면 회차 표시를 숨김
-                        - 2회 이상 방문이면 기존처럼 1차 / 2차 / ... 표시
-                    */
-                    if (place.name === "인천") {
-
-                        number.textContent = "출발";
-
-                    }
-                    else if (place.name === "서울" && visits.length > 1) {
-
-                        if (selectedTripOption === "B" && visitIndex === 1 && visits.length >= 3) {
-                            number.textContent = "김포";
-                        }
-                        else if (visitIndex === visits.length - 1) {
-                            number.textContent = "도착";
-                        }
-                        else {
-                            number.textContent = "";
-                            number.style.display = "none";
-                            row.classList.add("no-visit-label");
-                        }
-
-                    }
-                    else if (visits.length === 1) {
-
-                        number.textContent = "";
-                        number.style.display = "none";
-                        row.classList.add("no-visit-label");
-
-                    }
-                    else {
-
-                        number.textContent =
-                            `${visitIndex + 1}차`;
-
-                    }
-
-
-                    let dateText;
-
-                    if (visitItem.isPreset === false) {
-
-                        dateText = document.createElement("input");
-                        dateText.type = "date";
-                        dateText.className = "visit-date-input visit-date-editor";
-                        dateText.value = visitItem.date || "";
-                        dateText.title = "추가한 여행지 날짜 변경";
-
-                        dateText.addEventListener("change", function() {
-                            visitItem.date = dateText.value;
-                            visitItem.endDate = dateText.value;
-                            renderList();
-                        });
-
-                    }
-                    else {
-
-                        dateText = document.createElement("span");
-                        dateText.className = "visit-date-input";
-                        dateText.textContent =
-                            formatTripDateRange(visitItem) ||
-                            "날짜 미정";
-                        dateText.title = "시작 날짜 기준 자동 배정";
-
-                    }
-
-
-                    row.appendChild(
-                        number
-                    );
-
-                    row.appendChild(
-                        dateText
-                    );
-
-                    dateBox.appendChild(
-                        row
-                    );
-
-                }
-            );
-
-
-            /*
-                실제 렌더링된 너비/높이를 측정합니다.
-                방문 횟수에 따라 높이가 달라져도 정확히 충돌 검사됩니다.
-            */
-            dateBox.style.visibility =
-                "hidden";
-
-            dateBox.style.left =
-                "0px";
-
-            dateBox.style.top =
-                "0px";
-
-            mapOverlay.appendChild(
-                dateBox
-            );
-
-
-            const boxWidth =
-                dateBox.offsetWidth ||
-                150;
-
-            const boxHeight =
-                dateBox.offsetHeight ||
-                66;
-
-
-            const placement =
-                findDateBoxPosition(
-                    screen,
-                    boxWidth,
-                    boxHeight,
-                    occupiedBoxes,
-                    markerObstacles
-                );
-
-
-            if (placement) {
-
-                dateBox.style.left =
-                    (
-                        placement.centerX -
-                        boxWidth / 2
-                    ) + "px";
-
-                dateBox.style.top =
-                    (
-                        placement.centerY -
-                        boxHeight / 2
-                    ) + "px";
-
-                occupiedBoxes.push(
-                    placement.rect
-                );
-
+    renderItems.forEach(function (item) {
+        var nearest = Infinity;
+        renderItems.forEach(function (other) {
+            if (other === item) {
+                return;
             }
-
-
-            dateBox.style.visibility =
-                "visible";
-
+            nearest =
+                Math.min(nearest, Math.hypot(item.screen.x -
+                    other.screen.x, item.screen.y -
+                    other.screen.y));
+        });
+        item.nearestDistance =
+            Number.isFinite(nearest)
+                ? nearest
+                : Infinity;
+    });
+    renderItems.sort(function (a, b) {
+        return a.nearestDistance -
+            b.nearestDistance;
+    });
+    var occupiedBoxes = [];
+    renderItems.forEach(function (item) {
+        var visits = item.visits, place = item.place, screen = item.screen;
+        /* ==================================================
+           DATE BOX
+        ================================================== */
+        var dateBox = document.createElement("div");
+        dateBox.className =
+            "date-box";
+        dateBox.dataset.place =
+            place.name;
+        var datePlaceName = document.createElement("div");
+        datePlaceName.className =
+            "date-place-name";
+        datePlaceName.textContent =
+            place.name;
+        dateBox.appendChild(datePlaceName);
+        visits.forEach(function (visitItem, visitIndex) {
+            var row = document.createElement("div");
+            row.className =
+                "visit-date-row";
+            var number = document.createElement("span");
+            number.className =
+                "visit-number";
+            /*
+                지도 우측 날짜 박스의 방문 표시 규칙
+                - 인천: 출발 도시이므로 "출발"
+                - 서울: 첫 방문은 회차 표시 없음
+                - 옵션 B의 두 번째 서울은 "김포"
+                - 마지막 서울은 "도착"
+                - 그 외 도시: 1회 방문이면 회차 표시를 숨김
+                - 2회 이상 방문이면 기존처럼 1차 / 2차 / ... 표시
+            */
+            if (place.name === "인천") {
+                number.textContent = "출발";
+            }
+            else if (place.name === "서울" && visits.length > 1) {
+                if (selectedTripOption === "B" && visitIndex === 1 && visits.length >= 3) {
+                    number.textContent = "김포";
+                }
+                else if (visitIndex === visits.length - 1) {
+                    number.textContent = "도착";
+                }
+                else {
+                    number.textContent = "";
+                    number.style.display = "none";
+                    row.classList.add("no-visit-label");
+                }
+            }
+            else if (visits.length === 1) {
+                number.textContent = "";
+                number.style.display = "none";
+                row.classList.add("no-visit-label");
+            }
+            else {
+                number.textContent =
+                    "".concat(visitIndex + 1, "\uCC28");
+            }
+            var dateText;
+            if (visitItem.isPreset === false) {
+                dateText = document.createElement("input");
+                dateText.type = "date";
+                dateText.className = "visit-date-input visit-date-editor";
+                dateText.value = visitItem.date || "";
+                dateText.title = "추가한 여행지 날짜 변경";
+                dateText.addEventListener("change", function () {
+                    visitItem.date = dateText.value;
+                    visitItem.endDate = dateText.value;
+                    renderList();
+                });
+            }
+            else {
+                dateText = document.createElement("span");
+                dateText.className = "visit-date-input";
+                dateText.textContent =
+                    formatTripDateRange(visitItem) ||
+                        "날짜 미정";
+                dateText.title = "시작 날짜 기준 자동 배정";
+            }
+            row.appendChild(number);
+            row.appendChild(dateText);
+            dateBox.appendChild(row);
+        });
+        /*
+            실제 렌더링된 너비/높이를 측정합니다.
+            방문 횟수에 따라 높이가 달라져도 정확히 충돌 검사됩니다.
+        */
+        dateBox.style.visibility =
+            "hidden";
+        dateBox.style.left =
+            "0px";
+        dateBox.style.top =
+            "0px";
+        mapOverlay.appendChild(dateBox);
+        var boxWidth = dateBox.offsetWidth ||
+            150;
+        var boxHeight = dateBox.offsetHeight ||
+            66;
+        var placement = findDateBoxPosition(screen, boxWidth, boxHeight, occupiedBoxes, markerObstacles);
+        if (placement) {
+            dateBox.style.left =
+                (placement.centerX -
+                    boxWidth / 2) + "px";
+            dateBox.style.top =
+                (placement.centerY -
+                    boxHeight / 2) + "px";
+            occupiedBoxes.push(placement.rect);
         }
-    );
-
-
-    if (
-        travelState.running ||
-        travelState.paused
-    ) {
-
+        dateBox.style.visibility =
+            "visible";
+    });
+    if (travelState.running ||
+        travelState.paused) {
         updateVehiclePosition();
-
     }
-
 }
-
-
 /* ============================================================
    ARRIVAL HIGHLIGHT
 ============================================================ */
-
 function highlightArrivalPlace(placeName) {
-
     if (!placeName) {
         return;
     }
-
-    const boxes =
-        mapOverlay.querySelectorAll(
-            ".date-box"
-        );
-
-    boxes.forEach(
-        box => {
-
-            box.classList.remove(
-                "arrival-highlight"
-            );
-
-            if (
-                box.dataset.place ===
-                placeName
-            ) {
-
-                /*
-                    같은 도시가 연속으로 다시 도착하는 경우에도
-                    animation을 처음부터 다시 재생합니다.
-                */
-                void box.offsetWidth;
-
-                box.classList.add(
-                    "arrival-highlight"
-                );
-
-                window.setTimeout(
-                    () => {
-                        box.classList.remove(
-                            "arrival-highlight"
-                        );
-                    },
-                    5500
-                );
-
-            }
-
+    var boxes = mapOverlay.querySelectorAll(".date-box");
+    boxes.forEach(function (box) {
+        box.classList.remove("arrival-highlight");
+        if (box.dataset.place ===
+            placeName) {
+            /*
+                같은 도시가 연속으로 다시 도착하는 경우에도
+                animation을 처음부터 다시 재생합니다.
+            */
+            void box.offsetWidth;
+            box.classList.add("arrival-highlight");
+            window.setTimeout(function () {
+                box.classList.remove("arrival-highlight");
+            }, 5500);
         }
-    );
-
+    });
 }
-
-
 /*
     버스 이미지는 항상 똑바로 세운 상태를 유지합니다.
     진행 방향이 왼쪽이면 이미지만 좌우 반전하고,
     회전각은 -90°~90° 범위로 정규화해 180° 뒤집힘을 막습니다.
 */
-function getUprightVehiclePose(
-    tangent,
-    transport
-) {
-
-    let angle =
-        Math.atan2(
-            tangent.y,
-            tangent.x
-        ) *
+function getUprightVehiclePose(tangent, transport) {
+    var angle = Math.atan2(tangent.y, tangent.x) *
         180 /
         Math.PI;
-
-    let flipX = false;
-
+    var flipX = false;
     if (transport === "bus") {
-
         if (angle > 90) {
             angle -= 180;
             flipX = true;
@@ -5868,779 +4468,319 @@ function getUprightVehiclePose(
             angle += 180;
             flipX = true;
         }
-
     }
-
     return {
-        angle,
-        flipX
+        angle: angle,
+        flipX: flipX
     };
-
 }
-
-
 /* ============================================================
    VEHICLE POSITION
 ============================================================ */
-
 function updateVehiclePosition() {
-
-    if (
-        trip.length < 2 ||
+    if (trip.length < 2 ||
         travelState.legIndex >=
-            trip.length - 1
-    ) {
-
+            trip.length - 1) {
         travelVehicle.hidden =
             true;
-
         return;
     }
-
-
-    const from =
-        getPlace(
-            trip[
-                travelState.legIndex
-            ].place
-        );
-
-
-    const to =
-        getPlace(
-            trip[
-                travelState.legIndex + 1
-            ].place
-        );
-
-
-    if (
-        !from ||
-        !to
-    ) {
-
+    var from = getPlace(trip[travelState.legIndex].place);
+    var to = getPlace(trip[travelState.legIndex + 1].place);
+    if (!from ||
+        !to) {
         travelVehicle.hidden =
             true;
-
         return;
-
     }
-
-
-    const transport =
-        getTransportType(
-            from,
-            to
-        );
-
-
-    const start =
-        getScreenPosition(
-            from
-        );
-
-
-    const end =
-        getScreenPosition(
-            to
-        );
-
-
-    const control =
-        getCurveControlPoint(
-            from,
-            to,
-            travelState.legIndex
-        );
-
-
-    const controlScreen = {
-
-        x:
-            mapContainer.clientWidth *
+    var transport = getTransportType(from, to);
+    var start = getScreenPosition(from);
+    var end = getScreenPosition(to);
+    var control = getCurveControlPoint(from, to, travelState.legIndex);
+    var controlScreen = {
+        x: mapContainer.clientWidth *
             control.x /
             100,
-
-        y:
-            mapContainer.clientHeight *
+        y: mapContainer.clientHeight *
             control.y /
             100
-
     };
-
-
-    const position =
-        getQuadraticPoint(
-            start,
-            controlScreen,
-            end,
-            travelState.progress
-        );
-
-
-    const tangent =
-        getQuadraticTangent(
-            start,
-            controlScreen,
-            end,
-            travelState.progress
-        );
-
-
-    const pose =
-        getUprightVehiclePose(
-            tangent,
-            transport
-        );
-
-
+    var position = getQuadraticPoint(start, controlScreen, end, travelState.progress);
+    var tangent = getQuadraticTangent(start, controlScreen, end, travelState.progress);
+    var pose = getUprightVehiclePose(tangent, transport);
     travelVehicleImage.src =
-        getVehicleImage(
-            transport
-        );
-
-
+        getVehicleImage(transport);
     travelVehicleImage.style.transform =
         pose.flipX
             ? "scaleX(-1)"
             : "scaleX(1)";
-
-
     travelVehicle.style.left =
         position.x + "px";
-
-
     travelVehicle.style.top =
         position.y + "px";
-
-
     travelVehicle.style.transform =
-        `
-        translate(-50%, -50%)
-        rotate(${pose.angle}deg)
-        `;
-
-
+        "\n        translate(-50%, -50%)\n        rotate(".concat(pose.angle, "deg)\n        ");
     travelVehicle.hidden =
         false;
-
-
-    setTravelStatus(
-
-        transport === "plane"
-
-            ? `✈️ ${from.name} → ${to.name}`
-
-            : `🚌 ${from.name} → ${to.name}`
-
-    );
-
+    setTravelStatus(transport === "plane"
+        ? "\u2708\uFE0F ".concat(from.name, " \u2192 ").concat(to.name)
+        : "\uD83D\uDE8C ".concat(from.name, " \u2192 ").concat(to.name));
 }
-
-
 /* ============================================================
    CANCEL
 ============================================================ */
-
 function cancelTravelFrame() {
-
-    if (
-        travelState.rafId !== null
-    ) {
-
-        cancelAnimationFrame(
-            travelState.rafId
-        );
-
+    if (travelState.rafId !== null) {
+        cancelAnimationFrame(travelState.rafId);
     }
-
     travelState.rafId =
         null;
-
 }
-
-
 /* ============================================================
    FINISH
 ============================================================ */
-
 function finishTravel() {
-
     cancelTravelFrame();
-
-
     travelState.running =
         false;
-
     travelState.paused =
         false;
-
     travelState.progress =
         1;
-
     travelState.lastTime =
         0;
-
-
-    const finalPlace =
-        trip.length
-            ? getPlace(
-                trip[
-                    trip.length - 1
-                ].place
-            )
-            : null;
-
-
+    var finalPlace = trip.length
+        ? getPlace(trip[trip.length - 1].place)
+        : null;
     if (finalPlace) {
-
-        const finalPosition =
-            getScreenPosition(
-                finalPlace
-            );
-
-
+        var finalPosition = getScreenPosition(finalPlace);
         travelVehicle.style.left =
             finalPosition.x + "px";
-
-
         travelVehicle.style.top =
             finalPosition.y + "px";
-
-
-        if (
-            trip.length > 1
-        ) {
-
-            const previous =
-                getPlace(
-                    trip[
-                        trip.length - 2
-                    ].place
-                );
-
-
-            const finalTransport =
-                getTransportType(
-                    previous,
-                    finalPlace
-                );
-
-
+        if (trip.length > 1) {
+            var previous = getPlace(trip[trip.length - 2].place);
+            var finalTransport = getTransportType(previous, finalPlace);
             travelVehicleImage.src =
-                getVehicleImage(
-                    finalTransport
-                );
-
-
-            const previousPosition =
-                getScreenPosition(
-                    previous
-                );
-
-
-            const finalTangent = {
-                x:
-                    finalPosition.x -
+                getVehicleImage(finalTransport);
+            var previousPosition = getScreenPosition(previous);
+            var finalTangent = {
+                x: finalPosition.x -
                     previousPosition.x,
-                y:
-                    finalPosition.y -
+                y: finalPosition.y -
                     previousPosition.y
             };
-
-
-            const finalPose =
-                getUprightVehiclePose(
-                    finalTangent,
-                    finalTransport
-                );
-
-
+            var finalPose = getUprightVehiclePose(finalTangent, finalTransport);
             travelVehicleImage.style.transform =
                 finalPose.flipX
                     ? "scaleX(-1)"
                     : "scaleX(1)";
-
-
             travelVehicle.style.transform =
-                `
-                translate(-50%, -50%)
-                rotate(${finalPose.angle}deg)
-                `;
-
+                "\n                translate(-50%, -50%)\n                rotate(".concat(finalPose.angle, "deg)\n                ");
         }
-
-
         travelVehicle.hidden =
             false;
-
-
-        setTravelStatus(
-            `도착 · ${finalPlace.name}`
-        );
-
-        highlightArrivalPlace(
-            finalPlace.name
-        );
-
+        setTravelStatus("\uB3C4\uCC29 \u00B7 ".concat(finalPlace.name));
+        highlightArrivalPlace(finalPlace.name);
     }
     else {
-
         travelVehicle.hidden =
             true;
-
     }
-
-
     /*
         완료 후 다시 시작 가능
     */
-
     travelState.legIndex =
-        Math.max(
-            0,
-            trip.length - 1
-        );
-
-
+        Math.max(0, trip.length - 1);
     startTravelBtn.disabled =
         false;
-
     pauseTravelBtn.disabled =
         true;
-
 }
-
-
 /* ============================================================
    ANIMATION FRAME
 ============================================================ */
-
 function travelFrame(now) {
-
-    if (
-        !travelState.running ||
-        travelState.paused
-    ) {
-
+    if (!travelState.running ||
+        travelState.paused) {
         return;
-
     }
-
-
-    if (
-        !travelState.lastTime
-    ) {
-
+    if (!travelState.lastTime) {
         travelState.lastTime =
             now;
-
     }
-
-
-    const elapsed =
-        now -
+    var elapsed = now -
         travelState.lastTime;
-
-
     travelState.lastTime =
         now;
-
-
     travelState.progress +=
         elapsed /
-        travelState.durationMs;
-
-
-    if (
-        travelState.progress >= 1
-    ) {
-
+            travelState.durationMs;
+    if (travelState.progress >= 1) {
         travelState.progress =
             1;
-
-
         updateVehiclePosition();
-
-
-        const arrivedPlace =
-            getPlace(
-                trip[
-                    travelState.legIndex + 1
-                ].place
-            );
-
+        var arrivedPlace = getPlace(trip[travelState.legIndex + 1].place);
         if (arrivedPlace) {
-            highlightArrivalPlace(
-                arrivedPlace.name
-            );
+            highlightArrivalPlace(arrivedPlace.name);
         }
-
-
-        if (
-            travelState.legIndex <
-            trip.length - 2
-        ) {
-
+        if (travelState.legIndex <
+            trip.length - 2) {
             travelState.legIndex++;
-
             travelState.progress =
                 0;
-
             travelState.lastTime =
                 now;
-
-
             updateCurrentLegDuration();
-
-
             updateVehiclePosition();
-
-
             travelState.rafId =
-                requestAnimationFrame(
-                    travelFrame
-                );
-
+                requestAnimationFrame(travelFrame);
             return;
-
         }
-
-
         finishTravel();
-
         return;
-
     }
-
-
     updateVehiclePosition();
-
-
     travelState.rafId =
-        requestAnimationFrame(
-            travelFrame
-        );
-
+        requestAnimationFrame(travelFrame);
 }
-
-
 /* ============================================================
    START
 ============================================================ */
-
 function startTravel() {
-
-    if (
-        trip.length < 2
-    ) {
-
-        setTravelStatus(
-            "여행지가 2곳 이상 필요합니다."
-        );
-
+    if (trip.length < 2) {
+        setTravelStatus("여행지가 2곳 이상 필요합니다.");
         return;
-
     }
-
-
     /*
         도착 완료 후 다시 시작하면
         처음부터 재생
     */
-
-    if (
-        travelState.legIndex >=
-        trip.length - 1
-    ) {
-
+    if (travelState.legIndex >=
+        trip.length - 1) {
         travelState.legIndex =
             0;
-
         travelState.progress =
             0;
-
     }
-
-
     travelState.running =
         true;
-
     travelState.paused =
         false;
-
     travelState.lastTime =
         0;
-
-
     startTravelBtn.disabled =
         true;
-
     pauseTravelBtn.disabled =
         false;
-
-
     updateCurrentLegDuration();
-
-
     updateVehiclePosition();
-
-
     cancelTravelFrame();
-
-
     travelState.rafId =
-        requestAnimationFrame(
-            travelFrame
-        );
-
+        requestAnimationFrame(travelFrame);
 }
-
-
 /* ============================================================
    PAUSE
 ============================================================ */
-
 function pauseTravel() {
-
-    if (
-        !travelState.running
-    ) {
-
+    if (!travelState.running) {
         return;
-
     }
-
-
     travelState.running =
         false;
-
     travelState.paused =
         true;
-
     travelState.lastTime =
         0;
-
-
     cancelTravelFrame();
-
-
     startTravelBtn.disabled =
         false;
-
     pauseTravelBtn.disabled =
         true;
-
-
-    setTravelStatus(
-        "일시정지"
-    );
-
+    setTravelStatus("일시정지");
 }
-
-
 /* ============================================================
    OPEN MODAL
 ============================================================ */
-
 function openModal() {
-
     modalTitle.textContent =
         "도시 / 소도시 / 여행지 추가";
-
-
     placeSearch.value =
         "";
-
-
-    modalBackdrop.classList.add(
-        "open"
-    );
-
-
+    modalBackdrop.classList.add("open");
     renderPlaceOptions();
-
-
-    setTimeout(
-        function() {
-
-            placeSearch.focus();
-
-        },
-        30
-    );
-
+    setTimeout(function () {
+        placeSearch.focus();
+    }, 30);
 }
-
-
 /* ============================================================
    CLOSE MODAL
 ============================================================ */
-
 function closeModal() {
-
-    modalBackdrop.classList.remove(
-        "open"
-    );
-
+    modalBackdrop.classList.remove("open");
 }
-
-
 /* ============================================================
    PLACE OPTIONS
 ============================================================ */
-
 function renderPlaceOptions() {
-
-    const keyword =
-        placeSearch.value
-            .trim()
-            .toLowerCase();
-
-
-    const results =
-        places
-            .filter(
-                place => {
-
-                    if (
-                        keyword === ""
-                    ) {
-
-                        return true;
-
-                    }
-
-
-                    return place.name
-                        .toLowerCase()
-                        .includes(
-                            keyword
-                        );
-
-                }
-            )
-            .sort(
-                (a, b) =>
-                    a.name.localeCompare(
-                        b.name,
-                        "ko",
-                        {
-                            sensitivity: "base"
-                        }
-                    )
-            );
-
-
+    var keyword = placeSearch.value
+        .trim()
+        .toLowerCase();
+    var results = places
+        .filter(function (place) {
+        if (keyword === "") {
+            return true;
+        }
+        return place.name
+            .toLowerCase()
+            .includes(keyword);
+    })
+        .sort(function (a, b) {
+        return a.name.localeCompare(b.name, "ko", {
+            sensitivity: "base"
+        });
+    });
     placeGrid.innerHTML =
         "";
-
-
-    if (
-        results.length === 0
-    ) {
-
-        placeGrid.innerHTML = `
-
-            <div class="no-result">
-                검색 결과가 없습니다.
-            </div>
-
-        `;
-
+    if (results.length === 0) {
+        placeGrid.innerHTML = "\n\n            <div class=\"no-result\">\n                \uAC80\uC0C9 \uACB0\uACFC\uAC00 \uC5C6\uC2B5\uB2C8\uB2E4.\n            </div>\n\n        ";
         return;
-
     }
+    results.forEach(function (place) {
+        var button = document.createElement("button");
+        button.className =
+            "place-option";
+        button.innerHTML = "\n\n                <strong>\n                    ".concat(place.name, "\n                </strong>\n\n                <span>\n                    ").concat(place.type, "\n                </span>\n\n            ");
+        button.addEventListener("click", function () {
+            /*
+                중요:
+                중복 방지 로직 제거.
 
-
-    results.forEach(
-        place => {
-
-            const button =
-                document.createElement(
-                    "button"
-                );
-
-
-            button.className =
-                "place-option";
-
-
-            button.innerHTML = `
-
-                <strong>
-                    ${place.name}
-                </strong>
-
-                <span>
-                    ${place.type}
-                </span>
-
-            `;
-
-
-            button.addEventListener(
-                "click",
-                function() {
-
-                    /*
-                        중요:
-                        중복 방지 로직 제거.
-
-                        같은 장소를 몇 번이든
-                        추가할 수 있습니다.
-                    */
-
-                    trip.push({
-
-                        id:
-                            createId(),
-
-                        place:
-                            place.name,
-
-                        date:
-                            "",
-
-                        endDate:
-                            "",
-
-                        isPreset:
-                            false
-
-                    });
-
-
-                    closeModal();
-
-
-                    render();
-
-                }
-            );
-
-
-            placeGrid.appendChild(
-                button
-            );
-
-        }
-    );
-
+                같은 장소를 몇 번이든
+                추가할 수 있습니다.
+            */
+            trip.push({
+                id: createId(),
+                place: place.name,
+                date: "",
+                endDate: "",
+                isPreset: false
+            });
+            closeModal();
+            render();
+        });
+        placeGrid.appendChild(button);
+    });
 }
-
-
 /* ============================================================
    OPTION A / B + START DATE
 ============================================================ */
-
 function formatDateForInput(date) {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${year}-${month}-${day}`;
+    var year = date.getFullYear();
+    var month = String(date.getMonth() + 1).padStart(2, "0");
+    var day = String(date.getDate()).padStart(2, "0");
+    return "".concat(year, "-").concat(month, "-").concat(day);
 }
-
 /*
     선택한 기준 날짜로부터 각 도시의 체류 날짜를 자동 배정합니다.
 
@@ -6666,401 +4806,206 @@ function formatDateForInput(date) {
     옵션 B는 강릉까지 동일하고,
     속초 +7~+8 / 서울(김포) +8 / 제주 +8~+10 / 서울(도착) +10 입니다.
 */
-const OPTION_A_DATE_OFFSETS = [
+var OPTION_A_DATE_OFFSETS = [
     [1, 1], [1, 2], [2, 3], [3, 3], [3, 3], [3, 4], [4, 4], [4, 4], [4, 4],
     [4, 5], [5, 6], [6, 6], [6, 7], [7, 7], [7, 7], [7, 8], [8, 8]
 ];
-
-const OPTION_B_DATE_OFFSETS = [
+var OPTION_B_DATE_OFFSETS = [
     [1, 1], [1, 2], [2, 3], [3, 3], [3, 3], [3, 4], [4, 4], [4, 4], [4, 4],
     [4, 5], [5, 6], [6, 6], [6, 7], [7, 7], [7, 7], [7, 8], [8, 8], [8, 10], [10, 10]
 ];
-
 function addDaysToDate(start, offset) {
-    const result = new Date(start);
+    var result = new Date(start);
     result.setDate(start.getDate() + offset);
     return result;
 }
-
 function formatTripDateRange(item) {
     if (!item || !item.date) {
         return "";
     }
-
-    const startText = formatDate(item.date);
-
+    var startText = formatDate(item.date);
     if (!item.endDate || item.endDate === item.date) {
         return startText;
     }
-
-    const endParts = item.endDate.split("-");
-    const endText = endParts.length === 3
-        ? `${endParts[1]}.${endParts[2]}`
+    var endParts = item.endDate.split("-");
+    var endText = endParts.length === 3
+        ? "".concat(endParts[1], ".").concat(endParts[2])
         : formatDate(item.endDate);
-
-    return `${startText} ~ ${endText}`;
+    return "".concat(startText, " ~ ").concat(endText);
 }
-
 function applyStartDateToTrip(startDateValue) {
     if (!startDateValue) {
         return;
     }
-
-    const [year, month, day] = startDateValue.split("-").map(Number);
-    const start = new Date(year, month - 1, day);
-
-    const offsets =
-        selectedTripOption === "B"
-            ? OPTION_B_DATE_OFFSETS
-            : OPTION_A_DATE_OFFSETS;
-
-    trip.forEach((item, index) => {
+    var _a = startDateValue.split("-").map(Number), year = _a[0], month = _a[1], day = _a[2];
+    var start = new Date(year, month - 1, day);
+    var offsets = selectedTripOption === "B"
+        ? OPTION_B_DATE_OFFSETS
+        : OPTION_A_DATE_OFFSETS;
+    trip.forEach(function (item, index) {
         if (item.isPreset === false) {
             return;
         }
-
-        const [startOffset, endOffset] = offsets[index] || [index, index];
-
-        const visitStart = addDaysToDate(start, startOffset);
-        const visitEnd = addDaysToDate(start, endOffset);
-
+        var _a = offsets[index] || [index, index], startOffset = _a[0], endOffset = _a[1];
+        var visitStart = addDaysToDate(start, startOffset);
+        var visitEnd = addDaysToDate(start, endOffset);
         item.date = formatDateForInput(visitStart);
         item.endDate = formatDateForInput(visitEnd);
     });
-
     activeStartDate = startDateValue;
 }
-
 function updateTripOptionButtons() {
     optionABtn.classList.toggle("active", selectedTripOption === "A");
     optionBBtn.classList.toggle("active", selectedTripOption === "B");
 }
-
 function selectTripOption(option) {
     selectedTripOption = option === "B" ? "B" : "A";
-
-    trip = makeTripFromPlaces(
-        selectedTripOption === "B"
-            ? OPTION_B_PLACES
-            : OPTION_A_PLACES
-    );
-
+    trip = makeTripFromPlaces(selectedTripOption === "B"
+        ? OPTION_B_PLACES
+        : OPTION_A_PLACES);
     if (activeStartDate) {
         applyStartDateToTrip(activeStartDate);
     }
-
     updateTripOptionButtons();
     render();
-    setTravelStatus(`옵션 ${selectedTripOption} 선택됨`);
+    setTravelStatus("\uC635\uC158 ".concat(selectedTripOption, " \uC120\uD0DD\uB428"));
 }
-
 function openStartDateModal() {
-    const today = new Date();
+    var today = new Date();
     startDateInput.value = activeStartDate || formatDateForInput(today);
     startDateBackdrop.classList.add("open");
     startDateBackdrop.setAttribute("aria-hidden", "false");
-
-    setTimeout(() => startDateInput.focus(), 30);
+    setTimeout(function () { return startDateInput.focus(); }, 30);
 }
-
 function closeStartDateModal() {
     startDateBackdrop.classList.remove("open");
     startDateBackdrop.setAttribute("aria-hidden", "true");
 }
-
 function confirmStartDateAndTravel() {
     if (!startDateInput.value) {
         startDateInput.focus();
         return;
     }
-
     applyStartDateToTrip(startDateInput.value);
     closeStartDateModal();
     renderList();
     renderMap();
-    setTravelStatus(`시작일 ${formatDate(startDateInput.value)} 설정됨`);
+    setTravelStatus("\uC2DC\uC791\uC77C ".concat(formatDate(startDateInput.value), " \uC124\uC815\uB428"));
 }
-
 /* ============================================================
    EVENTS
 ============================================================ */
-
 document
-    .getElementById(
-        "addPlaceBtn"
-    )
-    .addEventListener(
-        "click",
-        function() {
-
-            openModal();
-
-        }
-    );
-
-
+    .getElementById("addPlaceBtn")
+    .addEventListener("click", function () {
+    openModal();
+});
 document
-    .getElementById(
-        "closeModal"
-    )
-    .addEventListener(
-        "click",
-        closeModal
-    );
-
-
-placeSearch.addEventListener(
-    "input",
-    renderPlaceOptions
-);
-
-
-modalBackdrop.addEventListener(
-    "click",
-    function(event) {
-
-        if (
-            event.target ===
-            modalBackdrop
-        ) {
-
-            closeModal();
-
-        }
-
+    .getElementById("closeModal")
+    .addEventListener("click", closeModal);
+placeSearch.addEventListener("input", renderPlaceOptions);
+modalBackdrop.addEventListener("click", function (event) {
+    if (event.target ===
+        modalBackdrop) {
+        closeModal();
     }
-);
-
-
-document.addEventListener(
-    "keydown",
-    function(event) {
-
-        if (
-            event.key ===
-            "Escape"
-        ) {
-
-            closeModal();
-            closeStartDateModal();
-
-        }
-
+});
+document.addEventListener("keydown", function (event) {
+    if (event.key ===
+        "Escape") {
+        closeModal();
+        closeStartDateModal();
     }
-);
-
-
+});
 /* ============================================================
    TRAVEL BUTTONS
 ============================================================ */
-
-optionABtn.addEventListener("click", () => selectTripOption("A"));
+optionABtn.addEventListener("click", function () { return selectTripOption("A"); });
 dateChangeBtn.addEventListener("click", openStartDateModal);
-optionBBtn.addEventListener("click", () => selectTripOption("B"));
-
+optionBBtn.addEventListener("click", function () { return selectTripOption("B"); });
 confirmStartDateBtn.addEventListener("click", confirmStartDateAndTravel);
 cancelStartDateBtn.addEventListener("click", closeStartDateModal);
-
-startDateBackdrop.addEventListener("click", function(event) {
+startDateBackdrop.addEventListener("click", function (event) {
     if (event.target === startDateBackdrop) {
         closeStartDateModal();
     }
 });
-
-startTravelBtn.addEventListener(
-    "click",
-    function() {
-        startTravel();
-    }
-);
-
-
-pauseTravelBtn.addEventListener(
-    "click",
-    pauseTravel
-);
-
-
-saveBtn.addEventListener(
-    "click",
-    saveTrip
-);
-
-
-resetBtn.addEventListener(
-    "click",
-    resetTrip
-);
-
-
-
-
+startTravelBtn.addEventListener("click", function () {
+    startTravel();
+});
+pauseTravelBtn.addEventListener("click", pauseTravel);
+saveBtn.addEventListener("click", saveTrip);
+resetBtn.addEventListener("click", resetTrip);
 /* ============================================================
    SIDEBAR OPEN / CLOSE
 ============================================================ */
-
-const appRoot =
-    document.querySelector(
-        ".app"
-    );
-
-const sidebarPanel =
-    document.querySelector(
-        ".sidebar"
-    );
-
-const sidebarToggle =
-    document.getElementById(
-        "sidebarToggle"
-    );
-
-
-function setSidebarCollapsed(
-    collapsed
-) {
-
-    appRoot.classList.toggle(
-        "sidebar-collapsed",
-        collapsed
-    );
-
-
+var appRoot = document.querySelector(".app");
+var sidebarPanel = document.querySelector(".sidebar");
+var sidebarToggle = document.getElementById("sidebarToggle");
+function setSidebarCollapsed(collapsed) {
+    appRoot.classList.toggle("sidebar-collapsed", collapsed);
     sidebarToggle.textContent =
         collapsed
             ? "▶"
             : "◀";
-
-
-    sidebarToggle.setAttribute(
-        "aria-expanded",
-        String(!collapsed)
-    );
-
-
-    sidebarToggle.setAttribute(
-        "aria-label",
-        collapsed
-            ? "사이드바 열기"
-            : "사이드바 닫기"
-    );
-
-
+    sidebarToggle.setAttribute("aria-expanded", String(!collapsed));
+    sidebarToggle.setAttribute("aria-label", collapsed
+        ? "사이드바 열기"
+        : "사이드바 닫기");
     sidebarToggle.title =
         collapsed
             ? "사이드바 열기"
             : "사이드바 닫기";
-
 }
-
-
-sidebarToggle.addEventListener(
-    "click",
-    function() {
-
-        const collapsed =
-            !appRoot.classList.contains(
-                "sidebar-collapsed"
-            );
-
-
-        setSidebarCollapsed(
-            collapsed
-        );
-
-    }
-);
-
-
+sidebarToggle.addEventListener("click", function () {
+    var collapsed = !appRoot.classList.contains("sidebar-collapsed");
+    setSidebarCollapsed(collapsed);
+});
 /*
     여닫기 애니메이션이 끝난 뒤 지도를 한 번 다시 계산.
     날짜 박스/마커 배치가 현재 화면 크기에 맞춰 안정적으로 유지됩니다.
 */
-sidebarPanel.addEventListener(
-    "transitionend",
-    function(event) {
-
-        if (
-            event.propertyName ===
-            "margin-left"
-        ) {
-
-            renderMap();
-
-        }
-
+sidebarPanel.addEventListener("transitionend", function (event) {
+    if (event.propertyName ===
+        "margin-left") {
+        renderMap();
     }
-);
-
-
+});
 /* ============================================================
    RESIZE
 ============================================================ */
-
-window.addEventListener(
-    "resize",
-    function() {
-
-        renderMap();
-
-    }
-);
-
-
+window.addEventListener("resize", function () {
+    renderMap();
+});
 /* ============================================================
    MAP LOAD
 ============================================================ */
-
 document
-    .getElementById(
-        "koreaMap"
-    )
-    .addEventListener(
-        "load",
-        function() {
-
-            renderMap();
-
-        }
-    );
-
-
+    .getElementById("koreaMap")
+    .addEventListener("load", function () {
+    renderMap();
+});
 /* ============================================================
    MAIN RENDER
 ============================================================ */
-
 function render() {
-
     /*
         장소 추가 / 삭제 / 순서 변경 시
         여행 애니메이션 초기화
     */
-
     resetTravel();
-
-
     renderList();
-
-
     renderMap();
-
-
     startTravelBtn.disabled =
         trip.length < 2;
-
-
     pauseTravelBtn.disabled =
         true;
-
 }
-
-
 /* ============================================================
    INITIAL
 ============================================================ */
-
 updateTripOptionButtons();
 render();
-
 /*
     HTML / 애플리케이션이 처음 열릴 때 시작 날짜를 먼저 선택합니다.
     시작 버튼은 날짜 팝업을 띄우지 않고 여행 애니메이션만 시작/재개합니다.
@@ -7071,31 +5016,34 @@ openStartDateModal();
 
 </div>
 <script>
-(function(){
-  const STAGE_W = 1200;
-  const STAGE_H = 1600;
-  function fitPptStage(){
-    const stage = document.getElementById("pptStage");
-    if(!stage) return;
-    const vw = Math.max(1, window.innerWidth);
-    const vh = Math.max(1, window.innerHeight);
-    const scale = Math.min(vw / STAGE_W, vh / STAGE_H);
-    const scaledW = STAGE_W * scale;
-    const scaledH = STAGE_H * scale;
-    const left = Math.max(0, (vw - scaledW) / 2);
-    const top = Math.max(0, (vh - scaledH) / 2);
-    stage.style.transform = `translate(${left}px, ${top}px) scale(${scale})`;
-  }
-  window.addEventListener("resize", fitPptStage);
-  window.addEventListener("load", function(){
+(function () {
+    var STAGE_W = 1200;
+    var STAGE_H = 1600;
+    function fitPptStage() {
+        var stage = document.getElementById("pptStage");
+        if (!stage)
+            return;
+        var vw = Math.max(1, window.innerWidth);
+        var vh = Math.max(1, window.innerHeight);
+        var scale = Math.min(vw / STAGE_W, vh / STAGE_H);
+        var scaledW = STAGE_W * scale;
+        var scaledH = STAGE_H * scale;
+        var left = Math.max(0, (vw - scaledW) / 2);
+        var top = Math.max(0, (vh - scaledH) / 2);
+        stage.style.transform = "translate(".concat(left, "px, ").concat(top, "px) scale(").concat(scale, ")");
+    }
+    window.addEventListener("resize", fitPptStage);
+    window.addEventListener("load", function () {
+        fitPptStage();
+        setTimeout(fitPptStage, 60);
+        setTimeout(function () {
+            if (typeof renderMap === "function")
+                renderMap();
+        }, 100);
+    });
     fitPptStage();
-    setTimeout(fitPptStage, 60);
-    setTimeout(function(){
-      if (typeof renderMap === "function") renderMap();
-    }, 100);
-  });
-  fitPptStage();
 })();
+
 </script>
 </body>
 </html>
