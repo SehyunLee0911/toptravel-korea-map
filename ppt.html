@@ -3,10 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
-<title>Top Travel Korea Map - PowerPoint</title>
+<title>Korea Travel Map</title>
 
 <style>
 
@@ -1753,87 +1750,101 @@ h1 {
 
 
 /* ============================================================
-   POWERPOINT CONTENT ADD-IN LAYOUT
-   - Keep one fixed portrait canvas so PowerPoint's narrow WebView
-     does not trigger the mobile/responsive redesign.
-   - The whole application is scaled uniformly to the add-in frame.
+   POWERPOINT CONTENT ADD-IN MODE (ppt3)
+   ------------------------------------------------------------
+   원본 지도/마커/경로/날짜박스의 좌표계는 그대로 유지하고,
+   1200 x 1600 고정 캔버스를 PowerPoint 영역에 통째로 비율 축소합니다.
+   작은 Add-in viewport 때문에 기존 @media 규칙이 적용되어도 아래 규칙이
+   마지막에 다시 데스크톱형 레이아웃으로 고정합니다.
 ============================================================ */
-:root {
-    --sidebar-width: 320px !important;
-}
-
 html,
 body {
-    width: 100% !important;
-    height: 100% !important;
+    width: 100%;
+    height: 100%;
+    margin: 0;
     overflow: hidden !important;
-    background: #B7DDE8 !important;
+    background: #ffffff;
 }
 
-#pptCanvas {
+#pptStage {
     position: absolute;
     left: 0;
     top: 0;
     width: 1200px;
     height: 1600px;
-    transform-origin: top left;
+    transform-origin: 0 0;
     overflow: hidden;
     background: #B7DDE8;
 }
 
-#pptCanvas .app {
+#pptStage .app {
     width: 1200px !important;
     height: 1600px !important;
     min-width: 1200px !important;
     min-height: 1600px !important;
 }
 
-#pptCanvas .sidebar {
-    width: 320px !important;
-    min-width: 320px !important;
-    height: 1600px !important;
+:root {
+    --sidebar-width: 320px !important;
+    --sidebar-tab-width: 30px !important;
+    --sidebar-tab-height: 104px !important;
 }
 
-#pptCanvas .map-area {
-    width: 880px !important;
-    height: 1600px !important;
-    min-width: 880px !important;
+#pptStage .sidebar {
+    width: var(--sidebar-width) !important;
+    min-width: var(--sidebar-width) !important;
 }
 
-#pptCanvas .map-container {
-    width: 820px !important;
+#pptStage .map-area {
+    height: 1600px !important;
+    min-width: 0 !important;
+}
+
+#pptStage .map-container {
+    width: 800px !important;
     max-width: none !important;
+    aspect-ratio: 1 / 1 !important;
 }
 
-#pptCanvas .place-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
+/* 작은 실제 viewport에서 켜지는 반응형 변경을 원본 데스크톱 값으로 복원 */
+#pptStage .sidebar-brand {
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 14px !important;
 }
 
-#pptCanvas .sidebar-brand-logo {
-    width: 64px !important;
-    height: 62px !important;
-    flex-basis: 64px !important;
+#pptStage .sidebar-brand-logo {
+    order: 0 !important;
+    width: 78px !important;
+    height: 74px !important;
+    flex: 0 0 78px !important;
 }
 
-#pptCanvas .sidebar h1 {
-    font-size: 28px !important;
+#pptStage .sidebar h1 {
+    font-size: 24px !important;
 }
 
-#pptCanvas .sidebar-center-tab {
-    width: 30px !important;
-    height: 104px !important;
-    font-size: 15px !important;
+#pptStage .sidebar-center-tab {
+    width: var(--sidebar-tab-width) !important;
+    height: var(--sidebar-tab-height) !important;
 }
 
-#pptCanvas .toptravel-logo {
-    width: 220px !important;
+#pptStage .place-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
 }
 
-/* Fixed elements become relative to this transformed canvas. */
-#pptCanvas .start-date-backdrop,
-#pptCanvas .modal-backdrop {
-    width: 1200px !important;
-    height: 1600px !important;
+#pptStage .sidebar::before {
+    width: 232px !important;
+    height: 220px !important;
+}
+
+/* PowerPoint/Office WebView의 기본 터치 동작이 버튼 이벤트를 빼앗지 않도록 함 */
+#pptStage button,
+#pptStage .location-marker,
+#pptStage input,
+#pptStage select {
+    touch-action: manipulation;
 }
 
 </style>
@@ -1841,8 +1852,7 @@ body {
 
 
 <body>
-
-<div id="pptCanvas">
+<div id="pptStage">
 
 <div class="app">
 
@@ -2109,41 +2119,7 @@ body {
 </div>
 
 
-</div><!-- /#pptCanvas -->
-
 <script>
-
-
-/* ============================================================
-   POWERPOINT CANVAS FIT
-============================================================ */
-const PPT_CANVAS_WIDTH = 1200;
-const PPT_CANVAS_HEIGHT = 1600;
-
-function fitPowerPointCanvas() {
-    const canvas = document.getElementById('pptCanvas');
-    if (!canvas) return;
-
-    const viewportWidth = Math.max(1, window.innerWidth);
-    const viewportHeight = Math.max(1, window.innerHeight);
-    const scale = Math.min(
-        viewportWidth / PPT_CANVAS_WIDTH,
-        viewportHeight / PPT_CANVAS_HEIGHT
-    );
-
-    const renderedWidth = PPT_CANVAS_WIDTH * scale;
-    const renderedHeight = PPT_CANVAS_HEIGHT * scale;
-    const left = (viewportWidth - renderedWidth) / 2;
-    const top = (viewportHeight - renderedHeight) / 2;
-
-    canvas.style.left = left + 'px';
-    canvas.style.top = top + 'px';
-    canvas.style.transform = 'scale(' + scale + ')';
-}
-
-fitPowerPointCanvas();
-window.addEventListener('resize', fitPowerPointCanvas);
-
 
 /* ============================================================
    장소 데이터
@@ -3982,18 +3958,22 @@ function renderList() {
 
 function getScreenPosition(place) {
 
-    const rect =
-        mapContainer.getBoundingClientRect();
-
+    /*
+        PowerPoint add-in에서는 전체 UI를 CSS transform으로 축소합니다.
+        getBoundingClientRect()는 transform 이후의 크기를 반환하므로
+        애니메이션 차량 좌표가 이중으로 축소될 수 있습니다.
+        내부 좌표계(clientWidth/clientHeight)를 사용하면 지도/마커/차량이
+        동일한 좌표계를 유지합니다.
+    */
     return {
 
         x:
-            rect.width *
+            mapContainer.clientWidth *
             place.x /
             100,
 
         y:
-            rect.height *
+            mapContainer.clientHeight *
             place.y /
             100
 
@@ -7016,5 +6996,33 @@ openStartDateModal();
 
 </script>
 
+</div>
+<script>
+(function(){
+  const STAGE_W = 1200;
+  const STAGE_H = 1600;
+  function fitPptStage(){
+    const stage = document.getElementById("pptStage");
+    if(!stage) return;
+    const vw = Math.max(1, window.innerWidth);
+    const vh = Math.max(1, window.innerHeight);
+    const scale = Math.min(vw / STAGE_W, vh / STAGE_H);
+    const scaledW = STAGE_W * scale;
+    const scaledH = STAGE_H * scale;
+    const left = Math.max(0, (vw - scaledW) / 2);
+    const top = Math.max(0, (vh - scaledH) / 2);
+    stage.style.transform = `translate(${left}px, ${top}px) scale(${scale})`;
+  }
+  window.addEventListener("resize", fitPptStage);
+  window.addEventListener("load", function(){
+    fitPptStage();
+    setTimeout(fitPptStage, 60);
+    setTimeout(function(){
+      if (typeof renderMap === "function") renderMap();
+    }, 100);
+  });
+  fitPptStage();
+})();
+</script>
 </body>
 </html>
