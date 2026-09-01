@@ -2288,6 +2288,95 @@ body {
     }
 }
 
+
+/* ============================================================
+   POWERPOINT 2013 - SIDEBAR CLOSED EXPANDED MAP MODE
+   Open  : current compact map
+   Closed: enlarge map + markers + date boxes + text together
+============================================================ */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+
+    /* The map has 1200px of stage width available when the 320px sidebar closes.
+       1000px keeps safe margins while giving a clear ~25% enlargement. */
+    #pptStage .app.sidebar-collapsed .map-container {
+        width: 1000px !important;
+        height: 1000px !important;
+        max-width: none !important;
+        left: 50% !important;
+        top: 50% !important;
+    }
+
+    #pptStage .app.sidebar-collapsed .map-container > img,
+    #pptStage .app.sidebar-collapsed .map-overlay,
+    #pptStage .app.sidebar-collapsed .route-svg {
+        width: 1000px !important;
+        height: 1000px !important;
+    }
+
+    /* City marker */
+    #pptStage .app.sidebar-collapsed .location-marker {
+        width: 21px !important;
+        height: 21px !important;
+        border-width: 4px !important;
+        box-shadow: 0 2px 6px rgba(0,0,0,.20) !important;
+    }
+
+    /* Date / city information box */
+    #pptStage .app.sidebar-collapsed .date-box {
+        width: 154px !important;
+        padding: 4px 6px !important;
+        border-radius: 7px !important;
+    }
+
+    #pptStage .app.sidebar-collapsed .date-place-name {
+        min-height: 25px !important;
+        margin: -4px -6px 4px !important;
+        padding: 5px 7px !important;
+        font-size: 15px !important;
+    }
+
+    #pptStage .app.sidebar-collapsed .visit-date-row {
+        min-height: 28px !important;
+        gap: 5px !important;
+    }
+
+    #pptStage .app.sidebar-collapsed .visit-number {
+        font-size: 13px !important;
+        font-weight: 700 !important;
+    }
+
+    #pptStage .app.sidebar-collapsed .visit-date-input {
+        font-size: 14px !important;
+        font-weight: 700 !important;
+    }
+
+    /* Vehicle grows with the map, but keeps the IE11 no-parent-transform fix. */
+    #pptStage .app.sidebar-collapsed .travel-vehicle {
+        width: 58px !important;
+        height: 58px !important;
+        margin-left: -29px !important;
+        margin-top: -29px !important;
+    }
+
+    #pptStage .app.sidebar-collapsed .travel-vehicle img {
+        width: 58px !important;
+        height: 58px !important;
+        max-width: 58px !important;
+        max-height: 58px !important;
+    }
+
+    /* Route remains visually proportional after map enlargement. */
+    #pptStage .app.sidebar-collapsed .route-line {
+        stroke-width: 0.22 !important;
+        stroke-dasharray: 0.82 0.72 !important;
+    }
+
+    /* Keep footer/logo readable in the wider map mode. */
+    #pptStage .app.sidebar-collapsed .toptravel-logo {
+        width: 280px !important;
+    }
+}
+
 </style>
 </head>
 
@@ -5474,6 +5563,20 @@ function setSidebarCollapsed(collapsed) {
 sidebarToggle.addEventListener("click", function () {
     var collapsed = !appRoot.classList.contains("sidebar-collapsed");
     setSidebarCollapsed(collapsed);
+
+    /*
+        PowerPoint 2013 / IE11:
+        after open/close, map size changes from 800 to 1000 (or back).
+        Re-render twice so marker/date collision placement and vehicle
+        coordinates use the final dimensions.
+    */
+    window.setTimeout(function () {
+        renderMap();
+    }, 80);
+
+    window.setTimeout(function () {
+        renderMap();
+    }, 380);
 });
 /*
     여닫기 애니메이션이 끝난 뒤 지도를 한 번 다시 계산.
