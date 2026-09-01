@@ -1997,6 +1997,34 @@ body {
     }
 }
 
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    /* Keep the map/city/date coordinates untouched.
+       Only center modal dialogs inside the PowerPoint stage. */
+    .start-date-backdrop.open {
+        display: block !important;
+    }
+
+    .start-date-backdrop.open .start-date-modal {
+        position: absolute !important;
+        left: 50% !important;
+        top: 50% !important;
+        width: 390px !important;
+        min-height: 190px !important;
+        margin: 0 !important;
+        transform: translate(-50%, -50%) !important;
+        -ms-transform: translate(-50%, -50%) !important;
+    }
+
+    .modal-backdrop.open .modal {
+        position: absolute !important;
+        left: 50% !important;
+        top: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        -ms-transform: translate(-50%, -50%) !important;
+    }
+}
+
 </style>
 </head>
 
