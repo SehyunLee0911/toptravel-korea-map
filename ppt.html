@@ -1951,12 +1951,7 @@ body {
 
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-    /* IE11/PowerPoint 2013 renders SVG marker arrows at enormous size.
-       Keep the route line, but suppress marker arrows in the IE engine. */
-    .route-line {
-        marker-end: none !important;
-        stroke-width: 2px !important;
-    }
+    .route-svg { display: none !important; }
 }
 
 </style>
@@ -1966,11 +1961,32 @@ body {
 <body>
 
 <div id="ie11RuntimeDebug" style="
-position:fixed;right:5px;top:5px;width:330px;max-height:190px;overflow:auto;
-z-index:2147483647;background:rgba(0,0,0,.88);color:#b8ffb8;
+position:fixed;right:5px;top:5px;width:350px;max-height:230px;overflow:auto;
+z-index:2147483647;background:rgba(0,0,0,.90);color:#b8ffb8;
 font:11px/1.35 Consolas,'Courier New',monospace;padding:8px;white-space:pre-wrap;">
-IE11 DEBUG READY
+IE11 DEBUG BOOT
 </div>
+<script>
+(function () {
+    var lines = ["IE11 DEBUG BOOT"];
+    function write(msg) {
+        var p = document.getElementById("ie11RuntimeDebug");
+        lines.push(String(msg));
+        if (p) { p.innerHTML = lines.join("<br>"); }
+    }
+    window.__pptDbgWrite = write;
+    window.onerror = function (message, source, lineno, colno) {
+        write("ERROR: " + message);
+        write("line " + lineno + ", col " + colno);
+        if (source) write("source: " + source);
+        return false;
+    };
+    write("logger: ACTIVE");
+    write("URL: " + window.location.href);
+    write("docMode: " + (document.documentMode || "none"));
+    write("viewport: " + window.innerWidth + " x " + window.innerHeight);
+}());
+</script>
 
 <div id="pptStage">
 
@@ -5069,53 +5085,65 @@ openStartDateModal();
     function write(msg) {
         if (window.__pptDbgWrite) window.__pptDbgWrite(msg);
     }
-
-    function forceOpenModal() {
-        var backdrop = document.getElementById("startDateBackdrop");
+    function cssOpenModal() {
+        var b = document.getElementById("startDateBackdrop");
         var input = document.getElementById("startDateInput");
-        if (!backdrop) {
-            write("startDateBackdrop: MISSING");
+        if (!b) {
+            write("modal backdrop: MISSING");
             return;
         }
-        try {
-            if (typeof window.openStartDateModal === "function") {
-                window.openStartDateModal();
-                write("openStartDateModal(): CALLED");
-            } else {
-                backdrop.className += " open";
-                backdrop.setAttribute("aria-hidden", "false");
-                if (input && !input.value) {
-                    var d = new Date();
-                    var mm = ("0" + (d.getMonth() + 1)).slice(-2);
-                    var dd = ("0" + d.getDate()).slice(-2);
-                    input.value = d.getFullYear() + "-" + mm + "-" + dd;
-                }
-                write("openStartDateModal: undefined; CSS fallback used");
-            }
-        } catch (e) {
-            write("MODAL ERROR: " + (e.message || e));
-            backdrop.className += " open";
-            backdrop.setAttribute("aria-hidden", "false");
+        b.className = "start-date-backdrop open";
+        b.setAttribute("aria-hidden", "false");
+        b.style.display = "block";
+        if (input && !input.value) {
+            var d = new Date();
+            var mm = ("0" + (d.getMonth() + 1)).slice(-2);
+            var dd = ("0" + d.getDate()).slice(-2);
+            input.value = d.getFullYear() + "-" + mm + "-" + dd;
         }
+        write("modal CSS fallback: OPEN");
     }
 
     window.setTimeout(function () {
-        write("--- POST CHECK ---");
+        write("--- APP CHECK ---");
+        write("readyState: " + document.readyState);
+        write("render: " + typeof window.render);
         write("renderMap: " + typeof window.renderMap);
+        write("renderList: " + typeof window.renderList);
         write("openStartDateModal: " + typeof window.openStartDateModal);
         write("selectTripOption: " + typeof window.selectTripOption);
 
         var dateBtn = document.getElementById("dateChangeBtn");
         if (dateBtn) {
             dateBtn.onclick = function () {
-                forceOpenModal();
+                try {
+                    if (typeof window.openStartDateModal === "function") {
+                        window.openStartDateModal();
+                        write("date button: native modal called");
+                    } else {
+                        cssOpenModal();
+                    }
+                } catch (e) {
+                    write("date button ERROR: " + (e.message || e));
+                    cssOpenModal();
+                }
                 return false;
             };
-            write("dateChangeBtn fallback: SET");
+            write("date button fallback: SET");
         }
 
-        forceOpenModal();
-    }, 350);
+        try {
+            if (typeof window.openStartDateModal === "function") {
+                window.openStartDateModal();
+                write("startup modal: native called");
+            } else {
+                cssOpenModal();
+            }
+        } catch (e2) {
+            write("startup modal ERROR: " + (e2.message || e2));
+            cssOpenModal();
+        }
+    }, 500);
 }());
 </script>
 
