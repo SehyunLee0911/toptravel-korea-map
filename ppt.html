@@ -1960,6 +1960,105 @@ body {
 
 <body>
 
+<script>
+(function () {
+    /* Extra IE11 polyfills discovered at runtime */
+    if (!Math.hypot) {
+        Math.hypot = function () {
+            var y = 0, i, n;
+            for (i = 0; i < arguments.length; i++) {
+                n = Number(arguments[i]);
+                if (n === Infinity || n === -Infinity) return Infinity;
+                y += n * n;
+            }
+            return Math.sqrt(y);
+        };
+    }
+
+    if (!String.prototype.padStart) {
+        String.prototype.padStart = function (targetLength, padString) {
+            targetLength = targetLength >> 0;
+            padString = String(typeof padString !== "undefined" ? padString : " ");
+            var str = String(this);
+            if (str.length >= targetLength) return str;
+            targetLength = targetLength - str.length;
+            if (targetLength > padString.length) {
+                padString += new Array(Math.ceil(targetLength / padString.length) + 1).join(padString);
+            }
+            return padString.slice(0, targetLength) + str;
+        };
+    }
+
+    if (!String.prototype.padEnd) {
+        String.prototype.padEnd = function (targetLength, padString) {
+            targetLength = targetLength >> 0;
+            padString = String(typeof padString !== "undefined" ? padString : " ");
+            var str = String(this);
+            if (str.length >= targetLength) return str;
+            targetLength = targetLength - str.length;
+            if (targetLength > padString.length) {
+                padString += new Array(Math.ceil(targetLength / padString.length) + 1).join(padString);
+            }
+            return str + padString.slice(0, targetLength);
+        };
+    }
+
+    if (!Object.assign) {
+        Object.assign = function (target) {
+            if (target == null) throw new TypeError("Cannot convert undefined or null to object");
+            var to = Object(target), i, source, key;
+            for (i = 1; i < arguments.length; i++) {
+                source = arguments[i];
+                if (source != null) {
+                    for (key in source) {
+                        if (Object.prototype.hasOwnProperty.call(source, key)) {
+                            to[key] = source[key];
+                        }
+                    }
+                }
+            }
+            return to;
+        };
+    }
+
+    if (!Math.trunc) {
+        Math.trunc = function (v) {
+            v = Number(v);
+            if (!isFinite(v) || v === 0) return v;
+            return v < 0 ? Math.ceil(v) : Math.floor(v);
+        };
+    }
+
+    if (!Math.log10) {
+        Math.log10 = function (x) {
+            return Math.log(x) * Math.LOG10E;
+        };
+    }
+
+    if (!Array.from) {
+        Array.from = function (arrayLike) {
+            return Array.prototype.slice.call(arrayLike);
+        };
+    }
+
+    if (!String.prototype.startsWith) {
+        String.prototype.startsWith = function (search, pos) {
+            pos = pos || 0;
+            return this.substr(pos, search.length) === search;
+        };
+    }
+
+    if (!String.prototype.endsWith) {
+        String.prototype.endsWith = function (search, len) {
+            var str = String(this);
+            if (len === undefined || len > str.length) len = str.length;
+            return str.substring(len - search.length, len) === search;
+        };
+    }
+}());
+</script>
+
+
 <div id="ie11RuntimeDebug" style="
 position:fixed;right:5px;top:5px;width:350px;max-height:230px;overflow:auto;
 z-index:2147483647;background:rgba(0,0,0,.90);color:#b8ffb8;
