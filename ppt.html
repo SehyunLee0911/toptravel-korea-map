@@ -5433,5 +5433,94 @@ openStartDateModal();
 }());
 </script>
 
+
+<script>
+(function () {
+    function dbg(msg) {
+        if (window.__pptDbgWrite) window.__pptDbgWrite(msg);
+    }
+
+    function getViewport() {
+        var w = document.documentElement.clientWidth ||
+                document.body.clientWidth ||
+                window.innerWidth || 723;
+        var h = document.documentElement.clientHeight ||
+                document.body.clientHeight ||
+                window.innerHeight || 963;
+        return { w: w, h: h };
+    }
+
+    function centerOne(backdropId, modalSelector) {
+        var backdrop = document.getElementById(backdropId);
+        if (!backdrop) return;
+
+        var modal = backdrop.querySelector(modalSelector);
+        if (!modal) return;
+
+        var vp = getViewport();
+
+        backdrop.style.position = "fixed";
+        backdrop.style.left = "0px";
+        backdrop.style.top = "0px";
+        backdrop.style.right = "auto";
+        backdrop.style.bottom = "auto";
+        backdrop.style.width = vp.w + "px";
+        backdrop.style.height = vp.h + "px";
+        backdrop.style.margin = "0";
+        backdrop.style.zIndex = "2147483000";
+
+        /* Remove percentage/transform positioning completely in IE11. */
+        modal.style.position = "absolute";
+        modal.style.transform = "none";
+        modal.style.msTransform = "none";
+        modal.style.margin = "0";
+
+        /* Measure after it is visible. */
+        var mw = modal.offsetWidth || 390;
+        var mh = modal.offsetHeight || 220;
+
+        var left = Math.max(0, Math.round((vp.w - mw) / 2));
+        var top  = Math.max(0, Math.round((vp.h - mh) / 2));
+
+        modal.style.left = left + "px";
+        modal.style.top = top + "px";
+        modal.style.zIndex = "2147483001";
+
+        dbg(backdropId + " centered px: " + left + "," + top +
+            " modal " + mw + "x" + mh +
+            " viewport " + vp.w + "x" + vp.h);
+    }
+
+    function centerAll() {
+        centerOne("startDateBackdrop", ".start-date-modal");
+        centerOne("modalBackdrop", ".modal");
+    }
+
+    /* Re-center after the startup modal is opened. */
+    window.setTimeout(centerAll, 900);
+    window.setTimeout(centerAll, 1300);
+
+    var dateBtn = document.getElementById("dateChangeBtn");
+    if (dateBtn) {
+        dateBtn.addEventListener("click", function () {
+            window.setTimeout(centerAll, 50);
+            window.setTimeout(centerAll, 180);
+        });
+    }
+
+    var addBtn = document.getElementById("addPlaceBtn");
+    if (addBtn) {
+        addBtn.addEventListener("click", function () {
+            window.setTimeout(centerAll, 50);
+            window.setTimeout(centerAll, 180);
+        });
+    }
+
+    window.addEventListener("resize", function () {
+        window.setTimeout(centerAll, 50);
+    });
+}());
+</script>
+
 </body>
 </html>
