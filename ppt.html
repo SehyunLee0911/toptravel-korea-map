@@ -2203,8 +2203,8 @@ body {
         display: block !important;
         marker-end: none !important;
         stroke: #303b37 !important;
-        stroke-width: 1.2px !important;
-        stroke-dasharray: 2.2 5.2 !important;
+        stroke-width: 0.25 !important;
+        stroke-dasharray: 0.90 0.78 !important;
         stroke-linecap: round !important;
         stroke-linejoin: round !important;
         fill: none !important;
@@ -2213,6 +2213,37 @@ body {
     #pptStage .route-arrow {
         fill: #303b37 !important;
         stroke: none !important;
+    }
+}
+
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    #pptStage .save-controls,
+    #pptStage .travel-controls {
+        display: -ms-flexbox !important;
+        display: flex !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    #pptStage .save-controls .travel-btn,
+    #pptStage .travel-controls .travel-btn {
+        -ms-flex: 1 1 0px !important;
+        flex: 1 1 0px !important;
+        width: 0 !important;
+        min-width: 0 !important;
+        height: 42px !important;
+        box-sizing: border-box !important;
+    }
+
+    #pptStage .save-controls .travel-btn:first-child,
+    #pptStage .travel-controls .travel-btn:first-child {
+        margin-right: 8px !important;
+    }
+
+    #pptStage .save-controls .travel-btn:last-child,
+    #pptStage .travel-controls .travel-btn:last-child {
+        margin-right: 0 !important;
     }
 }
 
@@ -4289,9 +4320,9 @@ function renderRoute() {
             var py = ux;
 
             /* Keep the arrow just outside the city marker. */
-            var tipBack = 0.90;
-            var arrowLength = 1.40;
-            var halfWidth = 0.52;
+            var tipBack = 0.72;
+            var arrowLength = 1.00;
+            var halfWidth = 0.36;
 
             var tipX = second.x - ux * tipBack;
             var tipY = second.y - uy * tipBack;
