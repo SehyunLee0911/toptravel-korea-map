@@ -1949,11 +1949,29 @@ body {
     }
 }
 
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    /* IE11/PowerPoint 2013 renders SVG marker arrows at enormous size.
+       Keep the route line, but suppress marker arrows in the IE engine. */
+    .route-line {
+        marker-end: none !important;
+        stroke-width: 2px !important;
+    }
+}
+
 </style>
 </head>
 
 
 <body>
+
+<div id="ie11RuntimeDebug" style="
+position:fixed;right:5px;top:5px;width:330px;max-height:190px;overflow:auto;
+z-index:2147483647;background:rgba(0,0,0,.88);color:#b8ffb8;
+font:11px/1.35 Consolas,'Courier New',monospace;padding:8px;white-space:pre-wrap;">
+IE11 DEBUG READY
+</div>
+
 <div id="pptStage">
 
 <div class="app">
@@ -5045,5 +5063,61 @@ openStartDateModal();
 })();
 
 </script>
+
+<script>
+(function () {
+    function write(msg) {
+        if (window.__pptDbgWrite) window.__pptDbgWrite(msg);
+    }
+
+    function forceOpenModal() {
+        var backdrop = document.getElementById("startDateBackdrop");
+        var input = document.getElementById("startDateInput");
+        if (!backdrop) {
+            write("startDateBackdrop: MISSING");
+            return;
+        }
+        try {
+            if (typeof window.openStartDateModal === "function") {
+                window.openStartDateModal();
+                write("openStartDateModal(): CALLED");
+            } else {
+                backdrop.className += " open";
+                backdrop.setAttribute("aria-hidden", "false");
+                if (input && !input.value) {
+                    var d = new Date();
+                    var mm = ("0" + (d.getMonth() + 1)).slice(-2);
+                    var dd = ("0" + d.getDate()).slice(-2);
+                    input.value = d.getFullYear() + "-" + mm + "-" + dd;
+                }
+                write("openStartDateModal: undefined; CSS fallback used");
+            }
+        } catch (e) {
+            write("MODAL ERROR: " + (e.message || e));
+            backdrop.className += " open";
+            backdrop.setAttribute("aria-hidden", "false");
+        }
+    }
+
+    window.setTimeout(function () {
+        write("--- POST CHECK ---");
+        write("renderMap: " + typeof window.renderMap);
+        write("openStartDateModal: " + typeof window.openStartDateModal);
+        write("selectTripOption: " + typeof window.selectTripOption);
+
+        var dateBtn = document.getElementById("dateChangeBtn");
+        if (dateBtn) {
+            dateBtn.onclick = function () {
+                forceOpenModal();
+                return false;
+            };
+            write("dateChangeBtn fallback: SET");
+        }
+
+        forceOpenModal();
+    }, 350);
+}());
+</script>
+
 </body>
 </html>
