@@ -2071,6 +2071,39 @@ body {
     }
 }
 
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    /* IE11 does not support CSS inset:0.
+       Vehicle is positioned directly against mapContainer and was already correct.
+       Force marker/date overlay to use that exact same 800x800 coordinate plane. */
+    #pptStage .map-overlay {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        right: auto !important;
+        bottom: auto !important;
+        width: 800px !important;
+        height: 800px !important;
+    }
+
+    #pptStage .route-svg {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        right: auto !important;
+        bottom: auto !important;
+        width: 800px !important;
+        height: 800px !important;
+    }
+
+    /* Marker and date boxes now share the same origin as bus/plane coordinates. */
+    #pptStage .location-marker,
+    #pptStage .date-box,
+    #pptStage .location-name {
+        position: absolute !important;
+    }
+}
+
 </style>
 </head>
 
@@ -5521,6 +5554,21 @@ openStartDateModal();
     window.addEventListener("resize", function () {
         window.setTimeout(centerAll, 50);
     });
+}());
+</script>
+
+
+<script>
+(function () {
+    window.setTimeout(function () {
+        if (!window.__pptDbgWrite) return;
+        var mc = document.getElementById("mapContainer");
+        var mo = document.getElementById("mapOverlay");
+        var tv = document.getElementById("travelVehicle");
+        if (mc) window.__pptDbgWrite("mapContainer: " + mc.clientWidth + "x" + mc.clientHeight);
+        if (mo) window.__pptDbgWrite("mapOverlay: " + mo.clientWidth + "x" + mo.clientHeight);
+        if (tv) window.__pptDbgWrite("vehicle parent same mapContainer: " + (tv.parentNode === mc ? "YES" : "NO"));
+    }, 1100);
 }());
 </script>
 
