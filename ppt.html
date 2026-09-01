@@ -1983,7 +1983,7 @@ body {
 
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-    .route-svg { display: none !important; }
+    
 }
 
 
@@ -2153,12 +2153,12 @@ body {
         position: absolute !important;
         left: 50% !important;
         top: 50% !important;
-        width: 156px !important;
-        height: 156px !important;
+        width: 286px !important;
+        height: 286px !important;
         margin: 0 !important;
         transform: translate(-50%, -50%) !important;
         -ms-transform: translate(-50%, -50%) !important;
-        opacity: .060 !important;
+        opacity: .052 !important;
         background: url("sidebar_brand_Logo.png") center center / contain no-repeat !important;
         pointer-events: none !important;
         z-index: 0 !important;
@@ -2187,6 +2187,28 @@ body {
 
     #pptStage .app.sidebar-collapsed .sidebar-center-tab {
         left: 0 !important;
+    }
+}
+
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    #pptStage .route-svg {
+        display: block !important;
+        overflow: visible !important;
+    }
+
+    #pptStage .route-line {
+        display: block !important;
+        marker-end: none !important;
+        stroke: #303b37 !important;
+        stroke-width: 2px !important;
+        stroke-dasharray: 7 6 !important;
+        fill: none !important;
+    }
+
+    #pptStage .route-arrow {
+        fill: #303b37 !important;
+        stroke: none !important;
     }
 }
 
@@ -4220,18 +4242,79 @@ function renderRoute() {
     if (trip.length < 2) {
         return;
     }
+
     for (var i = 0; i < trip.length - 1; i++) {
         var first = getPlace(trip[i].place);
         var second = getPlace(trip[i + 1].place);
-        if (!first ||
-            !second) {
+
+        if (!first || !second) {
             continue;
         }
+
         var control = getCurveControlPoint(first, second, i);
-        var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+
+        var path = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "path"
+        );
         path.setAttribute("class", "route-line");
-        path.setAttribute("d", "\n                M ".concat(first.x, " ").concat(first.y, "\n                Q ").concat(control.x, " ").concat(control.y, "\n                  ").concat(second.x, " ").concat(second.y, "\n            "));
+        path.setAttribute(
+            "d",
+            "M " + first.x + " " + first.y +
+            " Q " + control.x + " " + control.y +
+            " " + second.x + " " + second.y
+        );
+        path.setAttribute("marker-end", "none");
         routeLayer.appendChild(path);
+
+        /*
+            PowerPoint 2013 / IE11:
+            SVG marker-end renders at an enormous size.
+            Draw a small triangle ourselves at the end of each quadratic
+            route segment. The tangent at the end of a quadratic curve is
+            second - control, so the arrow follows the route direction.
+        */
+        var dx = second.x - control.x;
+        var dy = second.y - control.y;
+        var len = Math.sqrt(dx * dx + dy * dy);
+
+        if (len > 0.0001) {
+            var ux = dx / len;
+            var uy = dy / len;
+            var px = -uy;
+            var py = ux;
+
+            /* Keep the arrow just outside the city marker. */
+            var tipBack = 1.15;
+            var arrowLength = 2.15;
+            var halfWidth = 0.82;
+
+            var tipX = second.x - ux * tipBack;
+            var tipY = second.y - uy * tipBack;
+
+            var baseX = tipX - ux * arrowLength;
+            var baseY = tipY - uy * arrowLength;
+
+            var p1x = baseX + px * halfWidth;
+            var p1y = baseY + py * halfWidth;
+            var p2x = baseX - px * halfWidth;
+            var p2y = baseY - py * halfWidth;
+
+            var arrow = document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "polygon"
+            );
+
+            arrow.setAttribute("class", "route-arrow");
+            arrow.setAttribute(
+                "points",
+                tipX + "," + tipY + " " +
+                p1x + "," + p1y + " " +
+                p2x + "," + p2y
+            );
+
+            routeLayer.appendChild(arrow);
+        }
     }
 }
 /* ============================================================
