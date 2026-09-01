@@ -2136,6 +2136,60 @@ body {
     }
 }
 
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+
+    #pptStage .app {
+        position: relative !important;
+    }
+
+    /* Watermark: truly centered INSIDE the navy sidebar.
+       Because it is inside the sidebar, it naturally disappears when sidebar slides away. */
+    #pptStage .sidebar {
+        position: relative !important;
+    }
+
+    #pptStage .sidebar::before {
+        position: absolute !important;
+        left: 50% !important;
+        top: 50% !important;
+        width: 132px !important;
+        height: 132px !important;
+        margin: 0 !important;
+        transform: translate(-50%, -50%) !important;
+        -ms-transform: translate(-50%, -50%) !important;
+        opacity: .060 !important;
+        background: url("sidebar_brand_Logo.png") center center / contain no-repeat !important;
+        pointer-events: none !important;
+        z-index: 0 !important;
+    }
+
+    /* When sidebar closes, watermark must vanish with it. */
+    #pptStage .app.sidebar-collapsed .sidebar::before {
+        opacity: 0 !important;
+    }
+
+    /* Toggle tab: attach exactly to the sidebar's right edge.
+       Use absolute positioning in the scaled app, not fixed viewport coordinates. */
+    #pptStage .sidebar-center-tab {
+        position: absolute !important;
+        left: 320px !important;
+        top: 50% !important;
+        width: 26px !important;
+        height: 72px !important;
+        margin: 0 !important;
+        padding: 0 1px 0 0 !important;
+        transform: translateY(-50%) !important;
+        -ms-transform: translateY(-50%) !important;
+        font-size: 14px !important;
+        z-index: 90 !important;
+    }
+
+    #pptStage .app.sidebar-collapsed .sidebar-center-tab {
+        left: 0 !important;
+    }
+}
+
 </style>
 </head>
 
