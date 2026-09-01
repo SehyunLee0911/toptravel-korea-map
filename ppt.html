@@ -1847,11 +1847,19 @@ body {
     touch-action: manipulation;
 }
 
+
+/* ===== PPT DEBUG PANEL ===== */
+#pptDebugPanel{position:fixed;right:8px;top:8px;width:320px;max-height:46vh;overflow:auto;z-index:999999;background:rgba(0,0,0,.86);color:#9cff9c;font:12px/1.35 Consolas,monospace;padding:10px;border-radius:8px;box-shadow:0 4px 18px rgba(0,0,0,.35);white-space:pre-wrap;pointer-events:auto}
+#pptDebugPanel .err{color:#ff9b9b}
+#pptDebugPanel button{margin-top:6px;font:11px Arial;padding:4px 7px;cursor:pointer}
+
 </style>
 </head>
 
 
 <body>
+<div id="pptDebugPanel">DEBUG initializing...</div>
+
 <div id="pptStage">
 
 <div class="app">
@@ -2119,6 +2127,34 @@ body {
 </div>
 
 
+<script>
+(function(){
+  const lines=[];
+  function panel(){return document.getElementById('pptDebugPanel');}
+  function add(msg, cls){
+    const p=panel(); if(!p) return;
+    lines.push((cls==='err'?'ERROR: ':'')+String(msg));
+    p.textContent=lines.join('\n');
+  }
+  window.__pptDebugAdd=add;
+  window.addEventListener('error', function(e){ add((e.message||'window error')+' @ '+(e.filename||'')+':'+(e.lineno||''), 'err'); });
+  window.addEventListener('unhandledrejection', function(e){ add('unhandledrejection: '+(e.reason && (e.reason.stack||e.reason.message) || e.reason), 'err'); });
+  document.addEventListener('DOMContentLoaded', function(){
+    add('URL: '+location.href);
+    add('readyState: '+document.readyState);
+    add('viewport: '+window.innerWidth+' x '+window.innerHeight);
+    ['pptStage','dateChangeBtn','optionABtn','optionBBtn','startTravelBtn','addPlaceBtn','startDateBackdrop'].forEach(function(id){add(id+': '+(document.getElementById(id)?'OK':'MISSING'));});
+    setTimeout(function(){
+      add('after 500ms readyState: '+document.readyState);
+      add('startDateBackdrop class: '+(document.getElementById('startDateBackdrop')?.className||'missing'));
+      add('renderMap: '+(typeof window.renderMap));
+      add('openStartDateModal: '+(typeof window.openStartDateModal));
+      add('selectTripOption: '+(typeof window.selectTripOption));
+      add('tripList children: '+(document.getElementById('tripList')?.children.length ?? 'missing'));
+    },500);
+  });
+})();
+</script>
 <script>
 
 /* ============================================================
