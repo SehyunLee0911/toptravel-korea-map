@@ -1848,18 +1848,30 @@ body {
 }
 
 
-/* ===== PPT DEBUG PANEL ===== */
-#pptDebugPanel{position:fixed;right:8px;top:8px;width:320px;max-height:46vh;overflow:auto;z-index:999999;background:rgba(0,0,0,.86);color:#9cff9c;font:12px/1.35 Consolas,monospace;padding:10px;border-radius:8px;box-shadow:0 4px 18px rgba(0,0,0,.35);white-space:pre-wrap;pointer-events:auto}
-#pptDebugPanel .err{color:#ff9b9b}
-#pptDebugPanel button{margin-top:6px;font:11px Arial;padding:4px 7px;cursor:pointer}
+/* PowerPoint runtime diagnostic panel - ES5 compatible */
+#pptRuntimeDebug {
+    position: fixed;
+    right: 8px;
+    top: 8px;
+    width: 360px;
+    max-height: 52vh;
+    overflow: auto;
+    z-index: 2147483647;
+    background: rgba(0,0,0,.90);
+    color: #b8ffb8;
+    font: 12px/1.4 Consolas, "Courier New", monospace;
+    padding: 10px;
+    border-radius: 7px;
+    white-space: pre-wrap;
+    box-shadow: 0 4px 18px rgba(0,0,0,.4);
+}
 
 </style>
 </head>
 
 
 <body>
-<div id="pptDebugPanel">DEBUG initializing...</div>
-
+<div id="pptRuntimeDebug">DEBUG initializing...</div>
 <div id="pptStage">
 
 <div class="app">
@@ -2128,32 +2140,57 @@ body {
 
 
 <script>
-(function(){
-  const lines=[];
-  function panel(){return document.getElementById('pptDebugPanel');}
-  function add(msg, cls){
-    const p=panel(); if(!p) return;
-    lines.push((cls==='err'?'ERROR: ':'')+String(msg));
-    p.textContent=lines.join('\n');
-  }
-  window.__pptDebugAdd=add;
-  window.addEventListener('error', function(e){ add((e.message||'window error')+' @ '+(e.filename||'')+':'+(e.lineno||''), 'err'); });
-  window.addEventListener('unhandledrejection', function(e){ add('unhandledrejection: '+(e.reason && (e.reason.stack||e.reason.message) || e.reason), 'err'); });
-  document.addEventListener('DOMContentLoaded', function(){
-    add('URL: '+location.href);
-    add('readyState: '+document.readyState);
-    add('viewport: '+window.innerWidth+' x '+window.innerHeight);
-    ['pptStage','dateChangeBtn','optionABtn','optionBBtn','startTravelBtn','addPlaceBtn','startDateBackdrop'].forEach(function(id){add(id+': '+(document.getElementById(id)?'OK':'MISSING'));});
-    setTimeout(function(){
-      add('after 500ms readyState: '+document.readyState);
-      add('startDateBackdrop class: '+(document.getElementById('startDateBackdrop')?.className||'missing'));
-      add('renderMap: '+(typeof window.renderMap));
-      add('openStartDateModal: '+(typeof window.openStartDateModal));
-      add('selectTripOption: '+(typeof window.selectTripOption));
-      add('tripList children: '+(document.getElementById('tripList')?.children.length ?? 'missing'));
-    },500);
-  });
-})();
+(function () {
+    var output = [];
+    var panel = document.getElementById("pptRuntimeDebug");
+
+    function write(message) {
+        output.push(String(message));
+        if (panel) {
+            panel.innerHTML = output.join("<br>");
+        }
+    }
+
+    window.onerror = function (message, source, lineno, colno, error) {
+        write("JS ERROR: " + message);
+        write("line: " + lineno + ", col: " + colno);
+        if (source) { write("source: " + source); }
+        return false;
+    };
+
+    write("DEBUG STARTED");
+    write("URL: " + window.location.href);
+    write("readyState: " + document.readyState);
+    write("viewport: " + window.innerWidth + " x " + window.innerHeight);
+    write("UA: " + navigator.userAgent);
+    write("documentMode: " + (document.documentMode || "none"));
+    write("Edge legacy: " + (navigator.userAgent.indexOf("Edge/") >= 0 ? "YES" : "NO"));
+    write("WebView2/Chromium: " +
+        ((navigator.userAgent.indexOf("Edg/") >= 0 ||
+          navigator.userAgent.indexOf("Chrome/") >= 0) ? "LIKELY" : "NO"));
+
+    window.setTimeout(function () {
+        var ids = [
+            "pptStage",
+            "dateChangeBtn",
+            "optionABtn",
+            "optionBBtn",
+            "startTravelBtn",
+            "addPlaceBtn",
+            "startDateBackdrop"
+        ];
+        var i;
+        write("--- AFTER 1 SECOND ---");
+        write("readyState: " + document.readyState);
+        for (i = 0; i < ids.length; i++) {
+            write(ids[i] + ": " +
+                (document.getElementById(ids[i]) ? "OK" : "MISSING"));
+        }
+        write("renderMap: " + typeof window.renderMap);
+        write("openStartDateModal: " + typeof window.openStartDateModal);
+        write("selectTripOption: " + typeof window.selectTripOption);
+    }, 1000);
+}());
 </script>
 <script>
 
