@@ -1,0 +1,6895 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Korea Travel Map</title>
+
+<style>
+
+:root {
+    --sidebar-width: 320px;
+    --sidebar-tab-width: 30px;
+    --sidebar-tab-height: 104px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family:
+        Arial,
+        "Noto Sans KR",
+        sans-serif;
+
+    background: #e3f3f3;
+    color: #1d2925;
+
+    overflow: hidden;
+}
+
+.app {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+
+/* ============================================================
+   SIDEBAR
+============================================================ */
+
+.sidebar {
+    width: var(--sidebar-width);
+    min-width: var(--sidebar-width);
+    height: 100%;
+
+    position: relative;
+
+    background: #fff;
+
+    border-right: 1px solid #e5e7e6;
+
+    padding: 28px 22px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-gutter: stable;
+
+    z-index: 50;
+}
+
+/*
+    참조 이미지의 좌측 상단 타이틀 + 심볼 영역
+    이미지는 sidebar_brand_logo.png만 교체하면 됩니다.
+*/
+.sidebar-brand {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+
+    margin-bottom: 28px;
+}
+
+.sidebar-brand-copy {
+    flex: 1;
+    min-width: 0;
+}
+
+.sidebar-brand-logo {
+    width: 58px;
+    height: 58px;
+    flex: 0 0 58px;
+
+    margin-top: -5px;
+
+    object-fit: contain;
+    opacity: .72;
+
+    pointer-events: none;
+    user-select: none;
+}
+
+/*
+    참조 이미지의 흰색 중앙 탭.
+    sidebar 자체에 스크롤이 생겨도 viewport의 높이 50%에 고정됩니다.
+*/
+.sidebar-center-tab {
+    position: fixed;
+
+    left: calc(var(--sidebar-width) - 1px);
+    top: 50%;
+
+    width: var(--sidebar-tab-width);
+    height: var(--sidebar-tab-height);
+
+    transform: translateY(-50%);
+
+    background: #fff;
+
+    clip-path: polygon(
+        0 0,
+        100% 22%,
+        100% 78%,
+        0 100%
+    );
+
+    filter: drop-shadow(1px 0 0 #e5e7e6);
+
+    z-index: 55;
+    pointer-events: none;
+}
+
+.eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    color: #6c7772;
+
+    margin-bottom: 7px;
+}
+
+h1 {
+    margin: 0;
+
+    font-size: 28px;
+    line-height: 1;
+}
+
+.section-title {
+    font-size: 12px;
+    font-weight: 700;
+
+    margin-bottom: 10px;
+
+    color: #59635f;
+}
+
+/* 여행 순서 제목 + 옵션 선택 */
+.trip-section-header {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 10px;
+}
+
+.trip-section-header .section-title {
+    flex: 1;
+    margin: 0;
+}
+
+.trip-section-header .section-title::after {
+    display: none;
+}
+
+.trip-option-btn {
+    border: 1px solid rgba(234,220,174,.42);
+    border-radius: 999px;
+    padding: 3px 7px;
+    background: rgba(4,20,51,.18);
+    color: var(--passport-gold, #eadcae);
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .2px;
+    cursor: pointer;
+}
+
+.trip-option-btn.active {
+    background: var(--passport-gold-strong, #d8c27d);
+    border-color: var(--passport-gold-strong, #d8c27d);
+    color: var(--passport-navy-dark, #0b214f);
+}
+
+.date-change-btn {
+    white-space: nowrap;
+}
+
+/* 시작 날짜 선택 팝업 */
+.start-date-backdrop {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(10,23,55,.38);
+    z-index: 140;
+}
+
+.start-date-backdrop.open {
+    display: flex;
+}
+
+.start-date-modal {
+    width: min(390px, calc(100vw - 36px));
+    padding: 24px;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 24px 70px rgba(5,18,45,.28);
+    text-align: center;
+}
+
+.start-date-modal h2 {
+    margin: 0 0 8px;
+    color: #1b3b77;
+    font-size: 20px;
+}
+
+.start-date-modal p {
+    margin: 0 0 16px;
+    color: #68736e;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.start-date-input {
+    width: 100%;
+    height: 42px;
+    padding: 0 12px;
+    border: 1px solid #cfd7d3;
+    border-radius: 8px;
+    font: inherit;
+    color: #1d2925;
+}
+
+.start-date-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.start-date-action {
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid #d8dfdc;
+    background: #fff;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.start-date-action.primary {
+    border-color: #1b3b77;
+    background: #1b3b77;
+    color: #fff;
+}
+
+
+/* ============================================================
+   TRIP LIST
+============================================================ */
+
+.trip-list {
+    list-style: none;
+
+    margin: 0;
+    padding: 0;
+}
+
+.trip-item {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 9px;
+
+    padding: 9px 4px;
+
+    border-radius: 8px;
+
+    cursor: grab;
+
+    user-select: none;
+}
+
+.trip-item:hover {
+    background: #f7f9f8;
+}
+
+.trip-item.dragging {
+    opacity: .35;
+}
+
+.trip-item.drop-target {
+    background: #edf4f1;
+}
+
+
+/* ============================================================
+   TIMELINE
+============================================================ */
+
+.timeline {
+    width: 15px;
+    min-width: 15px;
+
+    position: relative;
+
+    display: flex;
+
+    justify-content: center;
+}
+
+.timeline::before {
+    content: "";
+
+    width: 8px;
+    height: 8px;
+
+    margin-top: 5px;
+
+    border-radius: 50%;
+
+    background: #ee5744;
+
+    z-index: 2;
+}
+
+.trip-item:not(:last-child)
+.timeline::after {
+
+    content: "";
+
+    position: absolute;
+
+    top: 14px;
+    bottom: -16px;
+
+    width: 1px;
+
+    background: #d8ddda;
+}
+
+
+/* ============================================================
+   TRIP INFO
+============================================================ */
+
+.trip-info {
+    flex: 1;
+
+    min-width: 0;
+}
+
+.trip-date {
+    font-size: 11px;
+
+    color: #858d89;
+
+    margin-bottom: 3px;
+}
+
+.trip-name-row {
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    min-width: 0;
+}
+
+.trip-name {
+    min-width: 0;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+.trip-visit-count {
+    flex: 0 0 auto;
+
+    padding: 2px 6px;
+
+    border: 1px solid #d8dfdc;
+
+    border-radius: 999px;
+
+    background: #f7f9f8;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    color: #69736f;
+
+    line-height: 1.3;
+}
+
+.trip-type {
+    margin-top: 3px;
+
+    font-size: 10px;
+
+    color: #a0a6a3;
+}
+
+
+/* ============================================================
+   DELETE
+============================================================ */
+
+.delete-btn {
+    width: 24px;
+    height: 24px;
+
+    border: 0;
+
+    background: transparent;
+
+    border-radius: 50%;
+
+    color: #a6aca9;
+
+    font-size: 17px;
+
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    color: #e94f3c;
+
+    background: #f7f7f7;
+}
+
+
+/* ============================================================
+   ADD BUTTON
+============================================================ */
+
+.add-btn {
+    width: 100%;
+    height: 44px;
+
+    margin-top: 9px;
+
+    background: #fff;
+
+    border: 1px dashed #bec6c2;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+
+    cursor: pointer;
+}
+
+.add-btn:hover {
+    background: #f7f9f8;
+
+    border-color: #8e9994;
+}
+
+
+/* ============================================================
+   TRAVEL BUTTON
+============================================================ */
+
+.travel-controls {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 8px;
+
+    margin-top: 9px;
+}
+
+.travel-btn {
+    height: 42px;
+
+    border: 1px solid #d8dfdc;
+
+    border-radius: 8px;
+
+    background: #fff;
+
+    font-size: 13px;
+
+    cursor: pointer;
+}
+
+.travel-btn:hover:not(:disabled) {
+    background: #f5f8f6;
+}
+
+.travel-btn:disabled {
+    opacity: .45;
+
+    cursor: not-allowed;
+}
+
+.save-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 9px;
+}
+
+.save-controls .travel-btn {
+    width: 100%;
+}
+
+.travel-status {
+    margin-top: 8px;
+
+    min-height: 18px;
+
+    text-align: center;
+
+    font-size: 11px;
+
+    color: #7c8782;
+}
+
+
+/* ============================================================
+   MAP AREA
+============================================================ */
+
+.map-area {
+    position: relative;
+
+    flex: 1;
+
+    min-width: 0;
+
+    height: 100%;
+
+    background: #B7DDE8;
+
+    overflow: hidden;
+}
+
+.country-title {
+    position: absolute;
+
+    left: 28px;
+    top: 26px;
+
+    z-index: 10;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    color: #67736e;
+}
+
+
+/* ============================================================
+   MAP
+============================================================ */
+
+.map-container {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    width: min(850px, 82vw);
+
+    aspect-ratio: 1 / 1;
+}
+
+.map-container > img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+}
+
+
+/* ============================================================
+   OVERLAY
+============================================================ */
+
+.map-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   ROUTE SVG
+============================================================ */
+
+.route-svg {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: visible;
+
+    pointer-events: none;
+}
+
+.route-line {
+    fill: none;
+
+    stroke: #303b37;
+
+    stroke-width: 2.5;
+
+    stroke-dasharray: 7 6;
+
+    vector-effect: non-scaling-stroke;
+
+    marker-end: url(#arrowMarker);
+}
+
+
+/* ============================================================
+   LOCATION MARKER
+============================================================ */
+
+.location-marker {
+    position: absolute;
+
+    transform:
+        translate(-50%, -50%);
+
+    width: 17px;
+    height: 17px;
+
+    border-radius: 50%;
+
+    background: #fff;
+
+    border: 3px solid #ed5542;
+
+    box-shadow:
+        0 1px 5px rgba(0,0,0,.18);
+
+    z-index: 25;
+
+    pointer-events: auto;
+    cursor: grab;
+    touch-action: none;
+}
+
+.location-marker:hover {
+    transform:
+        translate(-50%, -50%)
+        scale(1.16);
+}
+
+.location-marker.dragging {
+    cursor: grabbing;
+    transform:
+        translate(-50%, -50%)
+        scale(1.22);
+    box-shadow:
+        0 2px 9px rgba(0,0,0,.28);
+}
+
+
+/* ============================================================
+   LOCATION NAME
+============================================================ */
+
+.location-name {
+    position: absolute;
+
+    transform:
+        translate(-50%, -50%);
+
+    white-space: nowrap;
+
+    padding: 5px 9px;
+
+    border-radius: 5px;
+
+    background:
+        rgba(255,255,255,.96);
+
+    border: 1px solid #e2e5e3;
+
+    box-shadow:
+        0 2px 7px rgba(0,0,0,.08);
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    color: #202724;
+
+    z-index: 14;
+
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   DATE BOX
+============================================================ */
+
+.date-box {
+    position: absolute;
+
+    width: 126px;
+
+    padding: 3px 5px;
+
+    background:
+        rgba(255,255,255,.97);
+
+    border: 1px solid #e2e5e3;
+
+    border-radius: 6px;
+
+    box-shadow:
+        0 2px 7px rgba(0,0,0,.10);
+
+    z-index: 20;
+
+    pointer-events: auto;
+
+    transform-origin: center center;
+}
+
+/*
+    이동수단이 해당 도시에 도착했을 때
+    도시/날짜 박스를 잠깐 확대하고 좌측 여권 사이드바의 진청색으로 강조합니다.
+*/
+.date-box.arrival-highlight {
+    animation: arrivalDatePulse 5500ms cubic-bezier(.2,.78,.22,1) both;
+}
+
+.date-box.arrival-highlight,
+.date-box.arrival-highlight .date-place-name,
+.date-box.arrival-highlight .visit-number,
+.date-box.arrival-highlight .visit-date-input {
+    color: #fff;
+}
+
+.date-box.arrival-highlight .date-place-name {
+    border-bottom-color: rgba(255,255,255,.36);
+}
+
+.date-box.arrival-highlight .visit-date-row + .visit-date-row {
+    border-top-color: rgba(255,255,255,.26);
+}
+
+.date-box.arrival-highlight .visit-date-input {
+    color-scheme: dark;
+}
+
+.date-box.arrival-highlight .visit-date-editor {
+    width: 100%;
+    border: 0;
+    outline: none;
+    background: transparent;
+    text-align: center;
+    cursor: pointer;
+}
+
+.visit-date-editor:focus {
+    background: rgba(27,59,119,.06);
+    border-radius: 4px;
+}
+
+.visit-date-input::-webkit-calendar-picker-indicator {
+    filter: invert(1) brightness(2);
+}
+
+@keyframes arrivalDatePulse {
+    0% {
+        transform: scale(1);
+        background: rgba(255,255,255,.97);
+        box-shadow: 0 2px 7px rgba(0,0,0,.10);
+    }
+
+    28% {
+        transform: scale(1.08);
+        background: #1b3b77;
+        box-shadow: 0 10px 24px rgba(10,25,64,.28);
+    }
+
+    76% {
+        transform: scale(1.08);
+        background: #1b3b77;
+        box-shadow: 0 10px 24px rgba(10,25,64,.24);
+    }
+
+    100% {
+        transform: scale(1);
+        background: rgba(255,255,255,.97);
+        box-shadow: 0 2px 7px rgba(0,0,0,.10);
+    }
+}
+
+.date-place-name {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 21px;
+
+    margin: -3px -5px 3px;
+
+    padding: 4px 6px;
+
+    border-bottom: 1px solid #e2e5e3;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    color: #202724;
+
+    text-align: center;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.visit-date-row {
+    display: flex;
+    align-items: center;
+
+    gap: 4px;
+
+    min-height: 24px;
+}
+
+.visit-date-row + .visit-date-row {
+    border-top: 1px solid #edf0ee;
+}
+
+.visit-number {
+    flex: 0 0 auto;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    color: #69736f;
+
+    text-align: left;
+}
+
+.visit-date-input {
+    flex: 1 1 auto;
+    min-width: 0;
+
+    display: block;
+
+    font-family: inherit;
+
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.15;
+
+    color: #59635f;
+    text-align: center;
+
+    white-space: nowrap;
+}
+
+.visit-date-row.no-visit-label .visit-date-input {
+    width: 100%;
+    flex-basis: 100%;
+}
+
+
+/* ============================================================
+   TRAVEL VEHICLE
+============================================================ */
+
+.travel-vehicle {
+    position: absolute;
+
+    width: 48px;
+    height: 48px;
+
+    transform:
+        translate(-50%, -50%);
+
+    z-index: 30;
+
+    pointer-events: none;
+
+    filter:
+        drop-shadow(
+            0 2px 3px rgba(0,0,0,.16)
+        );
+
+    will-change:
+        left,
+        top,
+        transform;
+}
+
+.travel-vehicle img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+}
+
+
+/* ============================================================
+   HELP
+============================================================ */
+
+.help {
+    position: absolute;
+
+    right: 20px;
+    bottom: 18px;
+
+    z-index: 10;
+
+    padding: 7px 10px;
+
+    background:
+        rgba(255,255,255,.72);
+
+    border-radius: 6px;
+
+    color: #68736e;
+
+    font-size: 10px;
+}
+
+
+/* ============================================================
+   TOP TRAVEL LOGO
+============================================================ */
+
+.toptravel-logo {
+    position: absolute;
+
+    left: 50%;
+    bottom: 18px;
+
+    transform:
+        translateX(-50%);
+
+    width: min(240px, 28vw);
+    height: auto;
+
+    z-index: 10;
+
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   MODAL
+============================================================ */
+
+.modal-backdrop {
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        rgba(20,30,27,.22);
+
+    z-index: 100;
+
+    display: none;
+}
+
+.modal-backdrop.open {
+    display: block;
+}
+
+.modal {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    width: min(
+        620px,
+        calc(100vw - 40px)
+    );
+
+    max-height: 78vh;
+
+    background: #fff;
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 25px 80px rgba(0,0,0,.20);
+
+    overflow: hidden;
+}
+
+.modal-header {
+    display: flex;
+
+    align-items: center;
+
+    padding: 19px 21px 14px;
+
+    border-bottom: 1px solid #eee;
+}
+
+.modal-title {
+    flex: 1;
+
+    margin: 0;
+
+    font-size: 19px;
+}
+
+.close-btn {
+    width: 32px;
+    height: 32px;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background: #f1f3f2;
+
+    font-size: 18px;
+
+    cursor: pointer;
+}
+
+
+/* ============================================================
+   SEARCH
+============================================================ */
+
+.search {
+    width: calc(100% - 40px);
+
+    height: 41px;
+
+    margin: 15px 20px;
+
+    padding: 0 12px;
+
+    border: 1px solid #dadfdd;
+
+    border-radius: 8px;
+
+    outline: none;
+
+    font-family: inherit;
+
+    font-size: 13px;
+}
+
+.search:focus {
+    border-color: #8d9893;
+}
+
+
+/* ============================================================
+   PLACE GRID
+============================================================ */
+
+.place-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0,1fr));
+
+    gap: 8px;
+
+    padding:
+        0
+        20px
+        20px;
+
+    max-height: 53vh;
+
+    overflow-y: auto;
+}
+
+.place-option {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 8px;
+
+    padding: 11px 12px;
+
+    background: #fff;
+
+    border: 1px solid #e4e8e6;
+
+    border-radius: 8px;
+
+    text-align: left;
+
+    cursor: pointer;
+}
+
+.place-option:hover {
+    background: #f6f8f7;
+
+    border-color: #c8d0cc;
+}
+
+.place-option strong {
+    font-size: 13px;
+}
+
+.place-option span {
+    font-size: 10px;
+
+    color: #8a938f;
+}
+
+.no-result {
+    grid-column: 1 / -1;
+
+    text-align: center;
+
+    padding: 35px 0;
+
+    color: #8b938f;
+
+    font-size: 13px;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+
+@media(max-width:850px) {
+
+    :root {
+        --sidebar-width: 260px;
+    }
+
+    .sidebar-brand-logo {
+        width: 50px;
+        height: 50px;
+        flex-basis: 50px;
+    }
+
+    .map-container {
+        width: 760px;
+        max-width: none;
+    }
+
+    .place-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+/* ============================================================
+   PASSPORT-INSPIRED SIDEBAR THEME + COLLAPSE TOGGLE
+   - 대한민국 여권의 짙은 남색 + 아이보리/금색 계열에서 영감을 받은 구성
+   - 중앙 탭은 viewport 높이 50%에 고정되므로 사이드바 스크롤과 무관하게 중앙 유지
+============================================================ */
+
+:root {
+    --passport-navy: #1b3b77;
+    --passport-navy-deep: #102b60;
+    --passport-navy-dark: #0b214f;
+    --passport-gold: #eadcae;
+    --passport-gold-strong: #d8c27d;
+    --passport-gold-muted: #b7a46c;
+    --passport-ivory: #fff8df;
+    --passport-line: rgba(234, 220, 174, .42);
+}
+
+.sidebar {
+    margin-left: 0;
+
+    background:
+        radial-gradient(
+            circle at 50% 42%,
+            rgba(234, 220, 174, .055) 0 1px,
+            transparent 1.5px
+        ) 0 0 / 13px 13px,
+        linear-gradient(
+            180deg,
+            #214483 0%,
+            var(--passport-navy) 43%,
+            var(--passport-navy-deep) 100%
+        );
+
+    color: var(--passport-ivory);
+    border-right: 1px solid rgba(234, 220, 174, .46);
+
+    padding: 24px 22px 28px;
+
+    box-shadow:
+        inset -1px 0 rgba(255,255,255,.06),
+        12px 0 36px rgba(9, 29, 70, .10);
+
+    scrollbar-width: thin;
+    scrollbar-color:
+        rgba(234, 220, 174, .48)
+        rgba(7, 24, 59, .22);
+
+    transition:
+        margin-left .34s cubic-bezier(.22,.72,.2,1),
+        box-shadow .34s ease;
+}
+
+/* 여권 표지처럼 은은한 원형 보안무늬 */
+.sidebar::before {
+    content: "";
+
+    position: absolute;
+    left: 42px;
+    top: 250px;
+
+    width: 205px;
+    height: 205px;
+
+    border: 1px solid rgba(234, 220, 174, .075);
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 12px rgba(234, 220, 174, .025),
+        0 0 0 24px rgba(234, 220, 174, .045),
+        0 0 0 37px rgba(234, 220, 174, .022),
+        inset 0 0 0 18px rgba(234, 220, 174, .02);
+
+    opacity: .95;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.sidebar > * {
+    position: relative;
+    z-index: 1;
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: rgba(7, 24, 59, .22);
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(234, 220, 174, .47);
+    border: 2px solid transparent;
+    border-radius: 999px;
+    background-clip: padding-box;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(234, 220, 174, .70);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+
+.sidebar-brand {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+
+    margin-bottom: 24px;
+    padding: 5px 8px 24px;
+
+    text-align: center;
+    border-bottom: 1px solid var(--passport-line);
+}
+
+.sidebar-brand::after {
+    content: "";
+    width: 48px;
+    height: 2px;
+    margin-top: 7px;
+    border-radius: 999px;
+    background: var(--passport-gold-strong);
+    opacity: .8;
+}
+
+.sidebar-brand-copy {
+    width: 100%;
+}
+
+.sidebar-brand-logo {
+    order: -1;
+
+    width: 84px;
+    height: 84px;
+    flex: 0 0 84px;
+
+    margin: 0 0 3px;
+
+    object-fit: contain;
+    opacity: .96;
+
+    filter:
+        drop-shadow(0 1px 0 rgba(0,0,0,.10))
+        drop-shadow(0 5px 12px rgba(4,18,48,.18));
+}
+
+.eyebrow {
+    margin-bottom: 7px;
+
+    color: var(--passport-gold-strong);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 2.8px;
+}
+
+.sidebar h1 {
+    margin: 0;
+
+    color: var(--passport-ivory);
+    font-size: 24px;
+    line-height: 1.12;
+    letter-spacing: -.4px;
+
+    text-shadow: 0 1px 1px rgba(0,0,0,.12);
+}
+
+.passport-subtitle {
+    margin-top: 10px;
+
+    color: rgba(255, 248, 223, .88);
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: 1.45px;
+}
+
+.passport-subtitle span {
+    display: block;
+    margin-top: 1px;
+    color: var(--passport-gold);
+    font-size: 9px;
+    letter-spacing: 1.8px;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin: 0 0 10px;
+
+    color: var(--passport-gold);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.6px;
+}
+
+.section-title::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: rgba(234, 220, 174, .28);
+}
+
+.trip-item {
+    padding: 10px 7px;
+
+    border: 1px solid transparent;
+    border-radius: 7px;
+
+    transition:
+        background .16s ease,
+        border-color .16s ease,
+        transform .16s ease;
+}
+
+.trip-item:hover {
+    background: rgba(255, 248, 223, .065);
+    border-color: rgba(234, 220, 174, .18);
+}
+
+.trip-item.drop-target {
+    background: rgba(234, 220, 174, .12);
+    border-color: rgba(234, 220, 174, .44);
+}
+
+.timeline::before {
+    width: 8px;
+    height: 8px;
+    background: var(--passport-gold-strong);
+    box-shadow:
+        0 0 0 2px rgba(16,43,96,.75),
+        0 0 0 3px rgba(234,220,174,.22);
+}
+
+.trip-item:not(:last-child) .timeline::after {
+    background: rgba(234, 220, 174, .34);
+}
+
+.trip-date {
+    color: rgba(234, 220, 174, .72);
+}
+
+.trip-name {
+    color: var(--passport-ivory);
+}
+
+.trip-visit-count {
+    border-color: rgba(234, 220, 174, .35);
+    background: rgba(234, 220, 174, .08);
+    color: var(--passport-gold);
+}
+
+.trip-type {
+    color: rgba(255, 248, 223, .54);
+}
+
+.delete-btn {
+    color: rgba(255, 248, 223, .55);
+}
+
+.delete-btn:hover {
+    color: var(--passport-navy-dark);
+    background: var(--passport-gold-strong);
+}
+
+.add-btn {
+    height: 44px;
+
+    background: rgba(5, 22, 56, .16);
+    border: 1px dashed rgba(234, 220, 174, .52);
+    border-radius: 7px;
+
+    color: var(--passport-gold);
+    font-weight: 700;
+    letter-spacing: .1px;
+
+    transition:
+        background .16s ease,
+        color .16s ease,
+        border-color .16s ease,
+        transform .16s ease;
+}
+
+.add-btn:hover {
+    background: var(--passport-gold);
+    border-color: var(--passport-gold);
+    color: var(--passport-navy-dark);
+    transform: translateY(-1px);
+}
+
+.travel-controls {
+    margin-top: 11px;
+}
+
+.travel-btn {
+    height: 42px;
+
+    border: 1px solid rgba(234, 220, 174, .46);
+    border-radius: 7px;
+
+    background: rgba(4, 20, 51, .22);
+    color: var(--passport-ivory);
+
+    font-weight: 700;
+
+    transition:
+        background .16s ease,
+        color .16s ease,
+        transform .16s ease;
+}
+
+#startTravelBtn {
+    background: var(--passport-gold-strong);
+    border-color: var(--passport-gold-strong);
+    color: var(--passport-navy-dark);
+}
+
+.travel-btn:hover:not(:disabled) {
+    background: var(--passport-gold);
+    border-color: var(--passport-gold);
+    color: var(--passport-navy-dark);
+    transform: translateY(-1px);
+}
+
+.travel-btn:disabled {
+    opacity: .32;
+}
+
+.travel-status {
+    color: rgba(234, 220, 174, .74);
+}
+
+/*
+    중앙 토글 탭
+    sidebar가 스크롤되어도 position: fixed + top:50%라 항상 화면 높이 중앙에 유지.
+    열림: ◀ (닫기)
+    닫힘: ▶ (열기)
+*/
+.sidebar-center-tab {
+    position: fixed;
+
+    left: calc(var(--sidebar-width) - 1px);
+    top: 50%;
+
+    width: 42px;
+    height: 98px;
+
+    transform: translateY(-50%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 3px 0 0;
+
+    background: linear-gradient(
+        180deg,
+        #f4e8bd 0%,
+        var(--passport-gold-strong) 100%
+    );
+
+    border: 0;
+
+    clip-path: polygon(
+        0 0,
+        72% 0,
+        100% 22%,
+        100% 78%,
+        72% 100%,
+        0 100%
+    );
+
+    color: var(--passport-navy-dark);
+    font-family: Arial, "Noto Sans KR", sans-serif;
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 1;
+
+    cursor: pointer;
+    user-select: none;
+    pointer-events: auto;
+
+    filter:
+        drop-shadow(1px 0 rgba(73,61,24,.18))
+        drop-shadow(4px 4px 8px rgba(13,35,76,.16));
+
+    z-index: 80;
+
+    transition:
+        left .34s cubic-bezier(.22,.72,.2,1),
+        filter .16s ease,
+        background .16s ease;
+}
+
+.sidebar-center-tab:hover {
+    background: linear-gradient(
+        180deg,
+        #fff4ca 0%,
+        #e3cf8b 100%
+    );
+
+    filter:
+        drop-shadow(1px 0 rgba(73,61,24,.22))
+        drop-shadow(5px 5px 10px rgba(13,35,76,.22));
+}
+
+.sidebar-center-tab:focus-visible {
+    outline: 3px solid rgba(255, 248, 223, .88);
+    outline-offset: 3px;
+}
+
+/* 사이드바를 왼쪽 화면 밖으로 밀어 지도 영역을 전체 폭으로 확장 */
+.app.sidebar-collapsed .sidebar {
+    margin-left: calc(var(--sidebar-width) * -1);
+    box-shadow: none;
+}
+
+.app.sidebar-collapsed .sidebar-center-tab {
+    left: 0;
+}
+
+@media(max-width:850px) {
+    .sidebar-brand-logo {
+        width: 72px;
+        height: 72px;
+        flex-basis: 72px;
+    }
+
+    .sidebar h1 {
+        font-size: 21px;
+    }
+
+    .sidebar-center-tab {
+        width: 38px;
+        height: 88px;
+        font-size: 17px;
+    }
+}
+
+
+
+/* ============================================================
+   CUSTOM EMBLEM PLACEMENT
+   - 업로드한 문양을 제목 오른쪽에 배치
+   - 같은 문양을 사이드바 중앙 워터마크로 사용
+============================================================ */
+
+.sidebar-brand {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+
+    padding: 5px 0 22px;
+    text-align: left;
+}
+
+.sidebar-brand::after {
+    display: none;
+}
+
+.sidebar-brand-copy {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.sidebar-brand-logo {
+    order: 0;
+
+    width: 78px;
+    height: 74px;
+    flex: 0 0 78px;
+
+    margin: 0;
+
+    object-fit: contain;
+    object-position: center;
+    opacity: .98;
+
+    filter:
+        drop-shadow(0 1px 0 rgba(0,0,0,.10))
+        drop-shadow(0 5px 12px rgba(4,18,48,.20));
+}
+
+/*
+    사이드바 중간의 여권 보안무늬를 업로드한 문양 워터마크로 교체.
+    fixed를 사용해 도시 목록이 길어져 사이드바를 스크롤해도
+    화면 기준 중앙 위치를 유지합니다.
+*/
+.sidebar::before {
+    content: "";
+
+    position: fixed;
+    left: calc(var(--sidebar-width) / 2);
+    top: 50%;
+
+    width: 232px;
+    height: 220px;
+
+    transform: translate(-50%, -50%);
+
+    background:
+        url("sidebar_brand_Logo.png")
+        center / contain
+        no-repeat;
+
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+
+    opacity: .075;
+
+    pointer-events: none;
+    z-index: 0;
+
+    transition:
+        left .34s cubic-bezier(.22,.72,.2,1),
+        opacity .24s ease;
+}
+
+.app.sidebar-collapsed .sidebar::before {
+    left: calc(var(--sidebar-width) * -0.5);
+    opacity: 0;
+}
+
+@media(max-width:850px) {
+    .sidebar-brand {
+        gap: 10px;
+    }
+
+    .sidebar-brand-logo {
+        width: 64px;
+        height: 62px;
+        flex-basis: 64px;
+    }
+
+    .sidebar::before {
+        width: 192px;
+        height: 181px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+<!-- ==========================================================
+     SIDEBAR
+=========================================================== -->
+
+<aside class="sidebar">
+
+    <div class="sidebar-brand">
+
+        <div class="sidebar-brand-copy">
+
+            <div class="eyebrow">
+                WONDERFUL TOUR
+            </div>
+
+            <h1>
+                고품격 고국일주
+            </h1>
+
+            <div class="passport-subtitle">
+                REPUBLIC OF KOREA
+                <span>TRAVEL PASSPORT</span>
+            </div>
+
+        </div>
+
+        <img
+            class="sidebar-brand-logo"
+            src="sidebar_brand_Logo.png"
+            alt="대한민국 심볼">
+
+    </div>
+
+    <div class="trip-section-header">
+        <div class="section-title">여행 순서</div>
+        <button id="dateChangeBtn" class="trip-option-btn date-change-btn" type="button">날짜 변경</button>
+        <button id="optionABtn" class="trip-option-btn active" type="button">옵션 A</button>
+        <button id="optionBBtn" class="trip-option-btn" type="button">옵션 B</button>
+    </div>
+
+    <ul
+        id="tripList"
+        class="trip-list">
+    </ul>
+
+    <button
+        id="addPlaceBtn"
+        class="add-btn">
+        + 도시 / 소도시 / 여행지 추가
+    </button>
+
+
+    <div class="save-controls">
+
+        <button
+            id="saveBtn"
+            class="travel-btn"
+            type="button">
+            💾 저장
+        </button>
+
+        <button
+            id="resetBtn"
+            class="travel-btn"
+            type="button">
+            ↺ 초기화
+        </button>
+
+    </div>
+
+
+    <div class="travel-controls">
+
+        <button
+            id="startTravelBtn"
+            class="travel-btn">
+
+            ▶ 시작
+
+        </button>
+
+        <button
+            id="pauseTravelBtn"
+            class="travel-btn"
+            disabled>
+
+            ❚❚ 일시정지
+
+        </button>
+
+    </div>
+
+
+    <div
+        id="travelStatus"
+        class="travel-status">
+    </div>
+
+</aside>
+
+<button
+    id="sidebarToggle"
+    class="sidebar-center-tab"
+    type="button"
+    aria-label="사이드바 닫기"
+    aria-expanded="true"
+    title="사이드바 닫기">◀</button>
+
+
+<!-- ==========================================================
+     MAP
+=========================================================== -->
+
+<main class="map-area">
+
+    <div class="country-title">
+        SOUTH KOREA
+    </div>
+
+
+    <div
+        id="mapContainer"
+        class="map-container">
+
+        <img
+            id="koreaMap"
+            src="kr.svg"
+            alt="대한민국 지도">
+
+
+        <div
+            id="mapOverlay"
+            class="map-overlay">
+
+
+            <svg
+                id="routeSvg"
+                class="route-svg"
+                viewBox="0 0 100 100"
+                preserveAspectRatio="none">
+
+                <defs>
+
+                    <marker
+                        id="arrowMarker"
+                        markerWidth="7"
+                        markerHeight="7"
+                        refX="6"
+                        refY="3.5"
+                        orient="auto">
+
+                        <path
+                            d="
+                                M0,0
+                                L7,3.5
+                                L0,7
+                                Z
+                            "
+                            fill="#303b37">
+                        </path>
+
+                    </marker>
+
+                </defs>
+
+
+                <g
+                    id="routeLayer">
+                </g>
+
+            </svg>
+
+        </div>
+
+
+        <div
+            id="travelVehicle"
+            class="travel-vehicle"
+            hidden>
+
+            <img
+                id="travelVehicleImage"
+                alt="이동수단">
+
+        </div>
+
+    </div>
+
+
+    <img
+        class="toptravel-logo"
+        src="TopTravel_Logo.png"
+        alt="Top Travel">
+
+
+    <div class="help">
+        ⓒ 2026 Top Travel
+    </div>
+
+</main>
+
+</div>
+
+
+<!-- ==========================================================
+     START DATE MODAL
+=========================================================== -->
+<div id="startDateBackdrop" class="start-date-backdrop" aria-hidden="true">
+    <div class="start-date-modal" role="dialog" aria-modal="true" aria-labelledby="startDateTitle">
+        <h2 id="startDateTitle">여행 시작 날짜</h2>
+        <p>기준 날짜를 선택하면 일정 규칙에 따라 각 도시의 체류 날짜가 자동으로 입력됩니다.</p>
+        <input id="startDateInput" class="start-date-input" type="date">
+        <div class="start-date-actions">
+            <button id="cancelStartDateBtn" class="start-date-action" type="button">취소</button>
+            <button id="confirmStartDateBtn" class="start-date-action primary" type="button">날짜 적용 후 시작</button>
+        </div>
+    </div>
+</div>
+
+<!-- ==========================================================
+     MODAL
+=========================================================== -->
+
+<div
+    id="modalBackdrop"
+    class="modal-backdrop">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h2
+                id="modalTitle"
+                class="modal-title">
+                도시 추가
+            </h2>
+
+            <button
+                id="closeModal"
+                class="close-btn">
+                ×
+            </button>
+
+        </div>
+
+
+        <input
+            id="placeSearch"
+            class="search"
+            type="search"
+            placeholder="도시 또는 여행지 검색">
+
+
+        <div
+            id="placeGrid"
+            class="place-grid">
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* ============================================================
+   장소 데이터
+============================================================ */
+
+
+/* 좌표 보정 기준 (2026-08): kr.svg 내부 위경도 기준점을 이용한 affine projection.
+   각 x/y는 도시·군 또는 관광지 대표 중심점의 위경도를 SVG 1000x1000 좌표로 투영한 뒤 %로 변환. */
+const places = [
+
+    /* ======================
+       도시
+    ====================== */
+
+    {
+        name: "인천",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 35.41,
+        y: 24.61
+    },
+
+    {
+        name: "서울",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 39.52,
+        y: 23.25
+    },
+
+    {
+        name: "수원",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 39.97,
+        y: 25.24
+    },
+
+    {
+        name: "춘천",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 49.48,
+        y: 14.88
+    },
+
+    {
+        name: "강릉",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 64.54,
+        y: 25.00
+    },
+
+    {
+        name: "원주",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 52.06,
+        y: 24.71
+    },
+
+    {
+        name: "청주",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 46.22,
+        y: 36.80
+    },
+
+    {
+        name: "대전",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 44.81,
+        y: 41.92
+    },
+
+    {
+        name: "전주",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 41.60,
+        y: 51.10
+    },
+
+    {
+        name: "광주",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 37.60,
+        y: 62.70
+    },
+
+    {
+        name: "목포",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 31.36,
+        y: 68.46
+    },
+
+    {
+        name: "여수",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 48.59,
+        y: 69.62
+    },
+
+    {
+        name: "진주",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 53.82,
+        y: 62.55
+    },
+
+    {
+        name: "창원",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 62.40,
+        y: 63.26
+    },
+
+    {
+        name: "부산",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 67.04,
+        y: 63.24
+    },
+
+    {
+        name: "울산",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 69.98,
+        y: 57.63
+    },
+
+    {
+        name: "포항",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 70.38,
+        y: 48.05
+    },
+
+    {
+        name: "경주",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 69.77,
+        y: 51.55
+    },
+
+    {
+        name: "안동",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 63.05,
+        y: 39.33
+    },
+
+    {
+        name: "대구",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 61.32,
+        y: 51.67
+    },
+
+    {
+        name: "제주",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+
+        x: 33.25,
+
+        /*
+            기존보다 조금 아래로 이동
+        */
+        y: 92.07
+    },
+
+
+    /* ======================
+       소도시 / 여행지
+    ====================== */
+
+    {
+        name: "정동진",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 67.50,
+        y: 23.25
+    },
+
+    {
+        name: "속초",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 64.48,
+        y: 19.03
+    },
+
+    {
+        name: "양양",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 61.33,
+        y: 21.28
+    },
+
+    {
+        name: "평창",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 58.44,
+        y: 24.66
+    },
+
+    {
+        name: "홍천",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 51.63,
+        y: 18.33
+    },
+
+    {
+        name: "가평",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 46.49,
+        y: 15.55
+    },
+
+    {
+        name: "남이섬",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 46.71,
+        y: 16.29
+    },
+
+    {
+        name: "파주",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 36.59,
+        y: 16.12
+    },
+
+    {
+        name: "DMZ",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 35.93,
+        y: 13.59
+    },
+
+    {
+        name: "강화도",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 32.63,
+        y: 16.08
+    },
+
+    {
+        name: "양평",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 46.20,
+        y: 21.61
+    },
+
+    {
+        name: "제천",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 55.74,
+        y: 28.72
+    },
+
+    {
+        name: "단양",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 58.11,
+        y: 31.54
+    },
+
+    {
+        name: "충주",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 52.14,
+        y: 30.99
+    },
+
+    {
+        name: "공주",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 41.20,
+        y: 39.94
+    },
+
+    {
+        name: "부여",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 38.37,
+        y: 42.79
+    },
+
+    {
+        name: "보령",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 34.34,
+        y: 41.47
+    },
+
+    {
+        name: "태안",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 30.07,
+        y: 33.79
+    },
+
+    {
+        name: "군산",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 36.02,
+        y: 48.13
+    },
+
+    {
+        name: "익산",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 39.02,
+        y: 48.69
+    },
+
+    {
+        name: "담양",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 39.44,
+        y: 59.94
+    },
+
+    {
+        name: "순천",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 45.31,
+        y: 64.05
+    },
+
+    {
+        name: "통영",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 59.04,
+        y: 69.69
+    },
+
+    {
+        name: "거제",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 61.59,
+        y: 68.41
+    },
+
+    {
+        name: "남해",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 51.71,
+        y: 69.46
+    },
+
+    {
+        name: "밀양",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 63.29,
+        y: 58.39
+    },
+
+    {
+        name: "양산",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 67.23,
+        y: 61.69
+    },
+
+    {
+        name: "청송",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 67.49,
+        y: 42.02
+    },
+
+    {
+        name: "영덕",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 70.65,
+        y: 42.31
+    },
+
+    {
+        name: "울진",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 71.09,
+        y: 34.74
+    },
+
+    {
+        name: "문경",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 55.68,
+        y: 38.48
+    },
+
+    {
+        name: "상주",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 55.31,
+        y: 41.59
+    },
+
+    {
+        name: "구미",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 57.83,
+        y: 46.98
+    },
+
+    {
+        name: "영천",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 65.89,
+        y: 50.18
+    },
+
+    {
+        name: "청도",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 63.11,
+        y: 55.81
+    },
+
+    {
+        name: "합천",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 55.41,
+        y: 56.70
+    },
+
+    {
+        name: "하동",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 50.79,
+        y: 63.22
+    },
+
+    {
+        name: "고성",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 57.54,
+        y: 67.46
+    },
+
+    {
+        name: "강진",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 36.45,
+        y: 71.86
+    },
+
+    {
+        name: "해남",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 34.17,
+        y: 72.93
+    },
+
+    {
+        name: "보성",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 40.69,
+        y: 69.86
+    },
+
+    {
+        name: "완도",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 36.28,
+        y: 77.77
+    },
+
+    {
+        name: "진도",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 29.61,
+        y: 74.15
+    },
+
+    {
+        name: "한라산",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 33.23,
+        y: 94.53
+    },
+
+    {
+        name: "성산일출봉",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 38.83,
+        y: 93.21
+    },
+
+    {
+        name: "애월",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 30.50,
+        y: 92.54
+    },
+
+    {
+        name: "서귀포",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 33.65,
+        y: 96.48
+    },
+
+    /* 추가 소도시 / 여행지 — 제주 및 기존 기준점에 맞춘 좌표 재보정 */
+
+    {
+        name: "광양",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 49.04,
+        y: 65.43
+    },
+
+    {
+        name: "고흥",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 43.47,
+        y: 72.92
+    },
+
+    {
+        name: "구례",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 45.88,
+        y: 62.52
+    },
+
+    {
+        name: "곡성",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 43.56,
+        y: 60.94
+    },
+
+    {
+        name: "나주",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 35.68,
+        y: 65.12
+    },
+
+    {
+        name: "화순",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 39.42,
+        y: 64.52
+    },
+
+    {
+        name: "영암",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 35.49,
+        y: 68.97
+    },
+
+    {
+        name: "장흥",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 38.34,
+        y: 71.29
+    },
+
+    {
+        name: "영광",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 32.98,
+        y: 60.26
+    },
+
+    {
+        name: "함평",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 33.04,
+        y: 64.04
+    },
+
+    {
+        name: "무안",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 32.57,
+        y: 65.36
+    },
+
+    {
+        name: "사천",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 54.04,
+        y: 66.66
+    },
+
+    {
+        name: "김해",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 65.23,
+        y: 63.45
+    },
+
+    {
+        name: "함안",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 58.68,
+        y: 62.19
+    },
+
+    {
+        name: "의령",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 56.71,
+        y: 61.16
+    },
+
+    {
+        name: "창녕",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 59.84,
+        y: 57.41
+    },
+
+    {
+        name: "산청",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 51.45,
+        y: 59.11
+    },
+
+    {
+        name: "함양",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 49.43,
+        y: 57.09
+    },
+
+    {
+        name: "거창",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 51.93,
+        y: 54.30
+    },
+
+    {
+        name: "김천",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 54.70,
+        y: 46.40
+    },
+
+    {
+        name: "성주",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 57.00,
+        y: 50.51
+    },
+
+    {
+        name: "고령",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 56.73,
+        y: 53.94
+    },
+
+    {
+        name: "군위",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 60.92,
+        y: 45.00
+    },
+
+    {
+        name: "의성",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 62.61,
+        y: 43.16
+    },
+
+    {
+        name: "예천",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 59.30,
+        y: 37.47
+    },
+
+    {
+        name: "영주",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 61.62,
+        y: 34.99
+    },
+
+    {
+        name: "봉화",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 63.09,
+        y: 33.53
+    },
+
+    {
+        name: "천안",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 41.13,
+        y: 33.34
+    },
+
+    {
+        name: "아산",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 39.61,
+        y: 33.69
+    },
+
+    {
+        name: "당진",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 34.54,
+        y: 31.48
+    },
+
+    {
+        name: "서산",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 32.13,
+        y: 33.24
+    },
+
+    {
+        name: "예산",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 37.53,
+        y: 35.45
+    },
+
+    {
+        name: "홍성",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 34.99,
+        y: 36.73
+    },
+
+    {
+        name: "논산",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 40.93,
+        y: 44.56
+    },
+
+    {
+        name: "계룡",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 42.96,
+        y: 43.14
+    },
+
+    {
+        name: "금산",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 46.21,
+        y: 46.34
+    },
+
+    {
+        name: "서천",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 35.41,
+        y: 46.07
+    },
+
+    {
+        name: "진천",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 45.49,
+        y: 32.94
+    },
+
+    {
+        name: "음성",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 48.95,
+        y: 31.67
+    },
+
+    {
+        name: "괴산",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 50.26,
+        y: 34.00
+    },
+
+    {
+        name: "보은",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 49.48,
+        y: 39.77
+    },
+
+    {
+        name: "옥천",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 47.34,
+        y: 42.89
+    },
+
+    {
+        name: "영동",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 50.22,
+        y: 45.44
+    },
+
+    {
+        name: "이천",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 45.48,
+        y: 25.49
+    },
+
+    {
+        name: "여주",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 48.23,
+        y: 25.22
+    },
+
+    {
+        name: "포천",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 42.29,
+        y: 14.12
+    },
+
+    {
+        name: "동두천",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 40.40,
+        y: 13.83
+    },
+
+    {
+        name: "연천",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 40.59,
+        y: 10.39
+    },
+
+    {
+        name: "철원",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 43.83,
+        y: 9.73
+    },
+
+    {
+        name: "화천",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 49.18,
+        y: 10.83
+    },
+
+    {
+        name: "인제",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 55.46,
+        y: 11.94
+    },
+
+    {
+        name: "횡성",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 52.94,
+        y: 22.09
+    },
+
+    {
+        name: "영월",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 59.41,
+        y: 28.07
+    },
+
+    {
+        name: "정선",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 62.11,
+        y: 24.74
+    },
+
+    {
+        name: "태백",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 66.52,
+        y: 28.93
+    },
+
+    {
+        name: "삼척",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 69.10,
+        y: 30.25
+    },
+
+    {
+        name: "울릉도",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 92.56,
+        y: 25.07
+    },
+
+    {
+        name: "독도",
+        type: "도시 / 소도시 / 여행지",
+        kind: "place",
+        x: 105.58,
+        y: 30.36
+    }
+];
+
+
+/* ============================================================
+   장소 유형 자동 구분
+   - 추가/검색 UI는 하나로 유지
+   - 좌측 여행 목록과 검색 결과에서는 실제 성격에 따라
+     "도시" 또는 "소도시 / 여행지"로 자동 표시
+============================================================ */
+
+const cityPlaceNames = new Set([
+    "서울", "부산", "대구", "인천", "광주", "대전", "울산",
+    "수원", "춘천", "강릉", "원주", "청주", "전주", "목포", "여수",
+    "진주", "창원", "포항", "경주", "안동", "제주", "속초", "파주",
+    "제천", "충주", "공주", "보령", "군산", "익산", "순천", "통영",
+    "거제", "밀양", "양산", "구미", "영천", "광양", "나주", "사천",
+    "김해", "김천", "영주", "천안", "아산", "당진", "서산", "논산",
+    "계룡", "이천", "여주", "포천", "동두천", "태백", "삼척"
+]);
+
+function getPlaceType(placeName) {
+    return cityPlaceNames.has(placeName)
+        ? "도시"
+        : "소도시 / 여행지";
+}
+
+places.forEach(place => {
+    place.type = getPlaceType(place.name);
+});
+
+
+/* SVG 좌표 재정렬 메모
+   - 전국 행정구역 지도의 상대 위치를 kr.svg 화면 좌표계에 맞춰 사용
+   - 기존에 SVG에서 잘 맞던 본토 기준점은 유지
+   - 제주권은 SVG의 실제 제주도 윤곽에 다시 맞춰 좌표 재보정
+*/
+
+/* ============================================================
+   초기 여행지
+============================================================ */
+
+const OPTION_A_PLACES = [
+    "인천", "서울", "전주", "담양", "순천", "여수", "광양", "하동", "진주",
+    "거제", "부산", "울산", "경주", "정동진", "강릉", "속초", "서울"
+];
+
+const OPTION_B_PLACES = [
+    "인천", "서울", "전주", "담양", "순천", "여수", "광양", "하동", "진주",
+    "거제", "부산", "울산", "경주", "정동진", "강릉", "속초", "서울", "제주", "서울"
+];
+
+let selectedTripOption = "A";
+let activeStartDate = "";
+
+function makeTripFromPlaces(placeNames) {
+    return placeNames.map(place => ({
+        id: createId(),
+        place,
+        date: "",
+        endDate: "",
+        isPreset: true
+    }));
+}
+
+function createDefaultTrip() {
+    return makeTripFromPlaces(OPTION_A_PLACES);
+}
+
+
+let trip =
+    createDefaultTrip();
+
+
+let draggedId = null;
+
+
+/* ============================================================
+   TRAVEL STATE
+============================================================ */
+
+const travelState = {
+
+    running: false,
+
+    paused: false,
+
+    legIndex: 0,
+
+    progress: 0,
+
+    rafId: null,
+
+    lastTime: 0,
+
+    durationMs: 5000
+
+};
+
+
+/* ============================================================
+   ELEMENTS
+============================================================ */
+
+const tripList =
+    document.getElementById(
+        "tripList"
+    );
+
+const mapContainer =
+    document.getElementById(
+        "mapContainer"
+    );
+
+const mapOverlay =
+    document.getElementById(
+        "mapOverlay"
+    );
+
+const routeLayer =
+    document.getElementById(
+        "routeLayer"
+    );
+
+const modalBackdrop =
+    document.getElementById(
+        "modalBackdrop"
+    );
+
+const modalTitle =
+    document.getElementById(
+        "modalTitle"
+    );
+
+const placeSearch =
+    document.getElementById(
+        "placeSearch"
+    );
+
+const placeGrid =
+    document.getElementById(
+        "placeGrid"
+    );
+
+const travelVehicle =
+    document.getElementById(
+        "travelVehicle"
+    );
+
+const travelVehicleImage =
+    document.getElementById(
+        "travelVehicleImage"
+    );
+
+const startTravelBtn =
+    document.getElementById(
+        "startTravelBtn"
+    );
+
+const pauseTravelBtn =
+    document.getElementById(
+        "pauseTravelBtn"
+    );
+
+const travelStatus =
+    document.getElementById(
+        "travelStatus"
+    );
+
+const saveBtn =
+    document.getElementById(
+        "saveBtn"
+    );
+
+const resetBtn =
+    document.getElementById(
+        "resetBtn"
+    );
+
+const optionABtn = document.getElementById("optionABtn");
+const dateChangeBtn = document.getElementById("dateChangeBtn");
+const optionBBtn = document.getElementById("optionBBtn");
+const startDateBackdrop = document.getElementById("startDateBackdrop");
+const startDateInput = document.getElementById("startDateInput");
+const confirmStartDateBtn = document.getElementById("confirmStartDateBtn");
+const cancelStartDateBtn = document.getElementById("cancelStartDateBtn");
+
+
+/* ============================================================
+   ID
+============================================================ */
+
+function createId() {
+
+    return (
+        Date.now().toString(36) +
+        Math.random()
+            .toString(36)
+            .slice(2)
+    );
+
+}
+
+
+/* ============================================================
+   SAVE / LOAD / RESET
+============================================================ */
+
+const STORAGE_KEY =
+    "koreaTravelMapTrip";
+
+const PLACE_POSITION_STORAGE_KEY =
+    "koreaTravelMapPlacePositions";
+
+
+function savePlacePositions() {
+
+    const positions =
+        Object.fromEntries(
+            places.map(
+                place => [
+                    place.name,
+                    {
+                        x: place.x,
+                        y: place.y
+                    }
+                ]
+            )
+        );
+
+    localStorage.setItem(
+        PLACE_POSITION_STORAGE_KEY,
+        JSON.stringify(positions)
+    );
+
+}
+
+
+function loadPlacePositions() {
+
+    const saved =
+        localStorage.getItem(
+            PLACE_POSITION_STORAGE_KEY
+        );
+
+    if (!saved) {
+        return;
+    }
+
+    try {
+
+        const positions =
+            JSON.parse(saved);
+
+        if (
+            !positions ||
+            typeof positions !== "object"
+        ) {
+            return;
+        }
+
+        places.forEach(
+            place => {
+
+                const position =
+                    positions[place.name];
+
+                if (
+                    !position ||
+                    !Number.isFinite(position.x) ||
+                    !Number.isFinite(position.y)
+                ) {
+                    return;
+                }
+
+                place.x =
+                    Math.max(
+                        0,
+                        Math.min(100, position.x)
+                    );
+
+                place.y =
+                    Math.max(
+                        0,
+                        Math.min(100, position.y)
+                    );
+
+            }
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "저장된 장소 위치 불러오기 실패:",
+            error
+        );
+
+    }
+
+}
+
+
+function saveTrip() {
+
+    try {
+
+        localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify(trip)
+        );
+
+        setTravelStatus(
+            "여행 일정이 저장되었습니다."
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "여행 일정 저장 실패:",
+            error
+        );
+
+        setTravelStatus(
+            "저장에 실패했습니다."
+        );
+
+    }
+
+}
+
+
+function loadTrip() {
+
+    const saved =
+        localStorage.getItem(
+            STORAGE_KEY
+        );
+
+    if (!saved) {
+        return false;
+    }
+
+
+    try {
+
+        const parsed =
+            JSON.parse(saved);
+
+        if (!Array.isArray(parsed)) {
+            return false;
+        }
+
+
+        const validTrip =
+            parsed.filter(
+                item =>
+                    item &&
+                    typeof item.place === "string" &&
+                    places.some(
+                        place =>
+                            place.name === item.place
+                    )
+            ).map(
+                item => ({
+                    id:
+                        typeof item.id === "string" &&
+                        item.id
+                            ? item.id
+                            : createId(),
+                    place: item.place,
+                    date:
+                        typeof item.date === "string"
+                            ? item.date
+                            : "",
+                    endDate:
+                        typeof item.endDate === "string"
+                            ? item.endDate
+                            : "",
+                    isPreset:
+                        item.isPreset !== false
+                })
+            );
+
+        if (!validTrip.length) {
+            return false;
+        }
+
+        trip = validTrip;
+
+        return true;
+
+    }
+    catch (error) {
+
+        console.error(
+            "저장된 여행 일정 불러오기 실패:",
+            error
+        );
+
+        return false;
+
+    }
+
+}
+
+
+function resetTrip() {
+
+    const confirmed =
+        confirm(
+            "저장된 여행 일정을 초기화하시겠습니까?"
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+
+    localStorage.removeItem(
+        STORAGE_KEY
+    );
+
+    trip =
+        createDefaultTrip();
+
+    render();
+
+    setTravelStatus(
+        "여행 일정이 초기화되었습니다."
+    );
+
+}
+
+
+/* ============================================================
+   PLACE
+============================================================ */
+
+function getPlace(name) {
+
+    return places.find(
+        p => p.name === name
+    );
+
+}
+
+
+/* ============================================================
+   DATE
+============================================================ */
+
+function formatDate(date) {
+
+    if (!date) {
+        return "";
+    }
+
+    return date.replaceAll(
+        "-",
+        "."
+    );
+
+}
+
+
+/* ============================================================
+   STATUS
+============================================================ */
+
+function setTravelStatus(text) {
+
+    travelStatus.textContent =
+        text || "";
+
+}
+
+
+/* ============================================================
+   RESET TRAVEL
+============================================================ */
+
+function resetTravel() {
+
+    cancelTravelFrame();
+
+    travelState.running = false;
+
+    travelState.paused = false;
+
+    travelState.legIndex = 0;
+
+    travelState.progress = 0;
+
+    travelState.lastTime = 0;
+
+    travelVehicle.hidden = true;
+
+    setTravelStatus("");
+
+    pauseTravelBtn.disabled = true;
+
+    startTravelBtn.disabled =
+        trip.length < 2;
+
+}
+
+
+/* ============================================================
+   SIDEBAR
+============================================================ */
+
+function renderList() {
+
+    tripList.innerHTML = "";
+
+    trip.forEach(
+        (item, index) => {
+
+            const place =
+                getPlace(
+                    item.place
+                );
+
+            if (!place) {
+                return;
+            }
+
+            const totalVisitsToPlace =
+                trip.filter(
+                    tripItem =>
+                        tripItem.place ===
+                        item.place
+                ).length;
+
+
+            const visitNumber =
+                trip
+                    .slice(
+                        0,
+                        index + 1
+                    )
+                    .filter(
+                        tripItem =>
+                            tripItem.place ===
+                            item.place
+                    ).length;
+
+
+            let visitCountHtml = "";
+
+            /*
+                좌측 여행 순서 라벨 규칙
+                - 인천: 여행의 시작이므로 "출발"
+                - 서울: 첫 방문은 라벨 없음
+                - 옵션 B의 두 번째 서울은 "김포"
+                - 마지막 서울은 "도착"
+                - 그 외 중복 방문지는 기존처럼 1차 / 2차 표시
+            */
+            if (place.name === "인천" && index === 0) {
+                visitCountHtml = `<span class="trip-visit-count">출발</span>`;
+            }
+            else if (place.name === "서울" && totalVisitsToPlace > 1) {
+                if (selectedTripOption === "B" && visitNumber === 2 && totalVisitsToPlace >= 3) {
+                    visitCountHtml = `<span class="trip-visit-count">김포</span>`;
+                }
+                else if (visitNumber === totalVisitsToPlace) {
+                    visitCountHtml = `<span class="trip-visit-count">도착</span>`;
+                }
+            }
+            else if (totalVisitsToPlace > 1) {
+                visitCountHtml = `<span class="trip-visit-count">${visitNumber}차</span>`;
+            }
+
+
+            const li =
+                document.createElement(
+                    "li"
+                );
+
+            li.className =
+                "trip-item";
+
+            li.draggable = true;
+
+            li.dataset.id =
+                item.id;
+
+
+            li.innerHTML = `
+
+                <div class="timeline"></div>
+
+                <div class="trip-info">
+
+                    <div class="trip-date">
+                        ${
+                            formatTripDateRange(item) ||
+                            "날짜 미정"
+                        }
+                    </div>
+
+                    <div class="trip-name-row">
+
+                        <div class="trip-name">
+                            ${place.name}
+                        </div>
+
+                        ${visitCountHtml}
+
+                    </div>
+
+                    <div class="trip-type">
+                        ${place.type}
+                    </div>
+
+                </div>
+
+                <button
+                    class="delete-btn"
+                    title="삭제">
+                    ×
+                </button>
+
+            `;
+
+
+            li.querySelector(
+                ".delete-btn"
+            ).addEventListener(
+                "click",
+                function(event) {
+
+                    event.stopPropagation();
+
+                    trip =
+                        trip.filter(
+                            x =>
+                                x.id !==
+                                item.id
+                        );
+
+                    render();
+
+                }
+            );
+
+
+            li.addEventListener(
+                "dragstart",
+                function() {
+
+                    draggedId =
+                        item.id;
+
+                    li.classList.add(
+                        "dragging"
+                    );
+
+                }
+            );
+
+
+            li.addEventListener(
+                "dragend",
+                function() {
+
+                    draggedId = null;
+
+                    li.classList.remove(
+                        "dragging"
+                    );
+
+                    document
+                        .querySelectorAll(
+                            ".drop-target"
+                        )
+                        .forEach(
+                            el =>
+                                el.classList.remove(
+                                    "drop-target"
+                                )
+                        );
+
+                }
+            );
+
+
+            li.addEventListener(
+                "dragover",
+                function(event) {
+
+                    event.preventDefault();
+
+                    if (
+                        draggedId !==
+                        item.id
+                    ) {
+
+                        li.classList.add(
+                            "drop-target"
+                        );
+
+                    }
+
+                }
+            );
+
+
+            li.addEventListener(
+                "dragleave",
+                function() {
+
+                    li.classList.remove(
+                        "drop-target"
+                    );
+
+                }
+            );
+
+
+            li.addEventListener(
+                "drop",
+                function(event) {
+
+                    event.preventDefault();
+
+                    li.classList.remove(
+                        "drop-target"
+                    );
+
+                    if (
+                        !draggedId ||
+                        draggedId ===
+                        item.id
+                    ) {
+                        return;
+                    }
+
+                    const from =
+                        trip.findIndex(
+                            x =>
+                                x.id ===
+                                draggedId
+                        );
+
+                    const to =
+                        trip.findIndex(
+                            x =>
+                                x.id ===
+                                item.id
+                        );
+
+                    if (
+                        from === -1 ||
+                        to === -1
+                    ) {
+                        return;
+                    }
+
+                    const moved =
+                        trip.splice(
+                            from,
+                            1
+                        )[0];
+
+                    trip.splice(
+                        to,
+                        0,
+                        moved
+                    );
+
+                    render();
+
+                }
+            );
+
+
+            tripList.appendChild(
+                li
+            );
+
+        }
+    );
+
+}
+
+
+/* ============================================================
+   MANUAL PLACE POSITION
+   ------------------------------------------------------------
+   각 장소는 places 배열의 x / y 값을 그대로 사용합니다.
+   다른 기준점이나 주변 장소의 영향을 받지 않습니다.
+
+   지도에 표시된 빨간 마커를 직접 드래그하면
+   해당 장소의 x / y 값만 개별적으로 변경됩니다.
+============================================================ */
+
+
+/* ============================================================
+   SCREEN POSITION
+============================================================ */
+
+function getScreenPosition(place) {
+
+    const rect =
+        mapContainer.getBoundingClientRect();
+
+    return {
+
+        x:
+            rect.width *
+            place.x /
+            100,
+
+        y:
+            rect.height *
+            place.y /
+            100
+
+    };
+
+}
+
+
+/* ============================================================
+   MANUAL MARKER DRAG
+============================================================ */
+
+function setPlacePositionFromPointer(
+    place,
+    clientX,
+    clientY
+) {
+
+    const rect =
+        mapContainer.getBoundingClientRect();
+
+    if (
+        !place ||
+        rect.width <= 0 ||
+        rect.height <= 0
+    ) {
+        return;
+    }
+
+    const x =
+        (clientX - rect.left) /
+        rect.width *
+        100;
+
+    const y =
+        (clientY - rect.top) /
+        rect.height *
+        100;
+
+    place.x =
+        Math.max(
+            0,
+            Math.min(100, x)
+        );
+
+    place.y =
+        Math.max(
+            0,
+            Math.min(100, y)
+        );
+
+}
+
+
+function attachPlaceMarkerDrag(
+    marker,
+    place
+) {
+
+    marker.title =
+        `${place.name} 위치 이동`;
+
+    marker.setAttribute(
+        "aria-label",
+        `${place.name} 위치 이동`
+    );
+
+    marker.setAttribute(
+        "role",
+        "button"
+    );
+
+
+    marker.addEventListener(
+        "pointerdown",
+        function(event) {
+
+            if (
+                travelState.running
+            ) {
+                return;
+            }
+
+            event.preventDefault();
+
+            marker.classList.add(
+                "dragging"
+            );
+
+            marker.setPointerCapture(
+                event.pointerId
+            );
+
+            setPlacePositionFromPointer(
+                place,
+                event.clientX,
+                event.clientY
+            );
+
+            renderMap();
+
+            const activeMarker =
+                mapOverlay.querySelector(
+                    `.location-marker[data-place="${CSS.escape(place.name)}"]`
+                );
+
+            if (activeMarker) {
+                activeMarker.classList.add(
+                    "dragging"
+                );
+            }
+
+        }
+    );
+
+
+    marker.addEventListener(
+        "pointermove",
+        function(event) {
+
+            if (
+                !marker.hasPointerCapture(
+                    event.pointerId
+                )
+            ) {
+                return;
+            }
+
+            event.preventDefault();
+
+            setPlacePositionFromPointer(
+                place,
+                event.clientX,
+                event.clientY
+            );
+
+            /*
+                드래그 중에는 전체 renderMap()을 반복하지 않고
+                현재 마커만 즉시 움직입니다.
+                드래그 종료 시 경로/날짜박스를 한 번 다시 계산합니다.
+            */
+            const screen =
+                getScreenPosition(place);
+
+            marker.style.left =
+                screen.x + "px";
+
+            marker.style.top =
+                screen.y + "px";
+
+            renderRoute();
+
+        }
+    );
+
+
+    function finishDrag(event) {
+
+        if (
+            !marker.hasPointerCapture(
+                event.pointerId
+            )
+        ) {
+            return;
+        }
+
+        marker.releasePointerCapture(
+            event.pointerId
+        );
+
+        marker.classList.remove(
+            "dragging"
+        );
+
+        renderMap();
+
+        setTravelStatus(
+            `${place.name} 위치 수정됨 · 새로고침하면 places의 x/y 값으로 돌아갑니다.`
+        );
+
+    }
+
+
+    marker.addEventListener(
+        "pointerup",
+        finishDrag
+    );
+
+    marker.addEventListener(
+        "pointercancel",
+        finishDrag
+    );
+
+}
+
+
+/* ============================================================
+   TRANSPORT
+============================================================ */
+
+function isJeju(place) {
+
+    return (
+        place &&
+        place.name === "제주"
+    );
+
+}
+
+
+function getTransportType(
+    from,
+    to
+) {
+
+    if (
+        isJeju(from) ||
+        isJeju(to)
+    ) {
+
+        return "plane";
+
+    }
+
+    return "bus";
+
+}
+
+
+function getVehicleImage(
+    transport
+) {
+
+    if (
+        transport === "plane"
+    ) {
+
+        return "plane_icon.png";
+
+    }
+
+    return "bus_icon.png";
+
+}
+
+
+/* ============================================================
+   CURVE
+============================================================ */
+
+function getCurveControlPoint(
+    from,
+    to,
+    legIndex
+) {
+
+    const dx =
+        to.x -
+        from.x;
+
+    const dy =
+        to.y -
+        from.y;
+
+    const distance =
+        Math.sqrt(
+            dx * dx +
+            dy * dy
+        );
+
+    if (
+        distance === 0
+    ) {
+
+        return {
+
+            x: from.x,
+            y: from.y
+
+        };
+
+    }
+
+
+    const midX =
+        (
+            from.x +
+            to.x
+        ) / 2;
+
+    const midY =
+        (
+            from.y +
+            to.y
+        ) / 2;
+
+
+    const normalX =
+        -dy /
+        distance;
+
+    const normalY =
+        dx /
+        distance;
+
+
+    let bend =
+        Math.min(
+            distance * 0.18,
+            11
+        );
+
+
+    const direction =
+        legIndex % 2 === 0
+            ? 1
+            : -1;
+
+
+    if (
+        isJeju(from) ||
+        isJeju(to)
+    ) {
+
+        bend =
+            Math.min(
+                distance * 0.22,
+                16
+            );
+
+    }
+
+
+    return {
+
+        x:
+            midX +
+            normalX *
+            bend *
+            direction,
+
+        y:
+            midY +
+            normalY *
+            bend *
+            direction
+
+    };
+
+}
+
+
+/* ============================================================
+   QUADRATIC BEZIER
+============================================================ */
+
+function getQuadraticPoint(
+    start,
+    control,
+    end,
+    progress
+) {
+
+    const t =
+        progress;
+
+    const oneMinusT =
+        1 - t;
+
+    return {
+
+        x:
+            oneMinusT *
+                oneMinusT *
+                start.x +
+
+            2 *
+                oneMinusT *
+                t *
+                control.x +
+
+            t *
+                t *
+                end.x,
+
+        y:
+            oneMinusT *
+                oneMinusT *
+                start.y +
+
+            2 *
+                oneMinusT *
+                t *
+                control.y +
+
+            t *
+                t *
+                end.y
+
+    };
+
+}
+
+
+function getQuadraticTangent(
+    start,
+    control,
+    end,
+    progress
+) {
+
+    const t =
+        progress;
+
+    return {
+
+        x:
+            2 *
+            (
+                (1 - t) *
+                (control.x - start.x) +
+
+                t *
+                (end.x - control.x)
+            ),
+
+        y:
+            2 *
+            (
+                (1 - t) *
+                (control.y - start.y) +
+
+                t *
+                (end.y - control.y)
+            )
+
+    };
+
+}
+
+
+/* ============================================================
+   LEG DURATION BY DISTANCE
+============================================================ */
+
+const TRAVEL_MIN_DURATION_MS =
+    1200;
+
+const TRAVEL_MAX_DURATION_MS =
+    7000;
+
+const TRAVEL_MS_PER_MAP_UNIT =
+    110;
+
+
+function getLegDistance(
+    from,
+    to,
+    legIndex
+) {
+
+    const control =
+        getCurveControlPoint(
+            from,
+            to,
+            legIndex
+        );
+
+
+    let distance = 0;
+
+    let previous = {
+        x: from.x,
+        y: from.y
+    };
+
+
+    const samples = 24;
+
+
+    for (
+        let i = 1;
+        i <= samples;
+        i++
+    ) {
+
+        const current =
+            getQuadraticPoint(
+                from,
+                control,
+                to,
+                i / samples
+            );
+
+
+        const dx =
+            current.x -
+            previous.x;
+
+        const dy =
+            current.y -
+            previous.y;
+
+
+        distance +=
+            Math.sqrt(
+                dx * dx +
+                dy * dy
+            );
+
+
+        previous =
+            current;
+
+    }
+
+
+    return distance;
+
+}
+
+
+function getLegDurationMs(
+    from,
+    to,
+    legIndex
+) {
+
+    if (
+        !from ||
+        !to
+    ) {
+
+        return 5000;
+
+    }
+
+
+    const distance =
+        getLegDistance(
+            from,
+            to,
+            legIndex
+        );
+
+
+    return Math.max(
+        TRAVEL_MIN_DURATION_MS,
+        Math.min(
+            TRAVEL_MAX_DURATION_MS,
+            distance *
+                TRAVEL_MS_PER_MAP_UNIT
+        )
+    );
+
+}
+
+
+function updateCurrentLegDuration() {
+
+    if (
+        trip.length < 2 ||
+        travelState.legIndex >=
+            trip.length - 1
+    ) {
+
+        return;
+
+    }
+
+
+    const from =
+        getPlace(
+            trip[
+                travelState.legIndex
+            ].place
+        );
+
+
+    const to =
+        getPlace(
+            trip[
+                travelState.legIndex + 1
+            ].place
+        );
+
+
+    travelState.durationMs =
+        getLegDurationMs(
+            from,
+            to,
+            travelState.legIndex
+        );
+
+}
+
+
+/* ============================================================
+   ROUTE
+============================================================ */
+
+function renderRoute() {
+
+    routeLayer.innerHTML = "";
+
+    if (
+        trip.length < 2
+    ) {
+        return;
+    }
+
+
+    for (
+        let i = 0;
+        i < trip.length - 1;
+        i++
+    ) {
+
+        const first =
+            getPlace(
+                trip[i].place
+            );
+
+        const second =
+            getPlace(
+                trip[i + 1].place
+            );
+
+        if (
+            !first ||
+            !second
+        ) {
+            continue;
+        }
+
+
+        const control =
+            getCurveControlPoint(
+                first,
+                second,
+                i
+            );
+
+
+        const path =
+            document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "path"
+            );
+
+
+        path.setAttribute(
+            "class",
+            "route-line"
+        );
+
+
+        path.setAttribute(
+            "d",
+            `
+                M ${first.x} ${first.y}
+                Q ${control.x} ${control.y}
+                  ${second.x} ${second.y}
+            `
+        );
+
+
+        routeLayer.appendChild(
+            path
+        );
+
+    }
+
+}
+
+
+/* ============================================================
+   COLLISION / LABEL PLACEMENT
+============================================================ */
+
+function rectanglesOverlap(
+    a,
+    b,
+    gap = 6
+) {
+
+    return !(
+        a.right + gap <= b.left ||
+
+        a.left >=
+            b.right + gap ||
+
+        a.bottom + gap <= b.top ||
+
+        a.top >=
+            b.bottom + gap
+    );
+
+}
+
+
+function makeRect(
+    x,
+    y,
+    width,
+    height
+) {
+
+    return {
+
+        left:
+            x -
+            width / 2,
+
+        top:
+            y -
+            height / 2,
+
+        right:
+            x +
+            width / 2,
+
+        bottom:
+            y +
+            height / 2
+
+    };
+
+}
+
+
+/*
+    날짜 박스가 지도 밖으로 나가지 않도록 검사합니다.
+*/
+function isRectInsideBounds(
+    rect,
+    width,
+    height,
+    margin = 8
+) {
+
+    return (
+        rect.left >= margin &&
+        rect.top >= margin &&
+        rect.right <= width - margin &&
+        rect.bottom <= height - margin
+    );
+
+}
+
+
+function overlapArea(a, b) {
+
+    const width =
+        Math.max(
+            0,
+            Math.min(a.right, b.right) -
+            Math.max(a.left, b.left)
+        );
+
+    const height =
+        Math.max(
+            0,
+            Math.min(a.bottom, b.bottom) -
+            Math.max(a.top, b.top)
+        );
+
+    return width * height;
+
+}
+
+
+/*
+    고정된 16개 위치만 검사하지 않고,
+    마커 주변을 원형으로 점점 넓혀가며 후보 위치를 만듭니다.
+
+    도시가 많아져도 빈 공간이 있으면 더 멀리까지 찾아가므로
+    기존처럼 후보를 다 쓴 뒤 같은 위치에 겹치는 현상을 줄입니다.
+*/
+function createDateBoxCandidates(
+    anchor,
+    boxWidth,
+    boxHeight,
+    mapWidth,
+    mapHeight
+) {
+
+    const candidates = [];
+
+    const horizontalGap =
+        boxWidth / 2 + 16;
+
+    const verticalGap =
+        boxHeight / 2 + 16;
+
+    const outwardX =
+        anchor.x < mapWidth / 2
+            ? -1
+            : 1;
+
+    const outwardY =
+        anchor.y < mapHeight / 2
+            ? -1
+            : 1;
+
+    /*
+        우선순위:
+        1) 도시에서 가장 가까운 위치
+        2) 가능하면 지도 중심에서 바깥쪽
+        3) 겹침이 없을 때만 점차 반경을 넓힘
+    */
+    const preferred = [
+        [outwardX * horizontalGap, 0],
+        [0, outwardY * verticalGap],
+        [outwardX * horizontalGap, outwardY * verticalGap],
+
+        [0, -outwardY * verticalGap],
+        [-outwardX * horizontalGap, 0],
+        [outwardX * horizontalGap, -outwardY * verticalGap],
+        [-outwardX * horizontalGap, outwardY * verticalGap],
+        [-outwardX * horizontalGap, -outwardY * verticalGap],
+
+        [0, -verticalGap],
+        [horizontalGap, 0],
+        [0, verticalGap],
+        [-horizontalGap, 0],
+        [horizontalGap, -verticalGap],
+        [-horizontalGap, -verticalGap],
+        [horizontalGap, verticalGap],
+        [-horizontalGap, verticalGap]
+    ];
+
+    const seen = new Set();
+
+    preferred.forEach(
+        ([dx, dy]) => {
+            const key = `${Math.round(dx)}:${Math.round(dy)}`;
+            if (seen.has(key)) {
+                return;
+            }
+            seen.add(key);
+            candidates.push({ dx, dy });
+        }
+    );
+
+
+    /*
+        빈 공간이 없으면 반경을 조금씩 늘리되,
+        해당 도시와 최대한 가깝고 바깥쪽인 후보를 먼저 만듭니다.
+    */
+    const startRadius =
+        Math.max(
+            horizontalGap,
+            verticalGap
+        );
+
+    const preferredAngles = [
+        Math.atan2(
+            outwardY,
+            outwardX
+        ) * 180 / Math.PI,
+        outwardY === -1 ? -90 : 90,
+        outwardX === -1 ? 180 : 0,
+        outwardY === -1
+            ? (outwardX === -1 ? -135 : -45)
+            : (outwardX === -1 ? 135 : 45),
+        outwardY === -1
+            ? (outwardX === -1 ? -45 : -135)
+            : (outwardX === -1 ? 45 : 135)
+    ];
+
+    for (
+        let radius = startRadius + 10;
+        radius <= 300;
+        radius += 18
+    ) {
+
+        preferredAngles.forEach(
+            angleDeg => {
+                const angle =
+                    angleDeg *
+                    Math.PI /
+                    180;
+
+                const dx =
+                    Math.cos(angle) *
+                    radius;
+
+                const dy =
+                    Math.sin(angle) *
+                    radius;
+
+                const key = `${Math.round(dx)}:${Math.round(dy)}`;
+                if (seen.has(key)) {
+                    return;
+                }
+                seen.add(key);
+                candidates.push({ dx, dy });
+            }
+        );
+
+        for (
+            let angleDeg = -90;
+            angleDeg < 270;
+            angleDeg += 18
+        ) {
+
+            const angle =
+                angleDeg *
+                Math.PI /
+                180;
+
+            const dx =
+                Math.cos(angle) *
+                radius;
+
+            const dy =
+                Math.sin(angle) *
+                radius;
+
+            const key = `${Math.round(dx)}:${Math.round(dy)}`;
+            if (seen.has(key)) {
+                continue;
+            }
+            seen.add(key);
+            candidates.push({ dx, dy });
+
+        }
+
+    }
+
+    return candidates;
+
+}
+
+
+/*
+    실제 DOM에서 측정한 날짜 박스 크기를 사용해
+    다른 날짜 박스 + 모든 도시 마커와 겹치지 않는 곳을 찾습니다.
+*/
+function findDateBoxPosition(
+    anchor,
+    boxWidth,
+    boxHeight,
+    occupiedBoxes,
+    markerObstacles
+) {
+
+    const mapWidth =
+        mapOverlay.clientWidth;
+
+    const mapHeight =
+        mapOverlay.clientHeight;
+
+    const collisionGap = 8;
+
+    const obstacles = [
+        ...occupiedBoxes,
+        ...markerObstacles
+    ];
+
+    const candidates =
+        createDateBoxCandidates(
+            anchor,
+            boxWidth,
+            boxHeight,
+            mapWidth,
+            mapHeight
+        );
+
+    const preferredOutwardX =
+        anchor.x < mapWidth / 2
+            ? -1
+            : 1;
+
+    const preferredOutwardY =
+        anchor.y < mapHeight / 2
+            ? -1
+            : 1;
+
+    let best = null;
+
+
+    for (
+        const candidate
+        of candidates
+    ) {
+
+        const centerX =
+            anchor.x +
+            candidate.dx;
+
+        const centerY =
+            anchor.y +
+            candidate.dy;
+
+        const rect =
+            makeRect(
+                centerX,
+                centerY,
+                boxWidth,
+                boxHeight
+            );
+
+
+        if (
+            !isRectInsideBounds(
+                rect,
+                mapWidth,
+                mapHeight,
+                8
+            )
+        ) {
+            continue;
+        }
+
+
+        const collides =
+            obstacles.some(
+                obstacle =>
+                    rectanglesOverlap(
+                        rect,
+                        obstacle,
+                        collisionGap
+                    )
+            );
+
+
+        if (collides) {
+            continue;
+        }
+
+
+        const distance =
+            Math.hypot(
+                candidate.dx,
+                candidate.dy
+            );
+
+        const outwardMismatchPenalty =
+            ((Math.sign(candidate.dx || preferredOutwardX) !== preferredOutwardX)
+                ? 12
+                : 0) +
+            ((Math.sign(candidate.dy || preferredOutwardY) !== preferredOutwardY)
+                ? 8
+                : 0);
+
+        const axisPenalty =
+            Math.abs(candidate.dx) > Math.abs(candidate.dy)
+                ? 0
+                : 2;
+
+        const score =
+            distance +
+            outwardMismatchPenalty +
+            axisPenalty;
+
+
+        if (
+            !best ||
+            score < best.score
+        ) {
+
+            best = {
+                centerX,
+                centerY,
+                rect,
+                score
+            };
+
+        }
+
+    }
+
+
+    if (best) {
+        return best;
+    }
+
+
+    /*
+        원형 후보에서 못 찾았을 때는 지도 전체를 작은 격자로 탐색합니다.
+        화면 안에 실제 빈 자리가 있으면 이 단계에서 찾아냅니다.
+    */
+    const halfWidth =
+        boxWidth / 2;
+
+    const halfHeight =
+        boxHeight / 2;
+
+    const margin = 8;
+
+    const gridStep = 10;
+
+    let gridBest = null;
+
+
+    for (
+        let centerY =
+            margin +
+            halfHeight;
+
+        centerY <=
+            mapHeight -
+            margin -
+            halfHeight;
+
+        centerY += gridStep
+    ) {
+
+        for (
+            let centerX =
+                margin +
+                halfWidth;
+
+            centerX <=
+                mapWidth -
+                margin -
+                halfWidth;
+
+            centerX += gridStep
+        ) {
+
+            const rect =
+                makeRect(
+                    centerX,
+                    centerY,
+                    boxWidth,
+                    boxHeight
+                );
+
+
+            const collides =
+                obstacles.some(
+                    obstacle =>
+                        rectanglesOverlap(
+                            rect,
+                            obstacle,
+                            collisionGap
+                        )
+                );
+
+
+            if (collides) {
+                continue;
+            }
+
+
+            const score =
+                Math.hypot(
+                    centerX - anchor.x,
+                    centerY - anchor.y
+                );
+
+
+            if (
+                !gridBest ||
+                score < gridBest.score
+            ) {
+
+                gridBest = {
+                    centerX,
+                    centerY,
+                    rect,
+                    score
+                };
+
+            }
+
+        }
+
+    }
+
+
+    if (gridBest) {
+        return gridBest;
+    }
+
+
+    /*
+        극단적으로 박스가 너무 많아 화면 자체에 빈 곳이 없을 때만
+        겹침 면적이 가장 작은 위치를 선택합니다.
+    */
+    let fallback = null;
+
+
+    for (
+        const candidate
+        of candidates
+    ) {
+
+        const minX =
+            margin +
+            halfWidth;
+
+        const maxX =
+            mapWidth -
+            margin -
+            halfWidth;
+
+        const minY =
+            margin +
+            halfHeight;
+
+        const maxY =
+            mapHeight -
+            margin -
+            halfHeight;
+
+        const centerX =
+            Math.min(
+                maxX,
+                Math.max(
+                    minX,
+                    anchor.x + candidate.dx
+                )
+            );
+
+        const centerY =
+            Math.min(
+                maxY,
+                Math.max(
+                    minY,
+                    anchor.y + candidate.dy
+                )
+            );
+
+        const rect =
+            makeRect(
+                centerX,
+                centerY,
+                boxWidth,
+                boxHeight
+            );
+
+        const totalOverlap =
+            obstacles.reduce(
+                (sum, obstacle) =>
+                    sum +
+                    overlapArea(
+                        rect,
+                        obstacle
+                    ),
+                0
+            );
+
+        const distance =
+            Math.hypot(
+                centerX - anchor.x,
+                centerY - anchor.y
+            );
+
+        const score =
+            totalOverlap * 1000 +
+            distance;
+
+
+        if (
+            !fallback ||
+            score < fallback.score
+        ) {
+
+            fallback = {
+                centerX,
+                centerY,
+                rect,
+                score
+            };
+
+        }
+
+    }
+
+
+    return fallback;
+
+}
+
+
+/* ============================================================
+   UNIQUE PLACE VISITS
+============================================================ */
+
+/*
+    핵심 부분
+
+    trip에는
+
+    서울
+    부산
+    서울
+    제주
+    서울
+
+    처럼 중복이 들어갈 수 있습니다.
+
+    하지만 지도에서는
+
+    서울 → 마커 1개
+    서울 → 이름 1개
+    서울 → 날짜칸 1개
+
+    만 만듭니다.
+
+    대신 날짜칸 안에는
+
+    1차
+    2차
+    3차
+
+    가 들어갑니다.
+*/
+
+function getVisitsByPlace() {
+
+    const grouped =
+        new Map();
+
+
+    trip.forEach(
+        item => {
+
+            if (
+                !grouped.has(
+                    item.place
+                )
+            ) {
+
+                grouped.set(
+                    item.place,
+                    []
+                );
+
+            }
+
+
+            grouped
+                .get(item.place)
+                .push(item);
+
+        }
+    );
+
+
+    return grouped;
+
+}
+
+
+/* ============================================================
+   MAP RENDER
+============================================================ */
+
+function renderMap() {
+
+    mapOverlay
+        .querySelectorAll(
+            ".location-marker," +
+            ".location-name," +
+            ".date-box"
+        )
+        .forEach(
+            element =>
+                element.remove()
+        );
+
+
+    renderRoute();
+
+
+    /*
+        1) 같은 장소의 방문 기록을 묶고
+        2) 화면 좌표를 미리 계산합니다.
+    */
+    const groupedVisits =
+        getVisitsByPlace();
+
+    const renderItems = [];
+
+
+    groupedVisits.forEach(
+        visits => {
+
+            const firstItem =
+                visits[0];
+
+            const place =
+                getPlace(
+                    firstItem.place
+                );
+
+            if (!place) {
+                return;
+            }
+
+            renderItems.push({
+                visits,
+                place,
+                screen:
+                    getScreenPosition(
+                        place
+                    )
+            });
+
+        }
+    );
+
+
+    /*
+        마커 주변도 날짜 박스가 덮지 않도록
+        모든 마커를 먼저 장애물로 등록합니다.
+    */
+    const markerObstacles =
+        renderItems.map(
+            item =>
+                makeRect(
+                    item.screen.x,
+                    item.screen.y,
+                    24,
+                    24
+                )
+        );
+
+
+    /*
+        마커는 먼저 전부 표시합니다.
+    */
+    renderItems.forEach(
+        item => {
+
+            const marker =
+                document.createElement(
+                    "div"
+                );
+
+            marker.className =
+                "location-marker";
+
+            marker.dataset.place =
+                item.place.name;
+
+            marker.style.left =
+                item.screen.x + "px";
+
+            marker.style.top =
+                item.screen.y + "px";
+
+            attachPlaceMarkerDrag(
+                marker,
+                item.place
+            );
+
+            mapOverlay.appendChild(
+                marker
+            );
+
+        }
+    );
+
+
+    /*
+        서로 가까운 도시를 먼저 배치합니다.
+        밀집 지역을 먼저 해결하면 전체 배치가 더 안정적입니다.
+    */
+    renderItems.forEach(
+        item => {
+
+            let nearest = Infinity;
+
+            renderItems.forEach(
+                other => {
+
+                    if (other === item) {
+                        return;
+                    }
+
+                    nearest =
+                        Math.min(
+                            nearest,
+                            Math.hypot(
+                                item.screen.x -
+                                    other.screen.x,
+                                item.screen.y -
+                                    other.screen.y
+                            )
+                        );
+
+                }
+            );
+
+            item.nearestDistance =
+                Number.isFinite(nearest)
+                    ? nearest
+                    : Infinity;
+
+        }
+    );
+
+
+    renderItems.sort(
+        (a, b) =>
+            a.nearestDistance -
+            b.nearestDistance
+    );
+
+
+    const occupiedBoxes = [];
+
+
+    renderItems.forEach(
+        item => {
+
+            const {
+                visits,
+                place,
+                screen
+            } = item;
+
+
+            /* ==================================================
+               DATE BOX
+            ================================================== */
+
+            const dateBox =
+                document.createElement(
+                    "div"
+                );
+
+            dateBox.className =
+                "date-box";
+
+            dateBox.dataset.place =
+                place.name;
+
+
+            const datePlaceName =
+                document.createElement(
+                    "div"
+                );
+
+            datePlaceName.className =
+                "date-place-name";
+
+            datePlaceName.textContent =
+                place.name;
+
+            dateBox.appendChild(
+                datePlaceName
+            );
+
+
+            visits.forEach(
+                (visitItem, visitIndex) => {
+
+                    const row =
+                        document.createElement(
+                            "div"
+                        );
+
+                    row.className =
+                        "visit-date-row";
+
+
+                    const number =
+                        document.createElement(
+                            "span"
+                        );
+
+                    number.className =
+                        "visit-number";
+
+                    /*
+                        지도 우측 날짜 박스의 방문 표시 규칙
+                        - 인천: 출발 도시이므로 "출발"
+                        - 서울: 첫 방문은 회차 표시 없음
+                        - 옵션 B의 두 번째 서울은 "김포"
+                        - 마지막 서울은 "도착"
+                        - 그 외 도시: 1회 방문이면 회차 표시를 숨김
+                        - 2회 이상 방문이면 기존처럼 1차 / 2차 / ... 표시
+                    */
+                    if (place.name === "인천") {
+
+                        number.textContent = "출발";
+
+                    }
+                    else if (place.name === "서울" && visits.length > 1) {
+
+                        if (selectedTripOption === "B" && visitIndex === 1 && visits.length >= 3) {
+                            number.textContent = "김포";
+                        }
+                        else if (visitIndex === visits.length - 1) {
+                            number.textContent = "도착";
+                        }
+                        else {
+                            number.textContent = "";
+                            number.style.display = "none";
+                            row.classList.add("no-visit-label");
+                        }
+
+                    }
+                    else if (visits.length === 1) {
+
+                        number.textContent = "";
+                        number.style.display = "none";
+                        row.classList.add("no-visit-label");
+
+                    }
+                    else {
+
+                        number.textContent =
+                            `${visitIndex + 1}차`;
+
+                    }
+
+
+                    let dateText;
+
+                    if (visitItem.isPreset === false) {
+
+                        dateText = document.createElement("input");
+                        dateText.type = "date";
+                        dateText.className = "visit-date-input visit-date-editor";
+                        dateText.value = visitItem.date || "";
+                        dateText.title = "추가한 여행지 날짜 변경";
+
+                        dateText.addEventListener("change", function() {
+                            visitItem.date = dateText.value;
+                            visitItem.endDate = dateText.value;
+                            renderList();
+                        });
+
+                    }
+                    else {
+
+                        dateText = document.createElement("span");
+                        dateText.className = "visit-date-input";
+                        dateText.textContent =
+                            formatTripDateRange(visitItem) ||
+                            "날짜 미정";
+                        dateText.title = "시작 날짜 기준 자동 배정";
+
+                    }
+
+
+                    row.appendChild(
+                        number
+                    );
+
+                    row.appendChild(
+                        dateText
+                    );
+
+                    dateBox.appendChild(
+                        row
+                    );
+
+                }
+            );
+
+
+            /*
+                실제 렌더링된 너비/높이를 측정합니다.
+                방문 횟수에 따라 높이가 달라져도 정확히 충돌 검사됩니다.
+            */
+            dateBox.style.visibility =
+                "hidden";
+
+            dateBox.style.left =
+                "0px";
+
+            dateBox.style.top =
+                "0px";
+
+            mapOverlay.appendChild(
+                dateBox
+            );
+
+
+            const boxWidth =
+                dateBox.offsetWidth ||
+                150;
+
+            const boxHeight =
+                dateBox.offsetHeight ||
+                66;
+
+
+            const placement =
+                findDateBoxPosition(
+                    screen,
+                    boxWidth,
+                    boxHeight,
+                    occupiedBoxes,
+                    markerObstacles
+                );
+
+
+            if (placement) {
+
+                dateBox.style.left =
+                    (
+                        placement.centerX -
+                        boxWidth / 2
+                    ) + "px";
+
+                dateBox.style.top =
+                    (
+                        placement.centerY -
+                        boxHeight / 2
+                    ) + "px";
+
+                occupiedBoxes.push(
+                    placement.rect
+                );
+
+            }
+
+
+            dateBox.style.visibility =
+                "visible";
+
+        }
+    );
+
+
+    if (
+        travelState.running ||
+        travelState.paused
+    ) {
+
+        updateVehiclePosition();
+
+    }
+
+}
+
+
+/* ============================================================
+   ARRIVAL HIGHLIGHT
+============================================================ */
+
+function highlightArrivalPlace(placeName) {
+
+    if (!placeName) {
+        return;
+    }
+
+    const boxes =
+        mapOverlay.querySelectorAll(
+            ".date-box"
+        );
+
+    boxes.forEach(
+        box => {
+
+            box.classList.remove(
+                "arrival-highlight"
+            );
+
+            if (
+                box.dataset.place ===
+                placeName
+            ) {
+
+                /*
+                    같은 도시가 연속으로 다시 도착하는 경우에도
+                    animation을 처음부터 다시 재생합니다.
+                */
+                void box.offsetWidth;
+
+                box.classList.add(
+                    "arrival-highlight"
+                );
+
+                window.setTimeout(
+                    () => {
+                        box.classList.remove(
+                            "arrival-highlight"
+                        );
+                    },
+                    5500
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/*
+    버스 이미지는 항상 똑바로 세운 상태를 유지합니다.
+    진행 방향이 왼쪽이면 이미지만 좌우 반전하고,
+    회전각은 -90°~90° 범위로 정규화해 180° 뒤집힘을 막습니다.
+*/
+function getUprightVehiclePose(
+    tangent,
+    transport
+) {
+
+    let angle =
+        Math.atan2(
+            tangent.y,
+            tangent.x
+        ) *
+        180 /
+        Math.PI;
+
+    let flipX = false;
+
+    if (transport === "bus") {
+
+        if (angle > 90) {
+            angle -= 180;
+            flipX = true;
+        }
+        else if (angle < -90) {
+            angle += 180;
+            flipX = true;
+        }
+
+    }
+
+    return {
+        angle,
+        flipX
+    };
+
+}
+
+
+/* ============================================================
+   VEHICLE POSITION
+============================================================ */
+
+function updateVehiclePosition() {
+
+    if (
+        trip.length < 2 ||
+        travelState.legIndex >=
+            trip.length - 1
+    ) {
+
+        travelVehicle.hidden =
+            true;
+
+        return;
+    }
+
+
+    const from =
+        getPlace(
+            trip[
+                travelState.legIndex
+            ].place
+        );
+
+
+    const to =
+        getPlace(
+            trip[
+                travelState.legIndex + 1
+            ].place
+        );
+
+
+    if (
+        !from ||
+        !to
+    ) {
+
+        travelVehicle.hidden =
+            true;
+
+        return;
+
+    }
+
+
+    const transport =
+        getTransportType(
+            from,
+            to
+        );
+
+
+    const start =
+        getScreenPosition(
+            from
+        );
+
+
+    const end =
+        getScreenPosition(
+            to
+        );
+
+
+    const control =
+        getCurveControlPoint(
+            from,
+            to,
+            travelState.legIndex
+        );
+
+
+    const controlScreen = {
+
+        x:
+            mapContainer.clientWidth *
+            control.x /
+            100,
+
+        y:
+            mapContainer.clientHeight *
+            control.y /
+            100
+
+    };
+
+
+    const position =
+        getQuadraticPoint(
+            start,
+            controlScreen,
+            end,
+            travelState.progress
+        );
+
+
+    const tangent =
+        getQuadraticTangent(
+            start,
+            controlScreen,
+            end,
+            travelState.progress
+        );
+
+
+    const pose =
+        getUprightVehiclePose(
+            tangent,
+            transport
+        );
+
+
+    travelVehicleImage.src =
+        getVehicleImage(
+            transport
+        );
+
+
+    travelVehicleImage.style.transform =
+        pose.flipX
+            ? "scaleX(-1)"
+            : "scaleX(1)";
+
+
+    travelVehicle.style.left =
+        position.x + "px";
+
+
+    travelVehicle.style.top =
+        position.y + "px";
+
+
+    travelVehicle.style.transform =
+        `
+        translate(-50%, -50%)
+        rotate(${pose.angle}deg)
+        `;
+
+
+    travelVehicle.hidden =
+        false;
+
+
+    setTravelStatus(
+
+        transport === "plane"
+
+            ? `✈️ ${from.name} → ${to.name}`
+
+            : `🚌 ${from.name} → ${to.name}`
+
+    );
+
+}
+
+
+/* ============================================================
+   CANCEL
+============================================================ */
+
+function cancelTravelFrame() {
+
+    if (
+        travelState.rafId !== null
+    ) {
+
+        cancelAnimationFrame(
+            travelState.rafId
+        );
+
+    }
+
+    travelState.rafId =
+        null;
+
+}
+
+
+/* ============================================================
+   FINISH
+============================================================ */
+
+function finishTravel() {
+
+    cancelTravelFrame();
+
+
+    travelState.running =
+        false;
+
+    travelState.paused =
+        false;
+
+    travelState.progress =
+        1;
+
+    travelState.lastTime =
+        0;
+
+
+    const finalPlace =
+        trip.length
+            ? getPlace(
+                trip[
+                    trip.length - 1
+                ].place
+            )
+            : null;
+
+
+    if (finalPlace) {
+
+        const finalPosition =
+            getScreenPosition(
+                finalPlace
+            );
+
+
+        travelVehicle.style.left =
+            finalPosition.x + "px";
+
+
+        travelVehicle.style.top =
+            finalPosition.y + "px";
+
+
+        if (
+            trip.length > 1
+        ) {
+
+            const previous =
+                getPlace(
+                    trip[
+                        trip.length - 2
+                    ].place
+                );
+
+
+            const finalTransport =
+                getTransportType(
+                    previous,
+                    finalPlace
+                );
+
+
+            travelVehicleImage.src =
+                getVehicleImage(
+                    finalTransport
+                );
+
+
+            const previousPosition =
+                getScreenPosition(
+                    previous
+                );
+
+
+            const finalTangent = {
+                x:
+                    finalPosition.x -
+                    previousPosition.x,
+                y:
+                    finalPosition.y -
+                    previousPosition.y
+            };
+
+
+            const finalPose =
+                getUprightVehiclePose(
+                    finalTangent,
+                    finalTransport
+                );
+
+
+            travelVehicleImage.style.transform =
+                finalPose.flipX
+                    ? "scaleX(-1)"
+                    : "scaleX(1)";
+
+
+            travelVehicle.style.transform =
+                `
+                translate(-50%, -50%)
+                rotate(${finalPose.angle}deg)
+                `;
+
+        }
+
+
+        travelVehicle.hidden =
+            false;
+
+
+        setTravelStatus(
+            `도착 · ${finalPlace.name}`
+        );
+
+        highlightArrivalPlace(
+            finalPlace.name
+        );
+
+    }
+    else {
+
+        travelVehicle.hidden =
+            true;
+
+    }
+
+
+    /*
+        완료 후 다시 시작 가능
+    */
+
+    travelState.legIndex =
+        Math.max(
+            0,
+            trip.length - 1
+        );
+
+
+    startTravelBtn.disabled =
+        false;
+
+    pauseTravelBtn.disabled =
+        true;
+
+}
+
+
+/* ============================================================
+   ANIMATION FRAME
+============================================================ */
+
+function travelFrame(now) {
+
+    if (
+        !travelState.running ||
+        travelState.paused
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        !travelState.lastTime
+    ) {
+
+        travelState.lastTime =
+            now;
+
+    }
+
+
+    const elapsed =
+        now -
+        travelState.lastTime;
+
+
+    travelState.lastTime =
+        now;
+
+
+    travelState.progress +=
+        elapsed /
+        travelState.durationMs;
+
+
+    if (
+        travelState.progress >= 1
+    ) {
+
+        travelState.progress =
+            1;
+
+
+        updateVehiclePosition();
+
+
+        const arrivedPlace =
+            getPlace(
+                trip[
+                    travelState.legIndex + 1
+                ].place
+            );
+
+        if (arrivedPlace) {
+            highlightArrivalPlace(
+                arrivedPlace.name
+            );
+        }
+
+
+        if (
+            travelState.legIndex <
+            trip.length - 2
+        ) {
+
+            travelState.legIndex++;
+
+            travelState.progress =
+                0;
+
+            travelState.lastTime =
+                now;
+
+
+            updateCurrentLegDuration();
+
+
+            updateVehiclePosition();
+
+
+            travelState.rafId =
+                requestAnimationFrame(
+                    travelFrame
+                );
+
+            return;
+
+        }
+
+
+        finishTravel();
+
+        return;
+
+    }
+
+
+    updateVehiclePosition();
+
+
+    travelState.rafId =
+        requestAnimationFrame(
+            travelFrame
+        );
+
+}
+
+
+/* ============================================================
+   START
+============================================================ */
+
+function startTravel() {
+
+    if (
+        trip.length < 2
+    ) {
+
+        setTravelStatus(
+            "여행지가 2곳 이상 필요합니다."
+        );
+
+        return;
+
+    }
+
+
+    /*
+        도착 완료 후 다시 시작하면
+        처음부터 재생
+    */
+
+    if (
+        travelState.legIndex >=
+        trip.length - 1
+    ) {
+
+        travelState.legIndex =
+            0;
+
+        travelState.progress =
+            0;
+
+    }
+
+
+    travelState.running =
+        true;
+
+    travelState.paused =
+        false;
+
+    travelState.lastTime =
+        0;
+
+
+    startTravelBtn.disabled =
+        true;
+
+    pauseTravelBtn.disabled =
+        false;
+
+
+    updateCurrentLegDuration();
+
+
+    updateVehiclePosition();
+
+
+    cancelTravelFrame();
+
+
+    travelState.rafId =
+        requestAnimationFrame(
+            travelFrame
+        );
+
+}
+
+
+/* ============================================================
+   PAUSE
+============================================================ */
+
+function pauseTravel() {
+
+    if (
+        !travelState.running
+    ) {
+
+        return;
+
+    }
+
+
+    travelState.running =
+        false;
+
+    travelState.paused =
+        true;
+
+    travelState.lastTime =
+        0;
+
+
+    cancelTravelFrame();
+
+
+    startTravelBtn.disabled =
+        false;
+
+    pauseTravelBtn.disabled =
+        true;
+
+
+    setTravelStatus(
+        "일시정지"
+    );
+
+}
+
+
+/* ============================================================
+   OPEN MODAL
+============================================================ */
+
+function openModal() {
+
+    modalTitle.textContent =
+        "도시 / 소도시 / 여행지 추가";
+
+
+    placeSearch.value =
+        "";
+
+
+    modalBackdrop.classList.add(
+        "open"
+    );
+
+
+    renderPlaceOptions();
+
+
+    setTimeout(
+        function() {
+
+            placeSearch.focus();
+
+        },
+        30
+    );
+
+}
+
+
+/* ============================================================
+   CLOSE MODAL
+============================================================ */
+
+function closeModal() {
+
+    modalBackdrop.classList.remove(
+        "open"
+    );
+
+}
+
+
+/* ============================================================
+   PLACE OPTIONS
+============================================================ */
+
+function renderPlaceOptions() {
+
+    const keyword =
+        placeSearch.value
+            .trim()
+            .toLowerCase();
+
+
+    const results =
+        places
+            .filter(
+                place => {
+
+                    if (
+                        keyword === ""
+                    ) {
+
+                        return true;
+
+                    }
+
+
+                    return place.name
+                        .toLowerCase()
+                        .includes(
+                            keyword
+                        );
+
+                }
+            )
+            .sort(
+                (a, b) =>
+                    a.name.localeCompare(
+                        b.name,
+                        "ko",
+                        {
+                            sensitivity: "base"
+                        }
+                    )
+            );
+
+
+    placeGrid.innerHTML =
+        "";
+
+
+    if (
+        results.length === 0
+    ) {
+
+        placeGrid.innerHTML = `
+
+            <div class="no-result">
+                검색 결과가 없습니다.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    results.forEach(
+        place => {
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.className =
+                "place-option";
+
+
+            button.innerHTML = `
+
+                <strong>
+                    ${place.name}
+                </strong>
+
+                <span>
+                    ${place.type}
+                </span>
+
+            `;
+
+
+            button.addEventListener(
+                "click",
+                function() {
+
+                    /*
+                        중요:
+                        중복 방지 로직 제거.
+
+                        같은 장소를 몇 번이든
+                        추가할 수 있습니다.
+                    */
+
+                    trip.push({
+
+                        id:
+                            createId(),
+
+                        place:
+                            place.name,
+
+                        date:
+                            "",
+
+                        endDate:
+                            "",
+
+                        isPreset:
+                            false
+
+                    });
+
+
+                    closeModal();
+
+
+                    render();
+
+                }
+            );
+
+
+            placeGrid.appendChild(
+                button
+            );
+
+        }
+    );
+
+}
+
+
+/* ============================================================
+   OPTION A / B + START DATE
+============================================================ */
+
+function formatDateForInput(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+}
+
+/*
+    선택한 기준 날짜로부터 각 도시의 체류 날짜를 자동 배정합니다.
+
+    옵션 A
+    인천(출발) +1
+    서울 +1~+2
+    전주 +2~+3
+    담양 +3
+    순천 +3
+    여수 +3~+4
+    광양 +4
+    하동 +4
+    진주 +4
+    거제 +4~+5
+    부산 +5~+6
+    울산 +6
+    경주 +6~+7
+    정동진 +7
+    강릉 +7
+    속초 +7~+8
+    서울(도착) +8
+
+    옵션 B는 강릉까지 동일하고,
+    속초 +7~+8 / 서울(김포) +8 / 제주 +8~+10 / 서울(도착) +10 입니다.
+*/
+const OPTION_A_DATE_OFFSETS = [
+    [1, 1], [1, 2], [2, 3], [3, 3], [3, 3], [3, 4], [4, 4], [4, 4], [4, 4],
+    [4, 5], [5, 6], [6, 6], [6, 7], [7, 7], [7, 7], [7, 8], [8, 8]
+];
+
+const OPTION_B_DATE_OFFSETS = [
+    [1, 1], [1, 2], [2, 3], [3, 3], [3, 3], [3, 4], [4, 4], [4, 4], [4, 4],
+    [4, 5], [5, 6], [6, 6], [6, 7], [7, 7], [7, 7], [7, 8], [8, 8], [8, 10], [10, 10]
+];
+
+function addDaysToDate(start, offset) {
+    const result = new Date(start);
+    result.setDate(start.getDate() + offset);
+    return result;
+}
+
+function formatTripDateRange(item) {
+    if (!item || !item.date) {
+        return "";
+    }
+
+    const startText = formatDate(item.date);
+
+    if (!item.endDate || item.endDate === item.date) {
+        return startText;
+    }
+
+    const endParts = item.endDate.split("-");
+    const endText = endParts.length === 3
+        ? `${endParts[1]}.${endParts[2]}`
+        : formatDate(item.endDate);
+
+    return `${startText} ~ ${endText}`;
+}
+
+function applyStartDateToTrip(startDateValue) {
+    if (!startDateValue) {
+        return;
+    }
+
+    const [year, month, day] = startDateValue.split("-").map(Number);
+    const start = new Date(year, month - 1, day);
+
+    const offsets =
+        selectedTripOption === "B"
+            ? OPTION_B_DATE_OFFSETS
+            : OPTION_A_DATE_OFFSETS;
+
+    trip.forEach((item, index) => {
+        if (item.isPreset === false) {
+            return;
+        }
+
+        const [startOffset, endOffset] = offsets[index] || [index, index];
+
+        const visitStart = addDaysToDate(start, startOffset);
+        const visitEnd = addDaysToDate(start, endOffset);
+
+        item.date = formatDateForInput(visitStart);
+        item.endDate = formatDateForInput(visitEnd);
+    });
+
+    activeStartDate = startDateValue;
+}
+
+function updateTripOptionButtons() {
+    optionABtn.classList.toggle("active", selectedTripOption === "A");
+    optionBBtn.classList.toggle("active", selectedTripOption === "B");
+}
+
+function selectTripOption(option) {
+    selectedTripOption = option === "B" ? "B" : "A";
+
+    trip = makeTripFromPlaces(
+        selectedTripOption === "B"
+            ? OPTION_B_PLACES
+            : OPTION_A_PLACES
+    );
+
+    if (activeStartDate) {
+        applyStartDateToTrip(activeStartDate);
+    }
+
+    updateTripOptionButtons();
+    render();
+    setTravelStatus(`옵션 ${selectedTripOption} 선택됨`);
+}
+
+function openStartDateModal() {
+    const today = new Date();
+    startDateInput.value = activeStartDate || formatDateForInput(today);
+    startDateBackdrop.classList.add("open");
+    startDateBackdrop.setAttribute("aria-hidden", "false");
+
+    setTimeout(() => startDateInput.focus(), 30);
+}
+
+function closeStartDateModal() {
+    startDateBackdrop.classList.remove("open");
+    startDateBackdrop.setAttribute("aria-hidden", "true");
+}
+
+function confirmStartDateAndTravel() {
+    if (!startDateInput.value) {
+        startDateInput.focus();
+        return;
+    }
+
+    applyStartDateToTrip(startDateInput.value);
+    closeStartDateModal();
+    renderList();
+    renderMap();
+    setTravelStatus(`시작일 ${formatDate(startDateInput.value)} 설정됨`);
+}
+
+/* ============================================================
+   EVENTS
+============================================================ */
+
+document
+    .getElementById(
+        "addPlaceBtn"
+    )
+    .addEventListener(
+        "click",
+        function() {
+
+            openModal();
+
+        }
+    );
+
+
+document
+    .getElementById(
+        "closeModal"
+    )
+    .addEventListener(
+        "click",
+        closeModal
+    );
+
+
+placeSearch.addEventListener(
+    "input",
+    renderPlaceOptions
+);
+
+
+modalBackdrop.addEventListener(
+    "click",
+    function(event) {
+
+        if (
+            event.target ===
+            modalBackdrop
+        ) {
+
+            closeModal();
+
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            closeModal();
+            closeStartDateModal();
+
+        }
+
+    }
+);
+
+
+/* ============================================================
+   TRAVEL BUTTONS
+============================================================ */
+
+optionABtn.addEventListener("click", () => selectTripOption("A"));
+dateChangeBtn.addEventListener("click", openStartDateModal);
+optionBBtn.addEventListener("click", () => selectTripOption("B"));
+
+confirmStartDateBtn.addEventListener("click", confirmStartDateAndTravel);
+cancelStartDateBtn.addEventListener("click", closeStartDateModal);
+
+startDateBackdrop.addEventListener("click", function(event) {
+    if (event.target === startDateBackdrop) {
+        closeStartDateModal();
+    }
+});
+
+startTravelBtn.addEventListener(
+    "click",
+    function() {
+        startTravel();
+    }
+);
+
+
+pauseTravelBtn.addEventListener(
+    "click",
+    pauseTravel
+);
+
+
+saveBtn.addEventListener(
+    "click",
+    saveTrip
+);
+
+
+resetBtn.addEventListener(
+    "click",
+    resetTrip
+);
+
+
+
+
+/* ============================================================
+   SIDEBAR OPEN / CLOSE
+============================================================ */
+
+const appRoot =
+    document.querySelector(
+        ".app"
+    );
+
+const sidebarPanel =
+    document.querySelector(
+        ".sidebar"
+    );
+
+const sidebarToggle =
+    document.getElementById(
+        "sidebarToggle"
+    );
+
+
+function setSidebarCollapsed(
+    collapsed
+) {
+
+    appRoot.classList.toggle(
+        "sidebar-collapsed",
+        collapsed
+    );
+
+
+    sidebarToggle.textContent =
+        collapsed
+            ? "▶"
+            : "◀";
+
+
+    sidebarToggle.setAttribute(
+        "aria-expanded",
+        String(!collapsed)
+    );
+
+
+    sidebarToggle.setAttribute(
+        "aria-label",
+        collapsed
+            ? "사이드바 열기"
+            : "사이드바 닫기"
+    );
+
+
+    sidebarToggle.title =
+        collapsed
+            ? "사이드바 열기"
+            : "사이드바 닫기";
+
+}
+
+
+sidebarToggle.addEventListener(
+    "click",
+    function() {
+
+        const collapsed =
+            !appRoot.classList.contains(
+                "sidebar-collapsed"
+            );
+
+
+        setSidebarCollapsed(
+            collapsed
+        );
+
+    }
+);
+
+
+/*
+    여닫기 애니메이션이 끝난 뒤 지도를 한 번 다시 계산.
+    날짜 박스/마커 배치가 현재 화면 크기에 맞춰 안정적으로 유지됩니다.
+*/
+sidebarPanel.addEventListener(
+    "transitionend",
+    function(event) {
+
+        if (
+            event.propertyName ===
+            "margin-left"
+        ) {
+
+            renderMap();
+
+        }
+
+    }
+);
+
+
+/* ============================================================
+   RESIZE
+============================================================ */
+
+window.addEventListener(
+    "resize",
+    function() {
+
+        renderMap();
+
+    }
+);
+
+
+/* ============================================================
+   MAP LOAD
+============================================================ */
+
+document
+    .getElementById(
+        "koreaMap"
+    )
+    .addEventListener(
+        "load",
+        function() {
+
+            renderMap();
+
+        }
+    );
+
+
+/* ============================================================
+   MAIN RENDER
+============================================================ */
+
+function render() {
+
+    /*
+        장소 추가 / 삭제 / 순서 변경 시
+        여행 애니메이션 초기화
+    */
+
+    resetTravel();
+
+
+    renderList();
+
+
+    renderMap();
+
+
+    startTravelBtn.disabled =
+        trip.length < 2;
+
+
+    pauseTravelBtn.disabled =
+        true;
+
+}
+
+
+/* ============================================================
+   INITIAL
+============================================================ */
+
+updateTripOptionButtons();
+render();
+
+/*
+    HTML / 애플리케이션이 처음 열릴 때 시작 날짜를 먼저 선택합니다.
+    시작 버튼은 날짜 팝업을 띄우지 않고 여행 애니메이션만 시작/재개합니다.
+*/
+openStartDateModal();
+
+</script>
+
+</body>
+</html>
