@@ -365,7 +365,7 @@ h1 {
 }
 
 .trip-date {
-    font-size: 11px;
+    font-size: 12px;
 
     color: #858d89;
 
@@ -385,7 +385,7 @@ h1 {
 .trip-name {
     min-width: 0;
 
-    font-size: 15px;
+    font-size: 16px;
 
     font-weight: 700;
 
@@ -419,7 +419,7 @@ h1 {
 .trip-type {
     margin-top: 3px;
 
-    font-size: 10px;
+    font-size: 11px;
 
     color: #a0a6a3;
 }
@@ -469,7 +469,7 @@ h1 {
 
     border-radius: 8px;
 
-    font-size: 13px;
+    font-size: 14px;
 
     cursor: pointer;
 }
@@ -504,7 +504,7 @@ h1 {
 
     background: #fff;
 
-    font-size: 13px;
+    font-size: 14px;
 
     cursor: pointer;
 }
@@ -742,7 +742,7 @@ h1 {
 .date-box {
     position: absolute;
 
-    width: 126px;
+    width: 134px;
 
     padding: 3px 5px;
 
@@ -848,7 +848,7 @@ h1 {
 
     border-bottom: 1px solid #e2e5e3;
 
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
 
     color: #202724;
@@ -877,7 +877,7 @@ h1 {
 .visit-number {
     flex: 0 0 auto;
 
-    font-size: 11px;
+    font-size: 13px;
 
     font-weight: 700;
 
@@ -1356,17 +1356,17 @@ h1 {
     margin-bottom: 7px;
 
     color: #d8c27d;
-    font-size: 9px;
+    font-size: 10px;
     font-weight: 800;
-    letter-spacing: 2.8px;
+    letter-spacing: 2.5px;
 }
 
 .sidebar h1 {
     margin: 0;
 
     color: #fff8df;
-    font-size: 24px;
-    line-height: 1.12;
+    font-size: 26px;
+    line-height: 1.10;
     letter-spacing: -.4px;
 
     text-shadow: 0 1px 1px rgba(0,0,0,.12);
@@ -1398,9 +1398,9 @@ h1 {
     margin: 0 0 10px;
 
     color: #eadcae;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 800;
-    letter-spacing: 1.6px;
+    letter-spacing: 1.4px;
 }
 
 .section-title::after {
@@ -2244,6 +2244,47 @@ body {
     #pptStage .save-controls .travel-btn:last-child,
     #pptStage .travel-controls .travel-btn:last-child {
         margin-right: 0 !important;
+    }
+}
+
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    #pptStage .sidebar,
+    #pptStage .date-box {
+        -ms-text-size-adjust: 100%;
+        text-rendering: optimizeLegibility;
+    }
+
+    #pptStage .trip-date,
+    #pptStage .trip-type,
+    #pptStage .visit-date-input,
+    #pptStage .visit-number {
+        font-weight: 700 !important;
+    }
+}
+
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    #pptStage .travel-vehicle {
+        width: 48px !important;
+        height: 48px !important;
+        margin-left: -24px !important;
+        margin-top: -24px !important;
+        transform: none !important;
+        -ms-transform: none !important;
+        filter: none !important;
+        transition: none !important;
+        will-change: auto !important;
+    }
+
+    #pptStage .travel-vehicle img {
+        width: 48px !important;
+        height: 48px !important;
+        max-width: 48px !important;
+        max-height: 48px !important;
+        transform-origin: 50% 50% !important;
+        -ms-transform-origin: 50% 50% !important;
+        transition: none !important;
     }
 }
 
@@ -4967,16 +5008,27 @@ function updateVehiclePosition() {
     var pose = getUprightVehiclePose(tangent, transport);
     travelVehicleImage.src =
         getVehicleImage(transport);
-    travelVehicleImage.style.transform =
-        pose.flipX
-            ? "scaleX(-1)"
-            : "scaleX(1)";
+    var vehicleImageTransform;
+    if (pose.flipX) {
+        vehicleImageTransform = "rotate(" + pose.angle + "deg) scaleX(-1)";
+    }
+    else {
+        vehicleImageTransform = "rotate(" + pose.angle + "deg) scaleX(1)";
+    }
+    travelVehicleImage.style.transform = vehicleImageTransform;
+    travelVehicleImage.style.msTransform = vehicleImageTransform;
+
+    /*
+        IE11 / PowerPoint 2013:
+        do not transform the moving parent. Nested transforms under the
+        scaled PowerPoint stage cause visible shake and size pulsing.
+    */
     travelVehicle.style.left =
-        position.x + "px";
+        Math.round(position.x * 10) / 10 + "px";
     travelVehicle.style.top =
-        position.y + "px";
-    travelVehicle.style.transform =
-        "\n        translate(-50%, -50%)\n        rotate(".concat(pose.angle, "deg)\n        ");
+        Math.round(position.y * 10) / 10 + "px";
+    travelVehicle.style.transform = "none";
+    travelVehicle.style.msTransform = "none";
     travelVehicle.hidden =
         false;
     setTravelStatus(transport === "plane"
@@ -5028,12 +5080,17 @@ function finishTravel() {
                     previousPosition.y
             };
             var finalPose = getUprightVehiclePose(finalTangent, finalTransport);
-            travelVehicleImage.style.transform =
-                finalPose.flipX
-                    ? "scaleX(-1)"
-                    : "scaleX(1)";
-            travelVehicle.style.transform =
-                "\n                translate(-50%, -50%)\n                rotate(".concat(finalPose.angle, "deg)\n                ");
+            var finalImageTransform;
+            if (finalPose.flipX) {
+                finalImageTransform = "rotate(" + finalPose.angle + "deg) scaleX(-1)";
+            }
+            else {
+                finalImageTransform = "rotate(" + finalPose.angle + "deg) scaleX(1)";
+            }
+            travelVehicleImage.style.transform = finalImageTransform;
+            travelVehicleImage.style.msTransform = finalImageTransform;
+            travelVehicle.style.transform = "none";
+            travelVehicle.style.msTransform = "none";
         }
         travelVehicle.hidden =
             false;
