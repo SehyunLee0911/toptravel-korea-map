@@ -1954,6 +1954,49 @@ body {
     .route-svg { display: none !important; }
 }
 
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    /* IE11 does not support CSS 'inset'. Give modal backdrops explicit bounds. */
+    .start-date-backdrop,
+    .modal-backdrop {
+        top: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        width: 1200px !important;
+        height: 1600px !important;
+    }
+
+    .start-date-backdrop.open {
+        display: -ms-flexbox !important;
+        display: flex !important;
+        -ms-flex-align: center !important;
+        align-items: center !important;
+        -ms-flex-pack: center !important;
+        justify-content: center !important;
+        background: rgba(10,23,55,.38) !important;
+        z-index: 5000 !important;
+    }
+
+    .start-date-modal {
+        position: relative !important;
+        width: 390px !important;
+        min-height: 190px !important;
+        margin: 0 !important;
+        background: #fff !important;
+        z-index: 5001 !important;
+    }
+
+    .modal-backdrop.open {
+        display: block !important;
+        z-index: 5000 !important;
+    }
+
+    .modal {
+        z-index: 5001 !important;
+    }
+}
+
 </style>
 </head>
 
@@ -5193,7 +5236,16 @@ openStartDateModal();
         }
         b.className = "start-date-backdrop open";
         b.setAttribute("aria-hidden", "false");
-        b.style.display = "block";
+        b.style.display = "-ms-flexbox";
+        b.style.display = "flex";
+        b.style.position = "fixed";
+        b.style.top = "0";
+        b.style.right = "0";
+        b.style.bottom = "0";
+        b.style.left = "0";
+        b.style.width = "1200px";
+        b.style.height = "1600px";
+        b.style.zIndex = "5000";
         if (input && !input.value) {
             var d = new Date();
             var mm = ("0" + (d.getMonth() + 1)).slice(-2);
