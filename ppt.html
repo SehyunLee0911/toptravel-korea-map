@@ -2297,11 +2297,11 @@ body {
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
 
     /* The map has 1200px of stage width available when the 320px sidebar closes.
-       1140px leaves about 30px per side on the 1200px stage,
-       so the map nearly reaches the slide edges without clipping. */
+       1180px leaves about 10px per side on the 1200px stage,
+       so the map uses almost the entire slide width without clipping. */
     #pptStage .app.sidebar-collapsed .map-container {
-        width: 1140px !important;
-        height: 1140px !important;
+        width: 1180px !important;
+        height: 1180px !important;
         max-width: none !important;
         left: 50% !important;
         top: 50% !important;
@@ -2310,30 +2310,30 @@ body {
     #pptStage .app.sidebar-collapsed .map-container > img,
     #pptStage .app.sidebar-collapsed .map-overlay,
     #pptStage .app.sidebar-collapsed .route-svg {
-        width: 1140px !important;
-        height: 1140px !important;
+        width: 1180px !important;
+        height: 1180px !important;
     }
 
     /* City marker */
     #pptStage .app.sidebar-collapsed .location-marker {
-        width: 24px !important;
-        height: 24px !important;
+        width: 26px !important;
+        height: 26px !important;
         border-width: 4px !important;
         box-shadow: 0 2px 6px rgba(0,0,0,.20) !important;
     }
 
     /* Date / city information box */
     #pptStage .app.sidebar-collapsed .date-box {
-        width: 174px !important;
-        padding: 5px 7px !important;
+        width: 184px !important;
+        padding: 5px 8px !important;
         border-radius: 7px !important;
     }
 
     #pptStage .app.sidebar-collapsed .date-place-name {
-        min-height: 28px !important;
-        margin: -5px -7px 5px !important;
-        padding: 6px 8px !important;
-        font-size: 16px !important;
+        min-height: 29px !important;
+        margin: -5px -8px 5px !important;
+        padding: 6px 9px !important;
+        font-size: 17px !important;
     }
 
     #pptStage .app.sidebar-collapsed .visit-date-row {
@@ -2342,28 +2342,28 @@ body {
     }
 
     #pptStage .app.sidebar-collapsed .visit-number {
-        font-size: 15px !important;
+        font-size: 16px !important;
         font-weight: 700 !important;
     }
 
     #pptStage .app.sidebar-collapsed .visit-date-input {
-        font-size: 15px !important;
+        font-size: 16px !important;
         font-weight: 700 !important;
     }
 
     /* Vehicle grows with the map, but keeps the IE11 no-parent-transform fix. */
     #pptStage .app.sidebar-collapsed .travel-vehicle {
-        width: 66px !important;
-        height: 66px !important;
-        margin-left: -33px !important;
-        margin-top: -33px !important;
+        width: 70px !important;
+        height: 70px !important;
+        margin-left: -35px !important;
+        margin-top: -35px !important;
     }
 
     #pptStage .app.sidebar-collapsed .travel-vehicle img {
-        width: 66px !important;
-        height: 66px !important;
-        max-width: 66px !important;
-        max-height: 66px !important;
+        width: 70px !important;
+        height: 70px !important;
+        max-width: 70px !important;
+        max-height: 70px !important;
     }
 
     /* Route remains visually proportional after map enlargement. */
@@ -5567,7 +5567,7 @@ sidebarToggle.addEventListener("click", function () {
 
     /*
         PowerPoint 2013 / IE11:
-        after open/close, map size changes from 800 to 1140 (or back).
+        after open/close, map size changes from 800 to 1180 (or back).
         Re-render twice so marker/date collision placement and vehicle
         coordinates use the final dimensions.
     */
