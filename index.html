@@ -7483,13 +7483,20 @@ async function saveMapAsA4Png() {
         const availableHeight =
             a4Height - marginY * 2;
 
+        /*
+            사진 저장할 때만 더 크게 확대합니다.
+            화면상의 지도/랜드마크/도시박스 배치는 건드리지 않습니다.
+            A4 프레임보다 약 30% 크게 그려 중앙 기준으로 저장합니다.
+        */
+        const exportZoom = 1.30;
+
         const scale =
             Math.min(
                 availableWidth /
                     sourceCanvas.width,
                 availableHeight /
                     sourceCanvas.height
-            );
+            ) * exportZoom;
 
         const drawWidth =
             Math.round(
