@@ -7510,11 +7510,22 @@ async function saveMapAsA4Png() {
                 scale
             );
 
+        /*
+            30% 확대는 그대로 유지하되,
+            우측의 속초 박스가 잘리지 않도록
+            저장 이미지 중심을 약간 왼쪽으로 이동합니다.
+            화면상의 지도 배치는 전혀 바뀌지 않습니다.
+        */
+        const exportShiftX =
+            Math.round(
+                a4Width * -0.055
+            );
+
         const drawX =
             Math.round(
                 (a4Width - drawWidth) /
                 2
-            );
+            ) + exportShiftX;
 
         const drawY =
             Math.round(
